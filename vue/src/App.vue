@@ -7,3 +7,10 @@
     <router-view />
   </div>
 </template>
+
+<style>
+html {
+  background-color: blue;
+}
+
+</style>
