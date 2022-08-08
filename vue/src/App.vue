@@ -5,8 +5,20 @@
       <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
     </div>
     <router-view />
+    <current-user/>
   </div>
 </template>
+
+<script>
+import CurrentUser from '@/components/CurrentUser.vue'
+
+export default {
+  components: {
+    CurrentUser
+  }
+}
+</script>
+
 
 <style>
 html {
