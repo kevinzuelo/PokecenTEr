@@ -1,21 +1,19 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Pokemon;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class JdbcPokemon implements PokemonDao {
+public class JdbcPokemonDao implements PokemonDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcPokemon(JdbcTemplate jdbcTemplate) {
+    public JdbcPokemonDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -37,7 +35,7 @@ public class JdbcPokemon implements PokemonDao {
 
 
     @Override
-    public List<Pokemon> getPokemonByCollectionId(int collectionId) {
+    public List<Pokemon> getAllPokemonByCollectionId(int collectionId) {
         List<Pokemon> pokemonList = new ArrayList<>();
 
         String sql = "SELECT * FROM pokemon WHERE collection_id = ?";
@@ -52,14 +50,26 @@ public class JdbcPokemon implements PokemonDao {
     }
 
     @Override
-    public boolean addPokemon(Pokemon poke) {
+    public Pokemon getPokemonById(int pokemonId) {
+        String sql = "SELECT * FROM pokemon WHERE pokemon_id = ?";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, pokemonId);
+        Pokemon pokemon = mapRowToPokemon(results);
+
+        return pokemon;
+    }
+
+
+
+    @Override
+    public boolean addPokemon(Pokemon poke, int collectionId) {
         String sql = "INSERT INTO pokemon (pokemon_id, pokemon_name, species, type, collection_id, pokemon_level, is_shiny, notes, image_url, image_sprite) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING pokemon_id";
 
         Integer newPokemonId =0;
 
             newPokemonId = jdbcTemplate.queryForObject(sql, Integer.class, poke.getPokemonId(), poke.getName(), poke.getSpecies(), poke.getType(),
-                    poke.getCollectionId(), poke.getLevel(), poke.isShiny(), poke.getNotes(), poke.getImgMain(), poke.getImgSprite());
+                    collectionId, poke.getLevel(), poke.isShiny(), poke.getNotes(), poke.getImgMain(), poke.getImgSprite());
         return newPokemonId == poke.getPokemonId();
     }
 
