@@ -42,7 +42,7 @@
         required
       />
       <label for="continent">Continent</label>
-      <select name="continent" id="continent" class="form-control">
+      <select name="continent" id="continent" class="form-control" v-model="user.continent">
         <option value="North America">North America</option>
         <option value="South America">South America</option>
         <option value="Europe">Europe</option>
@@ -53,11 +53,11 @@
       </select>
 
       <label for="icon">Icon</label>
-      <select name="icon" id="icon" class="form-control">
+      <select name="icon" id="icon" class="form-control" v-model="user.iconUrl">
         <option value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png">Pikachu</option>
       </select>
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
+      <button v-on:click="register()" class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
       </button>
     </form>
@@ -122,18 +122,18 @@ export default {
     display: flex;
     flex-direction: column;
     max-width: 600px;
-    background-color: grey;
+    background-color:rgb(4, 4, 48);
     padding: 20px 40px 20px 40px;
     border-radius: 20px;
+    height: 50%;
+    color: yellow;
   }
 
   #register {
     display: flex;
-    height: 100%;
     justify-content: center;
-    align-content: center;
-    background-color: pink;
-    
+    align-items: center;
+    height: 90vh;
   }
 
  

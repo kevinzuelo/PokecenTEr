@@ -16,6 +16,12 @@ public class User {
    private boolean activated;
    private Set<Authority> authorities = new HashSet<>();
 
+   private String email;
+
+   private String continent;
+
+   private String iconUrl;
+
    public User() { }
 
    public User(int id, String username, String password, String authorities) {
@@ -24,6 +30,30 @@ public class User {
       this.password = password;
       if(authorities != null) this.setAuthorities(authorities);
       this.activated = true;
+   }
+
+   public String getEmail() {
+      return email;
+   }
+
+   public void setEmail(String email) {
+      this.email = email;
+   }
+
+   public String getContinent() {
+      return continent;
+   }
+
+   public void setContinent(String continent) {
+      this.continent = continent;
+   }
+
+   public String getIconUrl() {
+      return iconUrl;
+   }
+
+   public void setIconUrl(String iconUrl) {
+      this.iconUrl = iconUrl;
    }
 
    public int getId() {
