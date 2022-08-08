@@ -6,13 +6,18 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class JdbcPokemon implements PokemonDao {
 
-    JdbcTemplate jdbcTemplate = new JdbcTemplate();
+    private JdbcTemplate jdbcTemplate;
+
+    public JdbcPokemon(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     private Pokemon mapRowToPokemon(SqlRowSet result){
         Pokemon pokemon = new Pokemon();
@@ -49,17 +54,14 @@ public class JdbcPokemon implements PokemonDao {
     @Override
     public boolean addPokemon(Pokemon poke) {
         String sql = "INSERT INTO pokemon (pokemon_id, pokemon_name, species, type, collection_id, pokemon_level, is_shiny, notes, image_url, image_sprite) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE RETURNING pokemon_id";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING pokemon_id";
 
         Integer newPokemonId =0;
 
-        try {
             newPokemonId = jdbcTemplate.queryForObject(sql, Integer.class, poke.getPokemonId(), poke.getName(), poke.getSpecies(), poke.getType(),
                     poke.getCollectionId(), poke.getLevel(), poke.isShiny(), poke.getNotes(), poke.getImgMain(), poke.getImgSprite());
-        } catch (DataAccessException e) {
-            return false;
-        }
         return newPokemonId == poke.getPokemonId();
     }
+
 
 }
