@@ -63,8 +63,8 @@ public class JdbcPokemonDao implements PokemonDao {
 
     @Override
     public boolean addPokemon(Pokemon poke, int collectionId) {
-        String sql = "INSERT INTO pokemon (pokemon_id, pokemon_name, species, type, collection_id, pokemon_level, is_shiny, notes, image_url, image_sprite) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING pokemon_id";
+        String sql = "INSERT INTO pokemon (pokemon_name, species, type, collection_id, pokemon_level, is_shiny, notes, image_url, image_sprite) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING pokemon_id";
 
         Integer newPokemonId =0;
 
