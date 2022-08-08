@@ -16,6 +16,11 @@ public class Collection {
         this.game = game;
     }
 
+    public Collection() {
+
+    }
+
+
     public int getCollectionId() {
         return collectionId;
     }
