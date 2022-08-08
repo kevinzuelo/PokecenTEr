@@ -32,8 +32,32 @@
         v-model="user.confirmPassword"
         required
       />
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        placeholder="Email"
+        v-model="user.email"
+        required
+      />
+      <label for="continent">Continent</label>
+      <select name="continent" id="continent" class="form-control" v-model="user.continent">
+        <option value="North America">North America</option>
+        <option value="South America">South America</option>
+        <option value="Europe">Europe</option>
+        <option value="Asia">Asia</option>
+        <option value="Africa">Africa</option>
+        <option value="Australia/Oceania">Australia/Oceania</option>
+        <option value="Antarctica">Antarctica</option>
+      </select>
+
+      <label for="icon">Icon</label>
+      <select name="icon" id="icon" class="form-control" v-model="user.iconUrl">
+        <option value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png">Pikachu</option>
+      </select>
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
+      <button v-on:click="register()" class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
       </button>
     </form>
@@ -52,6 +76,9 @@ export default {
         password: '',
         confirmPassword: '',
         role: 'user',
+        email: '',
+        continent: '',
+        iconUrl: ''
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
@@ -90,4 +117,24 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+  .form-register {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    background-color:rgb(4, 4, 48);
+    padding: 20px 40px 20px 40px;
+    border-radius: 20px;
+    height: 50%;
+    color: yellow;
+  }
+
+  #register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+  }
+
+ 
+</style>
