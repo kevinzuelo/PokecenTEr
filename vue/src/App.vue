@@ -29,6 +29,10 @@ html {
   font-family: Arial, Helvetica, sans-serif
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 current-user {
   position: fixed;
   top: 0px;
