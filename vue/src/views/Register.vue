@@ -138,8 +138,8 @@ export default {
   display: flex;
   flex-direction: column;
   max-width: 600px;
-  background-color: rgb(4, 4, 48);
-  padding: 20px 40px 30px 40px;
+  background-color:rgba(0,0,0,0.5);
+  padding: 20px 40px 50px 40px;
   border-radius: 20px;
   height: 50%;
   color: yellow;
