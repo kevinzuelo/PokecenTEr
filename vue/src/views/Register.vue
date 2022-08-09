@@ -42,7 +42,12 @@
         required
       />
       <label for="continent">Continent</label>
-      <select name="continent" id="continent" class="form-control" v-model="user.continent">
+      <select
+        name="continent"
+        id="continent"
+        class="form-control"
+        v-model="user.continent"
+      >
         <option value="North America">North America</option>
         <option value="South America">South America</option>
         <option value="Europe">Europe</option>
@@ -54,49 +59,57 @@
 
       <label for="icon">Icon</label>
       <select name="icon" id="icon" class="form-control" v-model="user.iconUrl">
-        <option value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png">Pikachu</option>
+        <option
+          value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+        >
+          Pikachu
+        </option>
       </select>
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
-      <button v-on:click="register()" class="btn btn-lg btn-primary btn-block" type="submit">
-        Create Account
-      </button>
+      <div class="buttons">
+      <button
+        v-on:click="register()"
+        class="btn btn-lg btn-primary btn-block"
+        type="submit"
+      >CREATE ACCOUNT</button>
+      <button v-on:click="goToLogin()" class="btn">RETURN TO LOGIN</button>
+      </div>
     </form>
   </div>
 </template>
 
 <script>
-import authService from '../services/AuthService';
+import authService from "../services/AuthService";
 
 export default {
-  name: 'register',
+  name: "register",
   data() {
     return {
       user: {
-        username: '',
-        password: '',
-        confirmPassword: '',
-        role: 'user',
-        email: '',
-        continent: '',
-        iconUrl: ''
+        username: "",
+        password: "",
+        confirmPassword: "",
+        role: "user",
+        email: "",
+        continent: "",
+        iconUrl: "",
       },
       registrationErrors: false,
-      registrationErrorMsg: 'There were problems registering this user.',
+      registrationErrorMsg: "There were problems registering this user.",
     };
   },
   methods: {
     register() {
       if (this.user.password != this.user.confirmPassword) {
         this.registrationErrors = true;
-        this.registrationErrorMsg = 'Password & Confirm Password do not match.';
+        this.registrationErrorMsg = "Password & Confirm Password do not match.";
       } else {
         authService
           .register(this.user)
           .then((response) => {
             if (response.status == 201) {
               this.$router.push({
-                path: '/login',
-                query: { registration: 'success' },
+                path: "/login",
+                query: { registration: "success" },
               });
             }
           })
@@ -104,37 +117,65 @@ export default {
             const response = error.response;
             this.registrationErrors = true;
             if (response.status === 400) {
-              this.registrationErrorMsg = 'Bad Request: Validation Errors';
+              this.registrationErrorMsg = "Bad Request: Validation Errors";
             }
           });
       }
     },
+    goToLogin() {
+      this.$router.push({name: "home"});
+    },
     clearErrors() {
       this.registrationErrors = false;
-      this.registrationErrorMsg = 'There were problems registering this user.';
+      this.registrationErrorMsg = "There were problems registering this user.";
     },
   },
 };
 </script>
 
 <style scoped>
-  .form-register {
-    display: flex;
-    flex-direction: column;
-    max-width: 600px;
-    background-color:rgb(4, 4, 48);
-    padding: 20px 40px 20px 40px;
-    border-radius: 20px;
-    height: 50%;
-    color: yellow;
-  }
+.form-register {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  background-color:rgba(0,0,0,0.5);
+  padding: 20px 40px 50px 40px;
+  border-radius: 20px;
+  height: 50%;
+  color: yellow;
+  justify-content: space-evenly;
+  gap: 5px;
+}
 
-  #register {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
-  }
+#register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
 
- 
+.btn {
+  background-color: gray;
+  color: #424347;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.125em;
+  text-align: center;
+}
+
+input, select {
+  height: 1.5em;
+}
+
+h1{
+  text-align: center;
+  font-size: 1.75em;
+}
+
+label {
+  font-weight: bold;
+}
+
 </style>
