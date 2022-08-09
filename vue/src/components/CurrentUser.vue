@@ -1,4 +1,6 @@
 <template>
+<div id="header">
+  <img src="..\images\Pokecenter-logo.png" class="header-img"/>
   <div id="user">
     <img id="user-logo" v-bind:src="user.iconUrl">
     <h2>Hi, {{user.username}}</h2>
@@ -9,8 +11,8 @@
         </div>
       <h4>Logout</h4>
       </div>
-    </router-link>
-      
+      </router-link>
+     </div> 
   </div>
 </template>
 
@@ -31,14 +33,11 @@ a {
   color: white;
 }
 
-
-
 #user-logo {
   background-color: grey;
   width: 50px;
   height:50px;
   border-radius: 50%;
-
 }
 
 
@@ -56,8 +55,6 @@ div#user {
    padding: .6em;
    align-items: center;
    justify-content: space-around;
-
-
  }
 
  #logout {
@@ -68,9 +65,18 @@ div#user {
 
  #logout div {
    text-align: center;
-  
- }
+   }
 
+.header-img {
 
+width: 25%;
+height: 25%;
+}
+
+#header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
 </style>
