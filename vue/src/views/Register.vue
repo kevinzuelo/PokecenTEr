@@ -5,7 +5,9 @@
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
-      <label for="username" class="sr-only">Username</label>
+     
+      <!-- <label for="username" class="sr-only">Username</label> -->
+      <label for="username" >Username</label>
       <input
         type="text"
         id="username"
@@ -15,7 +17,8 @@
         required
         autofocus
       />
-      <label for="password" class="sr-only">Password</label>
+      <!-- <label for="password" class="sr-only">Password</label> -->
+      <label for="password" >Password</label>
       <input
         type="password"
         id="password"
@@ -56,15 +59,31 @@
         <option value="Australia/Oceania">Australia/Oceania</option>
         <option value="Antarctica">Antarctica</option>
       </select>
+      
 
-      <label for="icon">Icon</label>
-      <select name="icon" id="icon" class="form-control" v-model="user.iconUrl">
-        <option
-          value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
-        >
-          Pikachu
-        </option>
-      </select>
+      <h3>Choose your icon:</h3>
+      <div class="icon-menu">
+        <div class="icon-choice">
+          <label for="pikachu"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"></label>
+          <input type="radio" id="pikachu" name="icon" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png">
+        </div>
+
+        <div class="icon-choice">
+          <label for="bulbasaur"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"></label>
+          <input type="radio" id="bulbasaur" name="icon" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png">
+        </div>
+
+        <div class="icon-choice">
+          <label for="charmander"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"></label>
+          <input type="radio" id="charmander" name="icon" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png">
+        </div>
+
+        <div class="icon-choice">
+          <label for="squirtle"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"></label>
+          <input type="radio" id="squirtle" name="icon" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png">
+        </div>
+
+      </div >
       <div class="buttons">
       <button
         v-on:click="register()"
@@ -137,7 +156,7 @@ export default {
 .form-register {
   display: flex;
   flex-direction: column;
-  max-width: 600px;
+  min-height: 500px;
   background-color:rgba(0,0,0,0.5);
   padding: 20px 40px 50px 40px;
   border-radius: 20px;
@@ -145,14 +164,17 @@ export default {
   color: yellow;
   justify-content: space-evenly;
   gap: 5px;
+  
 }
 
+
+
 #register {
-  display: flex;
-  flex-direction: column;
+  
+  
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  
 }
 
 .btn {
@@ -163,6 +185,7 @@ export default {
   border-radius: 10px;
   font-size: 1.125em;
   text-align: center;
+  margin: 5px;
 }
 
 input, select {
@@ -178,4 +201,13 @@ label {
   font-weight: bold;
 }
 
+
+.icon-menu {
+  display: flex;
+}
+.icon-choice{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>
