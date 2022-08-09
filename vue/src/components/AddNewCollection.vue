@@ -1,9 +1,7 @@
 <template>
     <router-link v-bind:to="{ name: 'AddCollection' }">
-        <button>
-      Add New Collection
-  </button>
-  </router-link>
+        <h3>Add New Collection</h3>
+    </router-link>
 
   
 </template>
@@ -14,10 +12,12 @@ export default {
 }
 </script>
 
-<style>
-    button {
+<style scoped>
+    h3 {
         max-height: 50px;
         margin: 25px;
-        
+        background-color: rgba(0,0,0,0.5);
+        color: yellow;
+        padding: 10px;
     }
 </style>
