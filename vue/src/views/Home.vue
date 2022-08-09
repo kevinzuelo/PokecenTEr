@@ -23,7 +23,7 @@ export default {
   components: { CollectionPreview, AddNewCollection},
   name: "home",
   created() {
-    CollectionService.getCollectionsByUserId(5).then((response) => {
+    CollectionService.getCollectionsByUserId(this.$store.state.user.id).then((response) => {
       this.collections = response.data;
       console.log(response.data)
     })
