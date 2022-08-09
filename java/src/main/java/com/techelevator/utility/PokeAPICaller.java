@@ -34,7 +34,7 @@ public class PokeAPICaller {
 
     public static String getPokemonImageUrl(Pokemon pokemon){
         String spriteString;
-        if(pokemon.isShiny()){
+        if(pokemon.getIsShiny()){
             spriteString = "\"front_shiny\"";
         }else{
             spriteString = "\"front_default\"";
@@ -61,7 +61,7 @@ public class PokeAPICaller {
 
     public static String getPokemonSpriteUrl(Pokemon pokemon){
         String spriteString;
-        if(pokemon.isShiny()){
+        if(pokemon.getIsShiny()){
             spriteString = "\"front_shiny\"";
         }else{
             spriteString = "\"front_default\"";
@@ -89,7 +89,7 @@ public class PokeAPICaller {
     public static void main(String[] args){
         Pokemon bulba = new Pokemon();
         bulba.setSpecies("bulbasaur");
-        bulba.setShiny(true);
+        bulba.setIsShiny(true);
         System.out.println(getPokemonImageUrl(bulba));
         System.out.println(getPokemonSpriteUrl(bulba));
         System.out.println(getPokemonType(bulba));
