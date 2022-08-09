@@ -99,19 +99,13 @@ export default {
         background-color:rgba(0,0,0,0.5);
         padding: 20px 40px 50px 40px;
         border-radius: 20px;
-        height: 50%;
         color: yellow;
         justify-content: space-evenly;
         gap: 5px;
+        min-height: 200px;
     }
 
-    #register {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 90vh;
-    }
+    
 
     #create-collection-form button {
         background-color: gray;
@@ -138,7 +132,7 @@ export default {
     }
 
     .create-collection-container {
-        height: 90vh;
+        height: 80vh;
         display: flex;
         flex-direction: column;
         align-items: center;
