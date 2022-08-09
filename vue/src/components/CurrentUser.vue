@@ -1,7 +1,7 @@
 <template>
   <div id="user">
-    <img id="user-logo">
-    <h2>Hi, User</h2>
+    <img id="user-logo" v-bind:src="user.iconUrl">
+    <h2>Hi, {{user.username}}</h2>
     <router-link id="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">
       <div id="logout">
         <div>
@@ -19,6 +19,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 
 export default {
     name: 'user-info',
+    props: ["user"]
 
 }
 </script>
@@ -39,6 +40,8 @@ a {
   border-radius: 50%;
 
 }
+
+
 
 h2 {
   margin-left: -30px

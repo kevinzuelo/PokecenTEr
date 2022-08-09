@@ -4,7 +4,7 @@
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;    
     </div>
     <router-view />
-    <current-user v-if="$store.state.token != ''"/>
+    <current-user v-if="$store.state.token != ''" v-bind:user="this.$store.state.user"/>
   </div>
 </template>
 
