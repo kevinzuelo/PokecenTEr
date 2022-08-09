@@ -63,11 +63,11 @@ public class Pokemon {
         this.level = level;
     }
 
-    public boolean isShiny() {
+    public boolean getIsShiny() {
         return isShiny;
     }
 
-    public void setShiny(boolean shiny) {
+    public void setIsShiny(boolean shiny) {
         isShiny = shiny;
     }
 
