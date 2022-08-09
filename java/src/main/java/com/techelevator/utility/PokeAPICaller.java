@@ -30,7 +30,6 @@ public class PokeAPICaller {
             System.out.println("Invalid Pokemon");
             return "Invalid Pokemon";
         }
-
     }
 
     public static String getPokemonImageUrl(Pokemon pokemon){
@@ -48,26 +47,51 @@ public class PokeAPICaller {
             for(int i = 0; i<splitString.length; i++){
                 if(splitString[i].contains("\"sprites\"")){
                     for(int j = i; j<splitString.length; j++){
-                        if(splitString[j].contains(spriteString)){
-                            System.out.println("https:"+ splitString[j+2].split(",")[0].replace("\"",""));
-                            spriteString = "NeVeRfOuNdAgIaN";
-                        }else if(splitString[j].contains("\"official-artwork\"")){
-                            System.out.println("https:"+ splitString[j+3].split(",")[0].replace("\"","").replace("}",""));
+                        if(splitString[j].contains("\"official-artwork\"")){
+                            return ("https:"+ splitString[j+3].split(",")[0].replace("\"","").replace("}",""));
                         }
                     }
                 }
             }
-            return "success";
         }catch(Exception e){
-            return "Invalid Pokemon";
+            return ("No Image Url");
         }
+        return ("No Image Url");
+    }
+
+    public static String getPokemonSpriteUrl(Pokemon pokemon){
+        String spriteString;
+        if(pokemon.isShiny()){
+            spriteString = "\"front_shiny\"";
+        }else{
+            spriteString = "\"front_default\"";
+        }
+
+        try{
+            ResponseEntity response = restTemplate.getForEntity(API_URL+"/pokemon/"+pokemon.getSpecies(),String.class);
+            String[] splitString = ((String) response.getBody()).split(":");
+
+            for(int i = 0; i<splitString.length; i++){
+                if(splitString[i].contains("\"sprites\"")){
+                    for(int j = i; j<splitString.length; j++){
+                        if(splitString[j].contains(spriteString)){
+                            return ("https:"+ splitString[j+2].split(",")[0].replace("\"",""));
+                        }
+                    }
+                }
+            }
+        }catch(Exception e){
+            return "No Image Url";
+        }
+        return ("No Image Url");
     }
 
     public static void main(String[] args){
         Pokemon bulba = new Pokemon();
-        bulba.setSpecies("rayquaza");
+        bulba.setSpecies("bulbasaur");
         bulba.setShiny(true);
-        getPokemonImageUrl(bulba);
+        System.out.println(getPokemonImageUrl(bulba));
+        System.out.println(getPokemonSpriteUrl(bulba));
         System.out.println(getPokemonType(bulba));
     }
 }
