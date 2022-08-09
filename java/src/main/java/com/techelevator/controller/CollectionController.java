@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.CollectionDao;
+
 import com.techelevator.dao.PokemonDao;
 import com.techelevator.model.Collection;
 import com.techelevator.model.Pokemon;
@@ -12,23 +13,26 @@ import java.util.List;
 @RestController
 public class CollectionController {
 
-    private PokemonDao pokemonDao;
-    private CollectionDao collectionDao;
 
-    public CollectionController(PokemonDao pokemonDao, CollectionDao collectionDao) {
+    private CollectionDao collectionDao;
+    private PokemonDao pokemonDao;
+
+    public CollectionController( CollectionDao collectionDao, PokemonDao pokemonDao) {
         this.collectionDao = collectionDao;
         this.pokemonDao = pokemonDao;
     }
 
-    @RequestMapping(path = "/addPokemon", method = RequestMethod.POST)
-    public void addPokemon(@RequestBody Pokemon pokemon) {
-        pokemonDao.addPokemon(pokemon);
+    @RequestMapping(path = "/collections/{id}", method = RequestMethod.GET)
+    public List<Pokemon> getPokemonList (@PathVariable("id") int id) {
+
+        return pokemonDao.getAllPokemonByCollectionId(id);
     }
 
-    @RequestMapping(path = "/collection/{id}", method = RequestMethod.GET)
-    public List<Pokemon> getPokemonById (@PathVariable("id") int id) {
-            return pokemonDao.getPokemonByCollectionId(id);
+    @RequestMapping(path = "/collections", method = RequestMethod.POST)
+    public void addCollection(@RequestBody Collection collection) {
+        collectionDao.createCollection(collection);
     }
+
 
 
 }
