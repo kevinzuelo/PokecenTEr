@@ -65,22 +65,22 @@
       <div class="icon-menu">
         <div class="icon-choice">
           <label for="pikachu"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"></label>
-          <input type="radio" id="pikachu" name="icon" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png">
+          <input type="radio" id="pikachu" name="icon" v-model="user.iconUrl" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png">
         </div>
 
         <div class="icon-choice">
           <label for="bulbasaur"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"></label>
-          <input type="radio" id="bulbasaur" name="icon" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png">
+          <input type="radio" id="bulbasaur" name="icon" v-model="user.iconUrl" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png">
         </div>
 
         <div class="icon-choice">
           <label for="charmander"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"></label>
-          <input type="radio" id="charmander" name="icon" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png">
+          <input type="radio" id="charmander" name="icon" v-model="user.iconUrl" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png">
         </div>
 
         <div class="icon-choice">
           <label for="squirtle"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"></label>
-          <input type="radio" id="squirtle" name="icon" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png">
+          <input type="radio" id="squirtle" name="icon" v-model="user.iconUrl" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png">
         </div>
 
       </div >
