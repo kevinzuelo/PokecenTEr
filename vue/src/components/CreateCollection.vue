@@ -29,7 +29,7 @@
             required
         />
 
-        <button v-on:click="addCollection()">ADD COLLECTION</button>
+        <button v-on:click.prevent="addNewCollection()">ADD COLLECTION</button>
 
       
 
@@ -59,14 +59,14 @@ export default {
     },
 
     methods: {
-        addCollection() {
+        addNewCollection() {
             this.newCollection.userId = this.$store.state.user.id;
             
-            collectionService.addCollection(this.newCollection)
+            collectionService.createCollection(this.newCollection)
           .then(response => {
             this.creationErrors = false;
             if (response.status === 201) {
-              this.$router.push('home');
+              this.$router.push({name: "home"});
             }
           })
           .catch(error => {
@@ -75,10 +75,12 @@ export default {
         },
 
         handleErrorResponse(error) {
-            if(error){
+            alert(error.errorMessage)
                 this.creationErrors=true;
-            }
+            
         }
+
+       
 
     }
 
@@ -86,5 +88,47 @@ export default {
 </script>
 
 <style>
+    .form-register {
+        display: flex;
+        flex-direction: column;
+        max-width: 600px;
+        background-color:rgba(0,0,0,0.5);
+        padding: 20px 40px 50px 40px;
+        border-radius: 20px;
+        height: 50%;
+        color: yellow;
+        justify-content: space-evenly;
+        gap: 5px;
+    }
 
+    #register {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+    }
+
+    .btn {
+        background-color: gray;
+        color: #424347;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 1.125em;
+        text-align: center;
+    }
+
+    input, select {
+        height: 1.5em;
+    }
+
+    h1{
+        text-align: center;
+        font-size: 1.75em;
+    }
+
+    label {
+        font-weight: bold;
+    }
 </style>
