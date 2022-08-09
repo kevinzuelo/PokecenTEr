@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <h2>Create Collection</h2>
+    <div class="create-collection-container">
+        <h1>Create Collection</h1>
         <div class="alert alert-danger" role="alert" v-if="creationErrors">
             <p>{{ errorMessage }}</p>
         </div>
@@ -48,7 +48,7 @@ export default {
     data() {
     return {
         errorMessage: "An error occurred",
-        creationErrors: true,
+        creationErrors: false,
         newCollection: {
             name: "",
             userId: "",
@@ -88,7 +88,11 @@ export default {
 </script>
 
 <style>
-    .form-register {
+    h1 {
+        color: yellow;
+    }
+
+    #create-collection-form {
         display: flex;
         flex-direction: column;
         max-width: 600px;
@@ -109,7 +113,7 @@ export default {
         height: 90vh;
     }
 
-    .btn {
+    #create-collection-form button {
         background-color: gray;
         color: #424347;
         font-weight: bold;
@@ -117,6 +121,7 @@ export default {
         border-radius: 10px;
         font-size: 1.125em;
         text-align: center;
+        
     }
 
     input, select {
@@ -130,5 +135,13 @@ export default {
 
     label {
         font-weight: bold;
+    }
+
+    .create-collection-container {
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 </style>
