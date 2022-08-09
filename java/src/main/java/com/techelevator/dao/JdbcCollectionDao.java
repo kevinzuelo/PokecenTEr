@@ -34,11 +34,11 @@ public class JdbcCollectionDao implements CollectionDao{
 
     @Override
     public int createCollection(Collection collection){
-        String sql = "INSERT INTO collection (collection_id, collection_name, user_id, is_private, game) " +
-                "VALUES (?,?,?,?,?) RETURNING collection_id;";
+        String sql = "INSERT INTO collections (collection_name, user_id, is_private, game) " +
+                "VALUES (?,?,?,?) RETURNING collection_id;";
 
-        Integer collectionId = jdbcTemplate.queryForObject(sql, Integer.class, collection.getCollectionId(), collection.getName(),
-                collection.getUserId(), collection.isPrivate(), collection.getGame());
+        Integer collectionId = jdbcTemplate.queryForObject(sql, Integer.class, collection.getName(),
+                collection.getUserId(), collection.getIsPrivate(), collection.getGame());
         return collectionId;
     }
 
