@@ -38,7 +38,7 @@ public class JdbcCollectionDao implements CollectionDao{
                 "VALUES (?,?,?,?) RETURNING collection_id;";
 
         Integer collectionId = jdbcTemplate.queryForObject(sql, Integer.class, collection.getName(),
-                collection.getUserId(), collection.isPrivate(), collection.getGame());
+                collection.getUserId(), collection.getIsPrivate(), collection.getGame());
         return collectionId;
     }
 
