@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Pokemon;
+import com.techelevator.utility.PokeAPICaller;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class JdbcPokemonDao implements PokemonDao {
         pokemon.setType(result.getString("type"));
         pokemon.setCollectionId(result.getInt("collection_id"));
         pokemon.setLevel(result.getInt("pokemon_level"));
-        pokemon.setShiny(result.getBoolean("is_shiny"));
+        pokemon.setIsShiny(result.getBoolean("is_shiny"));
         pokemon.setNotes(result.getString("notes"));
         pokemon.setImgMain(result.getString("image_url"));
         pokemon.setImgSprite(result.getString("image_sprite"));
@@ -66,10 +67,14 @@ public class JdbcPokemonDao implements PokemonDao {
         String sql = "INSERT INTO pokemon (pokemon_name, species, type, collection_id, pokemon_level, is_shiny, notes, image_url, image_sprite) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING pokemon_id";
 
+        poke.setImgMain(PokeAPICaller.getPokemonImageUrl(poke));
+        poke.setImgSprite(PokeAPICaller.getPokemonSpriteUrl(poke));
+        poke.setType(PokeAPICaller.getPokemonType(poke));
+
         Integer newPokemonId =0;
 
-            newPokemonId = jdbcTemplate.queryForObject(sql, Integer.class, poke.getPokemonId(), poke.getName(), poke.getSpecies(), poke.getType(),
-                    collectionId, poke.getLevel(), poke.isShiny(), poke.getNotes(), poke.getImgMain(), poke.getImgSprite());
+            newPokemonId = jdbcTemplate.queryForObject(sql, Integer.class, poke.getName(), poke.getSpecies(), poke.getType(),
+                    collectionId, poke.getLevel(), poke.getIsShiny(), poke.getNotes(), poke.getImgMain(), poke.getImgSprite());
         return newPokemonId == poke.getPokemonId();
     }
 
