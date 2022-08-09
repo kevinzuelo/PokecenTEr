@@ -31,8 +31,11 @@
         v-model="user.password"
         required
       />
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
-      <button type="submit">Sign in</button>
+      <!-- <router-link :to="{ name: 'register' }">Need an account?</router-link> -->
+      <div id="button-row">
+        <button type="submit">LOG IN</button>
+        <button v-on:click="goToRegister()">REGISTER</button>
+      </div>
     </form>
   </div>
 </template>
@@ -70,7 +73,41 @@ export default {
             this.invalidCredentials = true;
           }
         });
+    },
+
+    goToRegister() {
+      this.$router.push({ name: 'register' });
     }
   }
 };
 </script>
+
+<style scoped>
+  div#login {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+
+  }
+
+  form.form-signin {
+    display: flex;
+    flex-direction: column;
+    background-color:rgb(4, 4, 48);
+    color: yellow;
+    padding: 20px 40px 20px 40px;
+    border-radius: 20px;
+    gap: 10px;
+  }
+
+  #button-row{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  router-link {
+    color: yellow;
+  }
+</style>
