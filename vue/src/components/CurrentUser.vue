@@ -1,6 +1,8 @@
 <template>
+<div id="header">
+  <img src="..\images\Pokecenter-logo.png" class="header-img"/>
   <div id="user">
-    <img id="user-logo">
+      <img id="user-logo">
     <h2>Hi, User</h2>
     <router-link id="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">
       <div id="logout">
@@ -9,8 +11,8 @@
         </div>
       <h4>Logout</h4>
       </div>
-    </router-link>
-      
+      </router-link>
+     </div> 
   </div>
 </template>
 
@@ -30,14 +32,11 @@ a {
   color: white;
 }
 
-
-
 #user-logo {
   background-color: grey;
   width: 50px;
   height:50px;
   border-radius: 50%;
-
 }
 
 h2 {
@@ -53,8 +52,6 @@ div#user {
    padding: .6em;
    align-items: center;
    justify-content: space-around;
-
-
  }
 
  #logout {
@@ -65,9 +62,18 @@ div#user {
 
  #logout div {
    text-align: center;
-  
- }
+   }
 
+.header-img {
 
+width: 25%;
+height: 25%;
+}
+
+#header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
 </style>
