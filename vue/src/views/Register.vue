@@ -1,5 +1,6 @@
 <template>
   <div id="register" class="text-center">
+    <img src="..\images\Pokecenter-logo.png" class="top-img"/>
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
@@ -210,4 +211,10 @@ label {
   flex-direction: column;
   align-items: center;
 }
+  .top-img {
+    max-height: 10%;
+    position: static;
+    top: 30px;
+    margin: 30px;
+  }
 </style>
