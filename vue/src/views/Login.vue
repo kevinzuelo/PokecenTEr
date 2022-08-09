@@ -1,6 +1,6 @@
 <template>
   <div id="login" class="text-center">
-    <img src="..\images\Pokecenter-logo.png" class="header-img"/>
+    <img src="..\images\Pokecenter-logo.png" class="top-img"/>
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div
@@ -110,10 +110,9 @@ export default {
     color: yellow;
   }
 
-  .header-img {
-
-    max-height: 75%;
+  .top-img {
+    max-height: 15%;
     position: fixed;
-    top:20px;
+    top:40px;
   }
 </style>
