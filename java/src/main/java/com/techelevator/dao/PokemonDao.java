@@ -5,7 +5,9 @@ import java.util.List;
 
 public interface PokemonDao {
 
-    List<Pokemon> getPokemonByCollectionId(int collectionId);
+    List<Pokemon> getAllPokemonByCollectionId(int collectionId);
 
-    boolean addPokemon(Pokemon poke);
+    Pokemon getPokemonById(int pokemonId);
+
+    boolean addPokemon(Pokemon poke, int collectionId);
 }
