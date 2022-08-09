@@ -2,12 +2,15 @@
   <div id="user">
     <img id="user-logo">
     <h2>Hi, User</h2>
+    <router-link id="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">
       <div id="logout">
         <div>
           <i class="fa-solid fa-arrow-right-from-bracket fa-xl " />
         </div>
-        <h4>Logout</h4>
+      <h4>Logout</h4>
       </div>
+    </router-link>
+      
   </div>
 </template>
 
@@ -21,6 +24,13 @@ export default {
 </script>
 
 <style>
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+
 
 #user-logo {
   background-color: grey;

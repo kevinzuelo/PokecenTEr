@@ -68,7 +68,7 @@ public class JdbcPokemonDao implements PokemonDao {
 
         Integer newPokemonId =0;
 
-            newPokemonId = jdbcTemplate.queryForObject(sql, Integer.class, poke.getPokemonId(), poke.getName(), poke.getSpecies(), poke.getType(),
+            newPokemonId = jdbcTemplate.queryForObject(sql, Integer.class, poke.getName(), poke.getSpecies(), poke.getType(),
                     collectionId, poke.getLevel(), poke.isShiny(), poke.getNotes(), poke.getImgMain(), poke.getImgSprite());
         return newPokemonId == poke.getPokemonId();
     }
