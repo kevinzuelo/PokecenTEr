@@ -42,6 +42,13 @@ public class JdbcCollectionDao implements CollectionDao{
         return collectionId;
     }
 
+    public boolean deleteCollection(int userId, int collectionId) {
+        String sql = "DELETE FROM collections WHERE user_id = ? && collection_id = ?;";
+        int numberOfRowsDeleted = jdbcTemplate.update(sql, userId, collectionId);
+
+        return numberOfRowsDeleted != 0;
+    }
+
     private Collection mapRowToCollection(SqlRowSet collectionMap) {
         Collection collection = new Collection();
         collection.setCollectionId(collectionMap.getInt("collection_id"));

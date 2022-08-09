@@ -29,6 +29,11 @@ public class CollectionController {
         return pokemonDao.getAllPokemonByCollectionId(id);
     }
 
+    @RequestMapping(path = "/user/{userId}/collections/{collectionId}", method = RequestMethod.DELETE)
+    public boolean deleteCollection(@PathVariable("id") int userId, @PathVariable("collectionId") int collectionId) {
+        return collectionDao.deleteCollection(userId, collectionId);
+    }
+
     @RequestMapping(path = "/user/{id}/collections", method = RequestMethod.GET)
     public List<Collection> getCollectionsbyUserId(@PathVariable("id") int user_id) {
         return collectionDao.listByID(user_id);

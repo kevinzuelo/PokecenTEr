@@ -49,7 +49,7 @@ h2 {
  
 div#user {
   width: 350px;
-   background-color: rgb(4, 4, 48);
+   background-color: rgb(4, 4, 48, 0.5);
    border-radius: 20px;
    display: flex;
    color: white;
