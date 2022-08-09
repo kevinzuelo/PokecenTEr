@@ -2,7 +2,7 @@
     <div>
         <h2>Create Collection</h2>
         <div class="alert alert-danger" role="alert" v-if="creationErrors">
-        {{ errorMessage }}
+            <p>{{ errorMessage }}</p>
         </div>
         <form id="create-collection-form">
             <label for="collection-name" >Collection Name</label>
@@ -15,7 +15,7 @@
             />
 
         <label for="is-private">Privacy Setting</label>
-        <select name="is-private" id="is-private" class="form-control" v-model="collection.isPrivate">
+        <select name="is-private" id="is-private" class="form-control" v-model="newCollection.isPrivate">
             <option value="true">Private</option>
             <option value="false">Public</option>
         </select>
@@ -37,6 +37,7 @@
 
         </form>
     </div>
+    
 </template>
 
 <script>
@@ -47,7 +48,7 @@ export default {
     data() {
     return {
         errorMessage: "An error occurred",
-        creationErrors: false,
+        creationErrors: true,
         newCollection: {
             name: "",
             userId: "",
@@ -59,7 +60,7 @@ export default {
 
     methods: {
         addCollection() {
-            this.newCollection.userId = this.$store.state.currentUser.id;
+            this.newCollection.userId = this.$store.state.user.id;
             
             collectionService.addCollection(this.newCollection)
           .then(response => {

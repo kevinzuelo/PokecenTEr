@@ -1,17 +1,20 @@
 <template>
   <div>
-      <h1>Hello World</h1>
-      <create-collection></create-collection>
+      <create-collection />
   </div>
 </template>
 
 <script>
-import CreateCollection from "@/components/CreateCollection"
+import CreateCollection from "@/components/CreateCollection.vue"
+
 
 
 
 export default {
-  components: { CreateCollection },
+  name: "add-collection",
+  components: { 
+    CreateCollection
+  },
 
 }
 </script>
