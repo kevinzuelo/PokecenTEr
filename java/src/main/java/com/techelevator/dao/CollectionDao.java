@@ -9,4 +9,6 @@ public interface CollectionDao {
     public List<Collection> listByID(int user_id);
 
     public int createCollection(Collection collection);
+
+    public boolean deleteCollection(int userId, int collectionId);
 }

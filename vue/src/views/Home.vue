@@ -38,6 +38,7 @@ h1 {
 }
 .myCollections {
   display: flex;
+  flex-wrap: wrap;
   gap: 25px;
   align-items: center;
 }

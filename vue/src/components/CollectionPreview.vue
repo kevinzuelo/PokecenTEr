@@ -26,6 +26,7 @@ props: ["collection"]
     background-color:rgba(0,0,0,0.5);
     border-radius: 30px;
     display: flex;
+    
     flex-direction: column;
     max-width: 400px;
     align-items: center;
