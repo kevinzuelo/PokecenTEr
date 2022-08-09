@@ -1,6 +1,7 @@
 <template>
-  <div id="register" class="text-center">
+  <div id="register-page" class="text-center">
     <img src="..\images\Pokecenter-logo.png" class="top-img"/>
+    <div id="register">
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
@@ -94,6 +95,7 @@
       <button v-on:click="goToLogin()" class="btn">RETURN TO LOGIN</button>
       </div>
     </form>
+    </div>
   </div>
 </template>
 
@@ -158,6 +160,7 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 500px;
+
   background-color:rgba(0,0,0,0.5);
   padding: 20px 40px 50px 40px;
   border-radius: 20px;
@@ -165,18 +168,15 @@ export default {
   color: yellow;
   justify-content: space-evenly;
   gap: 5px;
-  
 }
 
 
 
 #register {
-  
-  
+  display: flex;
   justify-content: center;
   align-items: center;
-  
-}
+  }
 
 .btn {
   background-color: gray;
@@ -202,7 +202,6 @@ label {
   font-weight: bold;
 }
 
-
 .icon-menu {
   display: flex;
 }
@@ -212,9 +211,18 @@ label {
   align-items: center;
 }
   .top-img {
-    max-height: 10%;
+    text-align: center;
+    height: 100px;
+    width: 500px;
     position: static;
     top: 30px;
     margin: 30px;
   }
+
+#register-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 </style>
