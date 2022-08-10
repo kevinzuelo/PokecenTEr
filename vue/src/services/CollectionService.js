@@ -8,6 +8,10 @@ export default {
 
   getCollectionsByUserId(userId) {
     return axios.get(`/user/${userId}/collections`)
+  },
+
+  getRecentCollections() {
+    return axios.get('/collections/public/recent')
   }
 
 }
