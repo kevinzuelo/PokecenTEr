@@ -34,10 +34,8 @@ a {
 }
 
 #user-logo {
-  background-color: grey;
-  width: 50px;
-  height:50px;
-  border-radius: 50%;
+  width: 100px;
+  
 }
 
 
@@ -55,6 +53,7 @@ div#user {
    padding: .6em;
    align-items: center;
    justify-content: space-around;
+   
  }
 
  #logout {
