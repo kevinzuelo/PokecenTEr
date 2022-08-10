@@ -18,14 +18,12 @@ CREATE TABLE collections (
     collection_name varchar(100) NOT NULL,
     user_id int,
     is_private boolean,
-    game varchar(100),
     CONSTRAINT PK_collections PRIMARY KEY (collection_id),
     CONSTRAINT FK_collections_user_id FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
 CREATE TABLE pokemon (
     pokemon_id SERIAL,
-    pokemon_name varchar(50),
     species varchar(50),
     type varchar(200),
     collection_id int,
