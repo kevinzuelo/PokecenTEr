@@ -75,7 +75,7 @@ const router = new Router({
       },
 
     {
-      path: "/addPokemon",
+      path: "/collection/:id/addPokemon",
       name: "add-pokemon",
       component: AddPokemon
     }

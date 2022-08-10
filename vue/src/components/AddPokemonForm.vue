@@ -1,7 +1,7 @@
 <template>
   <div id="add-pokemon-form" >
-    <img src="..\images\Pokecenter-logo.png" class="top-img"/>
-    <div id="register">
+   
+    <div id="addPokemon">
     <form class="form-add-pokemon" >
       <h1 class="h3 mb-3 font-weight-normal">Add Pokemon</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
@@ -22,7 +22,7 @@
       
       <label for="level" >Level</label>
       <input
-        type="range"
+        type="number"
         id="level"
         min="1"
         max="100"
@@ -31,31 +31,33 @@
         required
       />
 
-        <label for="isShiny" >Shiny</label>
+    <div id="shiny-checkbox">
+        <label for="isShiny" >Shiny? </label>
       <input
         type="checkbox"
         id="isShiny"
         class="form-control"
-        v-model="newPokemon.isShiny"
-        required
+        v-bind:checked="newPokemon.isShiny"
+      
       />
+    </div>
 
       <label for="notes">Notes</label>
       <textarea
         
         id="notes"
-        class="form-control"
         placeholder="Notes"
+        maxlength="100"
         v-model="newPokemon.notes"
-        required
-      />
+        />
+      
 
       <div class="buttons">
       <button
-        v-on:click="addPokemon()"
+        v-on:click.prevent="addPokemon()"
         class="btn btn-lg btn-primary btn-block"
         type="submit"
-      >CREATE ACCOUNT</button>
+      >ADD POKEMON</button>
       <button v-on:click="goToCollection()" class="btn">CANCEL</button>
       </div>
 
@@ -66,6 +68,8 @@
 
 <script>
 
+import pokemonService from '@/services/PokemonService.js'
+
 
 export default {
   name: "add-pokemon-form",
@@ -75,8 +79,8 @@ export default {
         species: "",
         level: "",
         isShiny: "",
-        notes: "user",
-        
+        notes: "",
+        collectionId: ""
       },
       registrationErrors: false,
       registrationErrorMsg: "There were problems adding the pokemon.",
@@ -85,49 +89,54 @@ export default {
   methods: {
 
       addPokemon() {
-          
-      }
+          pokemonService.addPokemon(this.newPokemon)
+                        .then( (response)=> {
+                           
+                            if (response.status === 201) {
+
+              this.$router.push({ name: 'collection', params: {id: this.$route.params.id}});
+            }
+          })
+          .catch((error) => {
+            const response = error.response;
+            this.registrationErrors = true;
+            if (response.status == 400) {
+              this.registrationErrorMsg = "Bad Request: Validation Errors";
+            }
+          });
+                     
+      },
 
 
 
 
-    // register() {
-    //   if (this.user.password != this.user.confirmPassword) {
-    //     this.registrationErrors = true;
-    //     this.registrationErrorMsg = "Password & Confirm Password do not match.";
-    //   } else {
-    //     authService
-    //       .register(this.user)
-    //       .then((response) => {
-    //         if (response.status == 201) {
-    //           this.$router.push({
-    //             path: "/login",
-    //             query: { registration: "success" },
-    //           });
-    //         }
-    //       })
-    //       .catch((error) => {
-    //         const response = error.response;
-    //         this.registrationErrors = true;
-    //         if (response.status === 400) {
-    //           this.registrationErrorMsg = "Bad Request: Validation Errors";
-    //         }
-    //       });
-    //   }
-    },
-    goToLogin() {
-      this.$router.push({name: "home"});
+    
+    goToCollection() {
+      this.$router.push({ name: 'collection', params: {id: this.$route.params.id}});
     },
     clearErrors() {
       this.registrationErrors = false;
       this.registrationErrorMsg = "There were problems registering this user.";
     },
   },
+  created() {
+      this.newPokemon.collectionId = this.$route.params.id;
+  }
 };
+
+
+
+
 </script>
 
 <style scoped>
-.form-register {
+
+#shiny-checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.form-add-pokemon {
   display: flex;
   flex-direction: column;
   min-height: 500px;
@@ -143,7 +152,7 @@ export default {
 
 
 
-#register {
+#addPokemon {
   display: flex;
   justify-content: center;
   align-items: center;
