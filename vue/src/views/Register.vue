@@ -178,16 +178,6 @@ export default {
   align-items: center;
   }
 
-.btn {
-  background-color: gray;
-  color: #424347;
-  font-weight: bold;
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 1.125em;
-  text-align: center;
-  margin: 5px;
-}
 
 input, select {
   height: 1.5em;
