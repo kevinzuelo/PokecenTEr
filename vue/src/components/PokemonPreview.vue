@@ -3,7 +3,8 @@
         <h3>{{pokemon.name}}</h3>
         <h4>Lvl {{pokemon.level}}</h4>
         <img v-bind:src=pokemon.imgSprite />
-        <img v-for="type in typeArray" v-bind:key="type" v-bind:src=type />
+        <br>
+        <img class="type-image" v-for="type in typeArray" v-bind:key="type" v-bind:src="type" />
     </div>
 </template>
 <script>
@@ -17,10 +18,46 @@ export default {
   props: ["pokemon"],
   created() {
       this.typeArray = this.pokemon.type.split(" ")
-      for (let i = 0; i < this.typeArray.length - 1; i++) {
-        this.typeArray[i] = `..\\images\\types\\${this.typeArray[i]}.png`
-      }
       this.typeArray.pop();
+      for(let i = 0; i<this.typeArray.length; i++){
+        if(this.typeArray[i]=="bug"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/6/64/Type_Bug.gif"
+        }else if(this.typeArray[i]=="dark"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/0/0d/Type_Dark.gif"
+        }else if(this.typeArray[i]=="dragon"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/2/26/Type_Dragon.gif"
+        }else if(this.typeArray[i]=="electric"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/a/aa/Type_Electric.gif"
+        }else if(this.typeArray[i]=="fairy"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/7/74/Type_Fairy.gif"
+        }else if(this.typeArray[i]=="fighting"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/6/6b/Type_Fighting.gif"
+        }else if(this.typeArray[i]=="fire"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/4/4d/Type_Fire.gif"
+        }else if(this.typeArray[i]=="flying"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/4/4b/Type_Flying.gif"
+        }else if(this.typeArray[i]=="ghost"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/f/f2/Type_Ghost.gif"
+        }else if(this.typeArray[i]=="grass"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/4/46/Type_Grass.gif"
+        }else if(this.typeArray[i]=="ground"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/1/1d/Type_Ground.gif"
+        }else if(this.typeArray[i]=="ice"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/8/84/Type_Ice.gif"
+        }else if(this.typeArray[i]=="normal"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/6/61/Type_Normal.gif"
+        }else if(this.typeArray[i]=="poison"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/8/82/Type_Poison.gif"
+        }else if(this.typeArray[i]=="psychic"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/6/65/Type_Psychic.gif"
+        }else if(this.typeArray[i]=="rock"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/b/b3/Type_Rock.gif"
+        }else if(this.typeArray[i]=="steel"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/a/ab/Type_Steel.gif"
+        }else if(this.typeArray[i]=="water"){
+          this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/e/ed/Type_Water.gif"
+        }
+      }
       console.log(this.typeArray)
     },
   methods: {
@@ -38,5 +75,8 @@ export default {
     background-color: lightskyblue;
     padding: 10px;
     text-align: center;
+  }
+  .type-image {
+    width: 50px;
   }
 </style>
