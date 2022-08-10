@@ -43,21 +43,20 @@
         <button v-on:click="goToRegister()">REGISTER</button>
       </div>
     </form>
-    <h3>Recent Collections</h3>
-    <div id="recent-collections">
+    <!--<h3>Recent Collections</h3> -->
+    <!--<div id="recent-collections">
       <public-collection-preview v-for="collection in recentCollections" v-bind:key="collection.id" v-bind:collection="collection" />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import authService from "../services/AuthService";
 import collectionService from "../services/CollectionService";
-import PublicCollectionPreview from "../components/PublicCollectionPreview.vue"
 
 export default {
   name: "login",
-  components: {PublicCollectionPreview},
+  components: { },
   data() {
     return {
       user: {
