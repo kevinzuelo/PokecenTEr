@@ -25,7 +25,6 @@ CREATE TABLE collections (
 
 CREATE TABLE pokemon (
     pokemon_id SERIAL,
-    pokemon_name varchar(50),
     species varchar(50),
     type varchar(200),
     collection_id int,
