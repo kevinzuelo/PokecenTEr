@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users, collections, pokemon, trades;
 
 CREATE TABLE users (
 	user_id SERIAL,
