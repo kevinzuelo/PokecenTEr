@@ -78,5 +78,14 @@ public class JdbcPokemonDao implements PokemonDao {
         return newPokemonId == poke.getPokemonId();
     }
 
+    @Override
+    public boolean releasePokemon(int pokemon_id) {
+        String sql = "DELETE FROM pokemon WHERE pokemon_id = ?";
+
+        int numberOfRowsDeleted = jdbcTemplate.update(sql, pokemon_id);
+
+        return numberOfRowsDeleted != 0;
+    }
+
 
 }
