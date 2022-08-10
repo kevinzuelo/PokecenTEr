@@ -1,6 +1,11 @@
 <template>
   <div id="login" class="text-center">
     <img src="..\images\Pokecenter-logo.png" class="top-img"/>
+    <p id="top-blurb">Welcome to PokecenTEr! 
+      <br><br>This is a place for you to keep track of all of your Pokemon, and trade Pokemon with your friends. 
+      <br><br><em>Gotta catch 'em all!</em>
+    </p>
+    
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div
@@ -103,7 +108,7 @@ export default {
   div#login {
     height: 90vh;
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
@@ -132,4 +137,12 @@ export default {
     position: fixed;
     top:40px;
   }
+
+  #top-blurb {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    
+  }
+
 </style>
