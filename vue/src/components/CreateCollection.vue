@@ -31,10 +31,6 @@
 
         <button v-on:click.prevent="addNewCollection()">ADD COLLECTION</button>
 
-      
-
-
-
         </form>
     </div>
     
@@ -72,11 +68,9 @@ export default {
             this.handleErrorResponse(error);
           });
         },
-
         handleErrorResponse(error) {
             alert(error.errorMessage)
-                this.creationErrors=true;
-            
+                this.creationErrors=true;    
         }
     }
 }
@@ -101,17 +95,6 @@ export default {
     }
 
     
-
-    #create-collection-form button {
-        background-color: gray;
-        color: #424347;
-        font-weight: bold;
-        padding: 10px;
-        border-radius: 10px;
-        font-size: 1.125em;
-        text-align: center;
-        
-    }
 
     input, select {
         height: 1.5em;

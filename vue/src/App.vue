@@ -31,6 +31,18 @@ html {
 
 button:hover {
   cursor: pointer;
+  background-color: darkred;
+}
+
+button {
+  background-color: #f20000;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 1.125em;
+  text-align: center;
+  margin: 5px;
 }
 
 current-user {
