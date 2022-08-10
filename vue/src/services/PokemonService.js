@@ -9,7 +9,8 @@ export default {
   },
 
   addPokemon(newPokemon) {
-    return axios.post(`/collections/${newPokemon.collectionId}`, newPokemon)
+    return axios.post(`/collections/${newPokemon.collectionId}`, newPokemon);
+
   }
 
 }
