@@ -27,7 +27,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .collection-container {
   background-color:rgba(0,0,0,0.5);
   padding: 30px;

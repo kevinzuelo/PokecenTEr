@@ -31,10 +31,6 @@
 
         <button v-on:click.prevent="addNewCollection()">ADD COLLECTION</button>
 
-      
-
-
-
         </form>
     </div>
     
@@ -72,11 +68,9 @@ export default {
             this.handleErrorResponse(error);
           });
         },
-
         handleErrorResponse(error) {
             alert(error.errorMessage)
-                this.creationErrors=true;
-            
+                this.creationErrors=true;    
         }
     }
 }
@@ -99,8 +93,6 @@ export default {
         gap: 5px;
         min-height: 200px;
     }
-
-    
 
     #create-collection-form button {
         background-color: gray;
