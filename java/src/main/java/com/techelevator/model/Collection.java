@@ -6,14 +6,12 @@ public class Collection {
     private String name;
     private int  userId;
     private boolean isPrivate;
-    private String game;
 
-    public Collection(int collectionId, String name, int userId, boolean isPrivate, String game) {
+    public Collection(int collectionId, String name, int userId, boolean isPrivate) {
         this.collectionId = collectionId;
         this.name = name;
         this.userId = userId;
         this.isPrivate = isPrivate;
-        this.game = game;
     }
 
     public Collection() {
@@ -53,11 +51,4 @@ public class Collection {
         this.isPrivate = isPrivate;
     }
 
-    public String getGame() {
-        return game;
-    }
-
-    public void setGame(String game) {
-        this.game = game;
-    }
 }

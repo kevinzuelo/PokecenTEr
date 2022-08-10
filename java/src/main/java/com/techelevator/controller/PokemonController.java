@@ -27,6 +27,11 @@ public class PokemonController {
         pokemonDao.addPokemon(pokemon, id);
     }
 
+    @RequestMapping(path = "/pokemon/{id}", method = RequestMethod.DELETE)
+    public void releasePokemon(@PathVariable("id") int pokemon_id) {
+        pokemonDao.releasePokemon(pokemon_id);
+    }
+
 
 
 

@@ -22,7 +22,7 @@ public class JdbcCollectionDao implements CollectionDao{
     @Override
     public List<Collection> listByID(int user_id) {
         List<Collection> lists = new ArrayList<>();
-        String sql = "SELECT collection_id, collection_name, user_id, is_private, game " +
+        String sql = "SELECT collection_id, collection_name, user_id, is_private " +
                 "FROM collections WHERE user_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user_id);
         while (results.next()) {
@@ -35,11 +35,11 @@ public class JdbcCollectionDao implements CollectionDao{
 
     @Override
     public int createCollection(Collection collection){
-        String sql = "INSERT INTO collections (collection_name, user_id, is_private, game) " +
-                "VALUES (?,?,?,?) RETURNING collection_id;";
+        String sql = "INSERT INTO collections (collection_name, user_id, is_private) " +
+                "VALUES (?,?,?) RETURNING collection_id;";
 
         Integer collectionId = jdbcTemplate.queryForObject(sql, Integer.class, collection.getName(),
-                collection.getUserId(), collection.getIsPrivate(), collection.getGame());
+                collection.getUserId(), collection.getIsPrivate());
         return collectionId;
     }
 
@@ -53,7 +53,7 @@ public class JdbcCollectionDao implements CollectionDao{
     @Override
     public List<Collection> listPublicCollections() {
         List<Collection> pubCollections = new ArrayList<>();
-        String sql = "SELECT collection_id, collection_name, user_id, is_private, game FROM collections "+
+        String sql = "SELECT collection_id, collection_name, user_id, is_private FROM collections "+
                 "WHERE is_private IS NOT true;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while(results.next()){
@@ -66,7 +66,7 @@ public class JdbcCollectionDao implements CollectionDao{
     @Override
     public List<Collection> listRecentPublicCollections() {
         List<Collection> recentPubCollections = new ArrayList<>();
-        String sql = "SELECT collection_id, collection_name, user_id, is_private, game FROM collections "+
+        String sql = "SELECT collection_id, collection_name, user_id, is_private, FROM collections "+
                 "WHERE is_private IS NOT true "+
                 "ORDER BY collection_id DESC "+
                 "LIMIT 5;";
@@ -89,7 +89,7 @@ public class JdbcCollectionDao implements CollectionDao{
     @Override
     public Collection getCollectionByCollectionId(int collectionId) {
         Collection collToReturn = null;
-        String sql = "SELECT collection_id, collection_name, user_id, is_private, game FROM collections "+
+        String sql = "SELECT collection_id, collection_name, user_id, is_private FROM collections "+
                 "WHERE collection_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, collectionId);
         while(results.next()){
@@ -104,7 +104,6 @@ public class JdbcCollectionDao implements CollectionDao{
         collection.setName(collectionMap.getString("collection_name"));
         collection.setUserId(collectionMap.getInt("user_id"));
         collection.setPrivate(collectionMap.getBoolean("is_private"));
-        collection.setGame(collectionMap.getString("game"));
         return collection;
     }
 

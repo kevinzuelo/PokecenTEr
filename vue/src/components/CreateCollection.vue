@@ -20,14 +20,14 @@
             <option value="false">Public</option>
         </select>
 
-        <label for="game">Game</label>
+        <!-- <label for="game">Game</label>
         <input
             type="text"  
             id="game" 
             class="form-control" 
             v-model="newCollection.game"
             required
-        />
+        /> -->
 
         <button v-on:click.prevent="addNewCollection()">ADD COLLECTION</button>
 
@@ -52,8 +52,7 @@ export default {
         newCollection: {
             name: "",
             userId: "",
-            isPrivate: "",
-            game: ""
+            isPrivate: ""
         },
     };
     },
@@ -79,11 +78,7 @@ export default {
                 this.creationErrors=true;
             
         }
-
-       
-
     }
-
 }
 </script>
 

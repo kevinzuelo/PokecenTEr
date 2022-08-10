@@ -21,7 +21,6 @@ public class JdbcPokemonDao implements PokemonDao {
     private Pokemon mapRowToPokemon(SqlRowSet result){
         Pokemon pokemon = new Pokemon();
         pokemon.setPokemonId(result.getInt("pokemon_id"));
-        pokemon.setName(result.getString("pokemon_name"));
         pokemon.setSpecies(result.getString("species"));
         pokemon.setType(result.getString("type"));
         pokemon.setCollectionId(result.getInt("collection_id"));
@@ -64,8 +63,8 @@ public class JdbcPokemonDao implements PokemonDao {
 
     @Override
     public boolean addPokemon(Pokemon poke, int collectionId) {
-        String sql = "INSERT INTO pokemon (pokemon_name, species, type, collection_id, pokemon_level, is_shiny, notes, image_url, image_sprite) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING pokemon_id";
+        String sql = "INSERT INTO pokemon (species, type, collection_id, pokemon_level, is_shiny, notes, image_url, image_sprite) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING pokemon_id";
 
         poke.setImgMain(PokeAPICaller.getPokemonImageUrl(poke));
         poke.setImgSprite(PokeAPICaller.getPokemonSpriteUrl(poke));
@@ -73,9 +72,18 @@ public class JdbcPokemonDao implements PokemonDao {
 
         Integer newPokemonId =0;
 
-            newPokemonId = jdbcTemplate.queryForObject(sql, Integer.class, poke.getName(), poke.getSpecies(), poke.getType(),
+            newPokemonId = jdbcTemplate.queryForObject(sql, Integer.class, poke.getSpecies(), poke.getType(),
                     collectionId, poke.getLevel(), poke.getIsShiny(), poke.getNotes(), poke.getImgMain(), poke.getImgSprite());
         return newPokemonId == poke.getPokemonId();
+    }
+
+    @Override
+    public boolean releasePokemon(int pokemon_id) {
+        String sql = "DELETE FROM pokemon WHERE pokemon_id = ?";
+
+        int numberOfRowsDeleted = jdbcTemplate.update(sql, pokemon_id);
+
+        return numberOfRowsDeleted != 0;
     }
 
 

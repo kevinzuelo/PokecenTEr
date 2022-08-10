@@ -1,6 +1,10 @@
 <template>
     <router-link v-bind:to="{ name: 'AddCollection' }">
-        <h3>Add New Collection</h3>
+        <div>
+            <i class="fa-solid fa-plus"></i>
+            <h3>Add New Collection</h3>
+        </div>
+
     </router-link>
 
   
@@ -13,11 +17,25 @@ export default {
 </script>
 
 <style scoped>
-    h3 {
-        max-height: 50px;
-        margin: 25px;
+    h3 {          
+        color: yellow;
+    }
+
+    a {
         background-color: rgba(0,0,0,0.5);
         color: yellow;
-        padding: 10px;
+        border-radius: 15px;
+        text-align: center;
+        width: 10em;
+        
+    }
+
+    a div {
+        padding-top: 2em;
+        
+    }
+
+    a div i {
+        font-size: 35px
     }
 </style>
