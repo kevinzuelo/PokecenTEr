@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.PokemonDao;
 import com.techelevator.model.Pokemon;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class PokemonController {
         return pokemonDao.getPokemonById(id);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/collections/{id}", method = RequestMethod.POST)
     public void addPokemon(@RequestBody Pokemon pokemon, @PathVariable("id") int id) {
         pokemonDao.addPokemon(pokemon, id);
