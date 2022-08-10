@@ -43,22 +43,28 @@
         <button v-on:click="goToRegister()">REGISTER</button>
       </div>
     </form>
+    <!--<h3>Recent Collections</h3> -->
+    <!--<div id="recent-collections">
+      <public-collection-preview v-for="collection in recentCollections" v-bind:key="collection.id" v-bind:collection="collection" />
+    </div> -->
   </div>
 </template>
 
 <script>
 import authService from "../services/AuthService";
+import collectionService from "../services/CollectionService";
 
 export default {
   name: "login",
-  components: {},
+  components: { },
   data() {
     return {
       user: {
         username: "",
         password: ""
       },
-      invalidCredentials: false
+      invalidCredentials: false,
+      recentCollections: []
     };
   },
   methods: {
@@ -84,11 +90,20 @@ export default {
     goToRegister() {
       this.$router.push({ name: 'register' });
     }
+  },
+  created() {
+    collectionService.getRecentCollections().then(response =>{
+      this.recentCollections = response.data;
+    })
   }
 };
 </script>
 
 <style scoped>
+  div#recent-collections{
+    display:flex;
+  }
+
   div#login {
     height: 90vh;
     display: flex;

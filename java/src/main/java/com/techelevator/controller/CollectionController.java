@@ -23,6 +23,26 @@ public class CollectionController {
         this.pokemonDao = pokemonDao;
     }
 
+    @RequestMapping(path = "/collections/id/{id}", method = RequestMethod.GET)
+    public Collection getCollectionByCollectionId(@PathVariable("id") int id){
+        return collectionDao.getCollectionByCollectionId(id);
+    }
+
+    @RequestMapping(path = "/collections/random", method = RequestMethod.GET)
+    public Collection getRandomCollection(){
+        return collectionDao.getRandomCollection();
+    }
+
+    @RequestMapping(path = "/collections/public", method = RequestMethod.GET)
+    public List<Collection> getPublicCollections() {
+        return collectionDao.listPublicCollections();
+    }
+
+    @RequestMapping(path = "/collections/public/recent", method = RequestMethod.GET)
+    public List<Collection> getRecentPublicCollections() {
+        return collectionDao.listRecentPublicCollections();
+    }
+
     @RequestMapping(path = "/collections/{id}", method = RequestMethod.GET)
     public List<Pokemon> getPokemonList(@PathVariable("id") int id) {
 

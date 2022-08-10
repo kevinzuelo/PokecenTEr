@@ -11,4 +11,12 @@ public interface CollectionDao {
     public int createCollection(Collection collection);
 
     public boolean deleteCollection(int userId, int collectionId);
+
+    public List<Collection> listPublicCollections();
+
+    public List<Collection> listRecentPublicCollections();
+
+    public Collection getRandomCollection();
+
+    public Collection getCollectionByCollectionId(int collectionId);
 }
