@@ -22,7 +22,7 @@ public class JdbcCollectionDao implements CollectionDao{
     @Override
     public List<Collection> listByID(int user_id) {
         List<Collection> lists = new ArrayList<>();
-        String sql = "SELECT collection_id, collection_name, user_id, is_private" +
+        String sql = "SELECT collection_id, collection_name, user_id, is_private " +
                 "FROM collections WHERE user_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user_id);
         while (results.next()) {
