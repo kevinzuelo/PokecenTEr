@@ -16,6 +16,7 @@
         class="form-control"
         placeholder="Species"
         v-model="newPokemon.species"
+        v-on:blur="checkPokemonExist(newPokemon.species)"
         required
         autofocus
       />
@@ -63,12 +64,15 @@
 
     </form>
     </div>
+    <p>{{ this.pokemonFeedback }}</p>
+    <img v-bind:src="pokemonUrl" v-if="validPokemon" />
   </div>
 </template>
 
 <script>
 
 import pokemonService from '@/services/PokemonService.js'
+import PokeAPIService from '@/services/PokeAPIService.js'
 
 
 export default {
@@ -84,33 +88,30 @@ export default {
       },
       registrationErrors: false,
       registrationErrorMsg: "There were problems adding the pokemon.",
+      pokemonFeedback: "Invalid Pokemon",
+      validPokemon: false,
+      pokemonUrl: ""
     };
   },
   methods: {
+  addPokemon() {
+      pokemonService.addPokemon(this.newPokemon)
+                    .then( (response)=> {
+                        
+                        if (response.status === 201) {
 
-      addPokemon() {
-          pokemonService.addPokemon(this.newPokemon)
-                        .then( (response)=> {
-                           
-                            if (response.status === 201) {
-
-              this.$router.push({ name: 'collection', params: {id: this.$route.params.id}});
-            }
-          })
-          .catch((error) => {
-            const response = error.response;
-            this.registrationErrors = true;
-            if (response.status == 400) {
-              this.registrationErrorMsg = "Bad Request: Validation Errors";
-            }
-          });
-                     
-      },
-
-
-
-
-    
+          this.$router.push({ name: 'collection', params: {id: this.$route.params.id}});
+        }
+      })
+      .catch((error) => {
+        const response = error.response;
+        this.registrationErrors = true;
+        if (response.status == 400) {
+          this.registrationErrorMsg = "Bad Request: Validation Errors";
+        }
+      });
+                  
+    },
     goToCollection() {
       this.$router.push({ name: 'collection', params: {id: this.$route.params.id}});
     },
@@ -118,6 +119,25 @@ export default {
       this.registrationErrors = false;
       this.registrationErrorMsg = "There were problems registering this user.";
     },
+    checkPokemonExist(pokeSpecies){
+      PokeAPIService.getPokemon(pokeSpecies.toLowerCase()).then(response =>{
+        this.pokemonFeedback = "Valid Pokemon";
+        this.validPokemon = true;
+        this.pokemonUrl = response.data.sprites.front_default;
+      }).catch((error) => {
+        console.log(error);
+        if(pokeSpecies.toLowerCase()=="meowstic"){
+            this.validPokemon = false;
+            this.pokemonFeedback = "For Meowstic please indicate gender i.e. Mewostic-male or Meowstic-female";
+          }else if(pokeSpecies.toLowerCase()=="nidoran"){
+            this.validPokemon = false;
+            this.pokemonFeedback = "For Nidoran please indicate gender i.e. Nidoran-m or Nidoran-f";
+          }else{
+            this.pokemonFeedback = "Invalid Pokemon";
+            this.validPokemon = false;
+          }
+      })
+    }
   },
   created() {
       this.newPokemon.collectionId = this.$route.params.id;
