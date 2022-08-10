@@ -10,4 +10,6 @@ public interface PokemonDao {
     Pokemon getPokemonById(int pokemonId);
 
     boolean addPokemon(Pokemon poke, int collectionId);
+
+    boolean releasePokemon(int pokemon_id);
 }

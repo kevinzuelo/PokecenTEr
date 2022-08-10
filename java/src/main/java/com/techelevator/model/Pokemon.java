@@ -4,7 +4,6 @@ public class Pokemon {
 
     private int pokemonId;
     private int collectionId;
-    private String name;
     private String species;
     private String type;
     private int level;
@@ -29,14 +28,6 @@ public class Pokemon {
 
     public void setCollectionId(int collectionId) {
         this.collectionId = collectionId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSpecies() {
