@@ -94,16 +94,7 @@ export default {
         min-height: 200px;
     }
 
-    #create-collection-form button {
-        background-color: gray;
-        color: #424347;
-        font-weight: bold;
-        padding: 10px;
-        border-radius: 10px;
-        font-size: 1.125em;
-        text-align: center;
-        
-    }
+    
 
     input, select {
         height: 1.5em;
