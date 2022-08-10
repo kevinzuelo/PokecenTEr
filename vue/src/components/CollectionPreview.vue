@@ -1,21 +1,16 @@
 <template>
     <div class="collection-container">
         <h1>{{collection.name}}</h1>
-        <h2>{{collection.game}}</h2>
         <img src="https://assets1.ignimgs.com/2019/05/17/pokemon-yellow---button-1558057648010.jpg"
         width="300px" />
-
     </div>
 </template>
-
 
 
 <script>
 export default {
 name: "collection-preview",
 props: ["collection"]
-
-
 }
 </script>
 
