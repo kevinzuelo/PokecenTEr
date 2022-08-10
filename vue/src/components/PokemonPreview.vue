@@ -58,7 +58,6 @@ export default {
           this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/e/ed/Type_Water.gif"
         }
       }
-      console.log(this.typeArray)
     },
   methods: {
   
