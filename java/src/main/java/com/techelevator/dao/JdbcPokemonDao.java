@@ -65,6 +65,8 @@ public class JdbcPokemonDao implements PokemonDao {
 
     @Override
     public boolean addPokemon(Pokemon poke, int collectionId) {
+
+
         String sql = "INSERT INTO pokemon (species, type, collection_id, pokemon_level, is_shiny, notes, image_url, image_sprite) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING pokemon_id";
 
@@ -94,11 +96,30 @@ public class JdbcPokemonDao implements PokemonDao {
                     "FROM users " +
                     "JOIN collections ON users.user_id = collections.user_id " +
                     "JOIN pokemon ON collections.collection_id = pokemon.collection_id " +
-                    "WHERE users.user_id = ?; ";
+                    "WHERE users.user_id = ? ; ";
 
         Integer totalPokemon = 0;
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql,userId);
+        while(results.next()){
+            totalPokemon = results.getInt("total_pokemon");
+        }
+
+        return totalPokemon;
+    }
+
+
+    @Override
+    public Integer getTotalPokemonByCollectionId(int collectionId){
+        String sql = "SELECT COUNT(*) AS total_pokemon " +
+                "FROM users " +
+                "JOIN collections ON users.user_id = collections.user_id " +
+                "JOIN pokemon ON collections.collection_id = pokemon.collection_id " +
+                "WHERE users.user_id = (SELECT user_id FROM collections WHERE collection_id = ? ); ";
+
+        Integer totalPokemon = 0;
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,collectionId);
         while(results.next()){
             totalPokemon = results.getInt("total_pokemon");
         }

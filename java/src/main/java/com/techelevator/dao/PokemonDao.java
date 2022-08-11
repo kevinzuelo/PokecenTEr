@@ -23,4 +23,6 @@ public interface PokemonDao {
     Integer getShinyByCollectionId(int collectionId);
 
     Integer getShinyByUserId(int userId);
+
+    Integer getTotalPokemonByCollectionId(int collectionId);
 }

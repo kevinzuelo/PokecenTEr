@@ -34,10 +34,11 @@ public class PokemonController {
         pokemonDao.releasePokemon(pokemon_id);
     }
 
-    @RequestMapping(path = "user/{id}/totalpokemon", method = RequestMethod.GET)
+    @RequestMapping(path = "users/{id}/totalpokemon", method = RequestMethod.GET)
     public Integer getTotalPokemonByUserId(@PathVariable("id") int userId) {return pokemonDao.getTotalPokemonByUserId(userId);}
 
-
+    @RequestMapping(path = "users/collections/{id}/totalpokemon", method = RequestMethod.GET)
+    public Integer getTotalPokemonByCollectionId(@PathVariable("id") int collectionId) {return pokemonDao.getTotalPokemonByCollectionId(collectionId);}
 
 }
 
