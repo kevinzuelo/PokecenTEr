@@ -5,7 +5,7 @@
     <div id="addPokemon">
     <form class="form-add-pokemon" >
       <h1 class="h3 mb-3 font-weight-normal">Add Pokemon</h1>
-      <div class="alert alert-danger" role="alert" v-if="registrationErrors">
+      <div id="error-message" class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
      
@@ -95,6 +95,7 @@ export default {
   name: "add-pokemon-form",
   data() {
     return {
+     
       newPokemon: {
         species: "",
         level: "",
@@ -128,8 +129,12 @@ export default {
       .catch((error) => {
         const response = error.response;
         this.registrationErrors = true;
+          
+         
+         
         if (response.status == 400) {
-          this.registrationErrorMsg = "Bad Request: Validation Errors";
+         
+          this.registrationErrorMsg = response.data.message;
         }
       });
                   
@@ -179,6 +184,15 @@ export default {
 </script>
 
 <style scoped>
+
+#error-message {
+  width: 300px;
+  color: red;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  font-weight: bold;
+}
 
 .dead-button {
   background-color: grey;

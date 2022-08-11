@@ -1,6 +1,9 @@
 package com.techelevator.dao;
 
+import com.techelevator.exception.MaximumPokemonExceededException;
+import com.techelevator.model.Authority;
 import com.techelevator.model.Pokemon;
+import com.techelevator.model.User;
 import com.techelevator.utility.PokeAPICaller;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -15,9 +18,11 @@ import java.util.Map;
 public class JdbcPokemonDao implements PokemonDao {
 
     private JdbcTemplate jdbcTemplate;
+    private JdbcUserDao userDao;
 
     public JdbcPokemonDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        this.userDao = new JdbcUserDao(jdbcTemplate);
     }
 
     private Pokemon mapRowToPokemon(SqlRowSet result){
@@ -64,7 +69,24 @@ public class JdbcPokemonDao implements PokemonDao {
     }
 
     @Override
-    public boolean addPokemon(Pokemon poke, int collectionId) {
+    public boolean addPokemon(Pokemon poke, int collectionId) throws MaximumPokemonExceededException {
+
+        int totalPokemon = getTotalPokemonByCollectionId(collectionId);
+
+        User user = userDao.getUserByCollectionId(collectionId);
+
+        boolean isPremium = false;
+
+        for (Authority authority : user.getAuthorities()) {
+            if(authority.getName().equals("ROLE_PREMIUM_USER")){
+                isPremium = true;
+            }
+        }
+
+        if (!isPremium && getTotalPokemonByUserId(user.getId()) >= 50){
+            throw new MaximumPokemonExceededException("Could not add pokemon. Must upgrade to premium to have more than 50 pokemon.");
+        }
+
 
 
         String sql = "INSERT INTO pokemon (species, type, collection_id, pokemon_level, is_shiny, notes, image_url, image_sprite) " +

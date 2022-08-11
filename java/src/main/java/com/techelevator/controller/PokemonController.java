@@ -1,10 +1,12 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.PokemonDao;
+import com.techelevator.exception.MaximumPokemonExceededException;
 import com.techelevator.model.Pokemon;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.MalformedParameterizedTypeException;
 import java.util.List;
 
 @CrossOrigin
@@ -25,7 +27,7 @@ public class PokemonController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/collections/{id}", method = RequestMethod.POST)
-    public void addPokemon(@RequestBody Pokemon pokemon, @PathVariable("id") int id) {
+    public void addPokemon(@RequestBody Pokemon pokemon, @PathVariable("id") int id) throws MaximumPokemonExceededException {
         pokemonDao.addPokemon(pokemon, id);
     }
 
