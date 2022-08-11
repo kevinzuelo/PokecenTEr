@@ -1,14 +1,17 @@
 <template>
-<router-link :to="{ name: 'detail', params: { id: pokemon.pokemonId } }">
     <div class="pokemon-preview">
+      <router-link :to="{ name: 'detail', params: { id: pokemon.pokemonId } }">
+      <div>
         <h3 class="species-name">{{pokemon.species}}</h3>
         <h4 class="level">Lvl {{pokemon.level}}</h4>
         <img v-bind:src=pokemon.imgSprite />
         <br>
         <img class="type-image" v-for="type in typeArray" v-bind:key="type" v-bind:src="type" />
+      </div>
+      </router-link>    
         <pokemon-preview-buttons v-bind:pokemon="this.pokemon"/>
     </div>
-</router-link>
+
 </template>
 <script>
 import PokemonPreviewButtons from './PokemonPreviewButtons.vue';
