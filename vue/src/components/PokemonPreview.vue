@@ -5,10 +5,13 @@
         <img v-bind:src=pokemon.imgSprite />
         <br>
         <img class="type-image" v-for="type in typeArray" v-bind:key="type" v-bind:src="type" />
+        <pokemon-preview-buttons v-bind:pokemon="this.pokemon"/>
     </div>
 </template>
 <script>
+import PokemonPreviewButtons from './PokemonPreviewButtons.vue';
 export default {
+  components: { PokemonPreviewButtons },
     data() {
     return {
         typeArray: []
