@@ -38,14 +38,12 @@ a {
   
 }
 
-
-
-h2 {
+/* h2 {
   margin-left: -30px
-}
+} */
  
 div#user {
-  width: 350px;
+  width: 35%;
    background-color: rgb(4, 4, 48, 0.5);
    border-radius: 0px 0px 0px 20px;
    display: flex;
@@ -56,6 +54,8 @@ div#user {
    position:fixed;
    top:0px;
    right:0px;
+   max-height: 60px;
+   max-width: 350px
  }
 
  #logout {
@@ -69,7 +69,9 @@ div#user {
    }
 
 .header-img {
-
+  position: relative;
+top: 20px;
+left: 20px;
 width: 25%;
 height: 25%;
 }
