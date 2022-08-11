@@ -58,6 +58,7 @@
         v-on:click.prevent="addPokemon()"
         class="btn btn-lg btn-primary btn-block"
         type="submit"
+        v-bind:disabled="!requiredFieldsValid"
       >ADD POKEMON</button>
       <button v-on:click="goToCollection()" class="btn">CANCEL</button>
       </div>
@@ -95,11 +96,17 @@ export default {
       pokemonUrl: ""
     };
   },
+  computed: {
+    requiredFieldsValid() {
+      let isValid = (this.validPokemon && this.newPokemon.level);
+      return isValid;
+    }
+  },
   methods: {
   addPokemon() {
       pokemonService.addPokemon(this.newPokemon)
                     .then( (response)=> {
-                        
+                       
                         if (response.status === 201) {
 
           this.$router.push({ name: 'collection', params: {id: this.$route.params.id}});
