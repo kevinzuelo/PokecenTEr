@@ -51,11 +51,14 @@ public class JdbcPokemonDao implements PokemonDao {
 
     @Override
     public Pokemon getPokemonById(int pokemonId) {
+        Pokemon pokemon = null;
         String sql = "SELECT * FROM pokemon WHERE pokemon_id = ?";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, pokemonId);
-        Pokemon pokemon = mapRowToPokemon(results);
-
+        if(results.next()) {
+            pokemon = mapRowToPokemon(results);
+            return pokemon;
+        }
         return pokemon;
     }
 
@@ -84,6 +87,26 @@ public class JdbcPokemonDao implements PokemonDao {
         int numberOfRowsDeleted = jdbcTemplate.update(sql, pokemon_id);
 
         return numberOfRowsDeleted != 0;
+    }
+
+    @Override
+    public Integer getTotalPokemonByUserId(int userId){
+        String sql = "SELECT COUNT(*) AS total_pokemon " +
+                    "FROM users " +
+                    "JOIN collections ON users.user_id = collections.user_id " +
+                    "JOIN pokemon ON collections.collection_id = pokemon.collection_id " +
+                    "WHERE users.user_id = ?; ";
+
+        Integer totalPokemon = 0;
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,userId);
+        while(results.next()){
+            totalPokemon = results.getInt("total_pokemon");
+        }
+
+
+
+        return totalPokemon;
     }
 
 
