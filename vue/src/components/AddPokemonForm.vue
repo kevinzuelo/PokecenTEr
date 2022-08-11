@@ -64,8 +64,10 @@
 
     </form>
     </div>
+    <div id="add-pokemon-preview">
     <p>{{ this.pokemonFeedback }}</p>
     <img v-bind:src="pokemonUrl" v-if="validPokemon" />
+    </div>
   </div>
 </template>
 
@@ -150,6 +152,23 @@ export default {
 </script>
 
 <style scoped>
+
+#add-pokemon-form {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  justify-content: center;
+  
+}
+
+#add-pokemon-preview {
+  background-color: rgba(0,0,0,0.5);
+  color: yellow;
+  font-weight: bold;
+  padding: 20px;
+  border-radius: 20px;
+
+}
 
 #shiny-checkbox {
     display: flex;
