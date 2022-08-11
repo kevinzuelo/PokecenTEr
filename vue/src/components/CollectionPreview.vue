@@ -44,7 +44,8 @@ created() {
     display: flex;
     
     flex-direction: column;
-    max-width: 400px;
+    width: 350px;
+    height: 350px;
     align-items: center;
     color: white;
 }

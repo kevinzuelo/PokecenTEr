@@ -5,7 +5,7 @@
       <i id="move" class="fa-solid fa-arrow-right"></i>
       <div id="alert" v-if="deleteAlert">
           <h3>Are you sure you want to delete this pokemon?</h3>
-          <button id ="deleteButton" v-on:click="deletePoke">Yes</button>
+          <button id ="deleteButton" v-on:click="deletePoke" title="Delete">Yes</button>
           <button v-on:click="deleteAlert = false">No</button>
       </div>
   </div>
@@ -52,6 +52,10 @@ export default {
 
 #deleteButton:hover {
     background-color: red !important;
+}
+
+#deleteButton.tooltip {
+    background-color: grey;
 }
 
 #modify {
