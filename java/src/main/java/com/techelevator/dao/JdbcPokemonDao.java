@@ -51,11 +51,14 @@ public class JdbcPokemonDao implements PokemonDao {
 
     @Override
     public Pokemon getPokemonById(int pokemonId) {
+        Pokemon pokemon = null;
         String sql = "SELECT * FROM pokemon WHERE pokemon_id = ?";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, pokemonId);
-        Pokemon pokemon = mapRowToPokemon(results);
-
+        if(results.next()) {
+            pokemon = mapRowToPokemon(results);
+            return pokemon;
+        }
         return pokemon;
     }
 

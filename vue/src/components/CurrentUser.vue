@@ -47,13 +47,15 @@ h2 {
 div#user {
   width: 350px;
    background-color: rgb(4, 4, 48, 0.5);
-   border-radius: 20px;
+   border-radius: 0px 0px 0px 20px;
    display: flex;
    color: white;
    padding: .6em;
    align-items: center;
    justify-content: space-around;
-   
+   position:fixed;
+   top:0px;
+   right:0px;
  }
 
  #logout {
