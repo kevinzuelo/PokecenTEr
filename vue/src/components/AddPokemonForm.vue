@@ -39,7 +39,9 @@
         type="checkbox"
         id="isShiny"
         class="form-control"
-        v-bind:checked="newPokemon.isShiny"
+        v-model="newPokemon.isShiny"
+        
+       
       
       />
     </div>
@@ -96,7 +98,7 @@ export default {
       newPokemon: {
         species: "",
         level: "",
-        isShiny: "",
+        isShiny: false,
         notes: "",
         collectionId: "",
       },
