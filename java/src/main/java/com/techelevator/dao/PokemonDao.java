@@ -1,4 +1,5 @@
 package com.techelevator.dao;
+import com.techelevator.exception.MaximumPokemonExceededException;
 import com.techelevator.model.Pokemon;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface PokemonDao {
 
     Pokemon getPokemonById(int pokemonId);
 
-    boolean addPokemon(Pokemon poke, int collectionId);
+    boolean addPokemon(Pokemon poke, int collectionId) throws MaximumPokemonExceededException;
 
     boolean releasePokemon(int pokemon_id);
 
