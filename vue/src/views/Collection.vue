@@ -1,10 +1,9 @@
 <template>
 <div id="grid">
-  <add-pokemon />
     <div class="collection-container">
     <pokemon-preview v-for="poke in pokemon" v-bind:key="poke.pokemonId" v-bind:pokemon="poke" />
   </div>
-  
+  <add-pokemon />
 </div>
 
 </template>
@@ -17,7 +16,8 @@ import AddPokemon from '../components/AddPokemon.vue'
 export default {
   data() {
     return {
-      pokemon: []
+      pokemon: [],
+      collection: {}
     }
   },
   components: {
@@ -42,6 +42,13 @@ export default {
   flex-wrap: wrap;
   gap: 20px;
   width: 50%;
+}
+
+#grid {
+  display: flex;
+  align-items: center;
+  margin: 60px 30px 30px 30px;
+  gap: 25px;
 }
 
 </style>
