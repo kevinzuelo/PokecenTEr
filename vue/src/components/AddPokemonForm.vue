@@ -1,5 +1,6 @@
 <template>
-  <div id="add-pokemon-form" >
+<div id="add-pokemon-page">
+  <div id="add-pokemon-form" v-if="showForm">
    
     <div id="addPokemon">
     <form class="form-add-pokemon" >
@@ -70,6 +71,15 @@
     <img v-bind:src="pokemonUrl" v-if="validPokemon" />
     </div>
   </div>
+  <div id="add-more-pokemon" v-else>
+    <h2>{{ newPokemon.species }} Successfully Added!!</h2>
+    <img v-bind:src="pokemonUrl" />
+    <button v-on:click.prevent="resetForm()">Add Another Pokemon</button>
+    <button v-on:click="goToCollection()">Go to Collection</button>
+  </div>
+
+</div>
+
 </template>
 
 <script>
@@ -87,8 +97,9 @@ export default {
         level: "",
         isShiny: "",
         notes: "",
-        collectionId: ""
+        collectionId: "",
       },
+      showForm: true,
       registrationErrors: false,
       registrationErrorMsg: "There were problems adding the pokemon.",
       pokemonFeedback: "Invalid Pokemon",
@@ -108,8 +119,7 @@ export default {
                     .then( (response)=> {
                        
                         if (response.status === 201) {
-
-          this.$router.push({ name: 'collection', params: {id: this.$route.params.id}});
+                          this.showForm = false;
         }
       })
       .catch((error) => {
@@ -146,6 +156,13 @@ export default {
             this.validPokemon = false;
           }
       })
+    },
+    resetForm() {
+        this.newPokemon.species = "",
+        this.newPokemon.level = "",
+        this.newPokemon.isShiny = "",
+        this.newPokemon.notes = "",
+        this.showForm = true;
     }
   },
   created() {
@@ -159,6 +176,25 @@ export default {
 </script>
 
 <style scoped>
+
+#add-pokemon-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#add-more-pokemon {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(0,0,0,0.5);
+  color: yellow;
+  font-weight: bold;
+  padding: 20px;
+  border-radius: 20px;
+  width: 500px;
+  
+}
 
 #add-pokemon-form {
   display: flex;
