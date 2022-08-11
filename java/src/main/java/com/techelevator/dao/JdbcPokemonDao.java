@@ -7,7 +7,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class JdbcPokemonDao implements PokemonDao {
@@ -33,7 +35,6 @@ public class JdbcPokemonDao implements PokemonDao {
         return pokemon;
     }
 
-
     @Override
     public List<Pokemon> getAllPokemonByCollectionId(int collectionId) {
         List<Pokemon> pokemonList = new ArrayList<>();
@@ -58,8 +59,6 @@ public class JdbcPokemonDao implements PokemonDao {
 
         return pokemon;
     }
-
-
 
     @Override
     public boolean addPokemon(Pokemon poke, int collectionId) {
@@ -101,9 +100,81 @@ public class JdbcPokemonDao implements PokemonDao {
             totalPokemon = results.getInt("total_pokemon");
         }
 
-
-
         return totalPokemon;
+    }
+
+    @Override
+    public Map<String, Integer> getTypesByCollectionId(int collectionId) {
+        Map<String, Integer> typeMap = new HashMap<>();
+
+        String sql = "SELECT SPLIT_PART(type, ' ', 1) as first_type, COUNT(*) " +
+                "FROM pokemon " +
+                "WHERE collection_id = ? " +
+                "GROUP BY first_type;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, collectionId);
+
+        while(results.next()){
+            typeMap.put(results.getString("first_type"),results.getInt("count"));
+        }
+
+        return typeMap;
+    }
+
+    @Override
+    public Map<String, Integer> getTypesByUserId(int userId) {
+        Map<String, Integer> typeMap = new HashMap<>();
+
+        String sql = "SELECT SPLIT_PART(type, ' ', 1) as first_type, COUNT(*) " +
+                "FROM pokemon " +
+                "JOIN collections ON pokemon.collection_id = collections.collection_id " +
+                "JOIN users ON collections.user_id = users.user_id " +
+                "WHERE users.user_id = ? " +
+                "GROUP BY first_type;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+
+        while(results.next()){
+            typeMap.put(results.getString("first_type"),results.getInt("count"));
+        }
+
+        return typeMap;
+    }
+
+    @Override
+    public Integer getShinyByCollectionId(int collectionId) {
+        Integer returnInt = 0;
+
+        String sql = "SELECT COUNT(*) " +
+                "FROM pokemon " +
+                "WHERE collection_id = ? AND is_shiny = true;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, collectionId);
+
+        while(results.next()){
+            returnInt = results.getInt("count");
+        }
+
+        return returnInt;
+    }
+
+    @Override
+    public Integer getShinyByUserId(int userId) {
+        Integer returnInt = 0;
+
+        String sql = "SELECT COUNT(*) " +
+                "FROM pokemon " +
+                "JOIN collections ON pokemon.collection_id = collections.collection_id " +
+                "JOIN users ON collections.user_id = users.user_id " +
+                "WHERE users.user_id = ? AND is_shiny = true;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+
+        while(results.next()){
+            returnInt = results.getInt("count");
+        }
+
+        return returnInt;
     }
 
 
