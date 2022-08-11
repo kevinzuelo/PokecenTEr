@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -65,7 +66,25 @@ public class CollectionController {
         collectionDao.createCollection(collection);
     }
 
+    @RequestMapping(path = "/collections/{id}/typeStats", method = RequestMethod.GET)
+    public Map<String,Integer> getTypesByCollectionId(@PathVariable("id") int collectionId){
+        return pokemonDao.getTypesByCollectionId(collectionId);
+    }
 
+    @RequestMapping(path = "/user/{id}/typeStats", method = RequestMethod.GET)
+    public Map<String, Integer> getTypesByUserId(@PathVariable("id") int userId){
+        return pokemonDao.getTypesByUserId(userId);
+    }
+
+    @RequestMapping(path = "/collections/{id}/shinyStats", method = RequestMethod.GET)
+    public Integer getShinyByCollectionId(@PathVariable("id") int collectionId){
+        return pokemonDao.getShinyByCollectionId(collectionId);
+    }
+
+    @RequestMapping(path = "/user/{id}/shinyStats", method = RequestMethod.GET)
+    public Integer getShinyByUserId(@PathVariable("id") int userId){
+        return pokemonDao.getShinyByUserId(userId);
+    }
 
 }
 
