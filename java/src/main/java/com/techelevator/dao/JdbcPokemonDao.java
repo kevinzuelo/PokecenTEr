@@ -86,5 +86,25 @@ public class JdbcPokemonDao implements PokemonDao {
         return numberOfRowsDeleted != 0;
     }
 
+    @Override
+    public Integer getTotalPokemonByUserId(int userId){
+        String sql = "SELECT COUNT(*) AS total_pokemon " +
+                    "FROM users " +
+                    "JOIN collections ON users.user_id = collections.user_id " +
+                    "JOIN pokemon ON collections.collection_id = pokemon.collection_id " +
+                    "WHERE users.user_id = ?; ";
+
+        Integer totalPokemon = 0;
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,userId);
+        while(results.next()){
+            totalPokemon = results.getInt("total_pokemon");
+        }
+
+
+
+        return totalPokemon;
+    }
+
 
 }
