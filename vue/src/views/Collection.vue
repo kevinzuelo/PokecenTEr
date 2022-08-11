@@ -1,12 +1,18 @@
 <template>
-  <div class="collection-container">
+<div id="grid">
+  <add-pokemon />
+    <div class="collection-container">
     <pokemon-preview v-for="poke in pokemon" v-bind:key="poke.pokemonId" v-bind:pokemon="poke" />
   </div>
+  
+</div>
+
 </template>
 
 <script>
 import PokemonService from '../services/PokemonService.js'
 import PokemonPreview from '../components/PokemonPreview.vue'
+import AddPokemon from '../components/AddPokemon.vue'
 
 export default {
   data() {
@@ -15,7 +21,8 @@ export default {
     }
   },
   components: {
-    PokemonPreview
+    PokemonPreview,
+    AddPokemon
   },
     name: "collection",
     created() {

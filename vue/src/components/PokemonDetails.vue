@@ -1,13 +1,12 @@
 <template>
-<router-link :to="{ name: 'detail', params: { id: pokemon.pokemonId } }">
-    <div class="pokemon-preview">
+    <div class="pokemon-details">
         <h3 class="species-name">{{pokemon.species}}</h3>
         <h4 class="level">Lvl {{pokemon.level}}</h4>
-        <img v-bind:src=pokemon.imgSprite />
+        <img v-bind:src=pokemon.imgMain />
         <br>
         <img class="type-image" v-for="type in typeArray" v-bind:key="type" v-bind:src="type" />
+        <p class="notes">{{pokemon.notes}}</p>
     </div>
-</router-link>
 </template>
 <script>
 export default {
@@ -16,9 +15,10 @@ export default {
         typeArray: []
     }
     },
-  name: "pokemon-preview",
+  name: "pokemon-details",
   props: ["pokemon"],
   created() {
+      console.log(this.pokemon.type)
       this.typeArray = this.pokemon.type.split(" ")
       this.typeArray.pop();
       for(let i = 0; i<this.typeArray.length; i++){
@@ -70,19 +70,19 @@ export default {
 
 </script>
 
-<style scoped>
-  .pokemon-preview {
+<style>
+  .pokemon-details {
     display: inline-block;
     background-color: lightskyblue;
     padding: 10px;
     text-align: center;
-    border-radius: 4px;
+    border-radius: 7px
   }
   .type-image {
     width: 50px;
   }
   .species-name {
-    font-size: 1em;
+    font-size: 2em;
     text-transform: capitalize;
     background-color: darkblue;
     color:white;
@@ -92,7 +92,16 @@ export default {
   }
 
 .level {
-  font-size: .875em;
+  font-size: 1.875em;
 }
+  .notes {
+    font-size: 1em;
+    text-transform: capitalize;
+    background-color: white;
+    color:black;
+    padding: 2px;
+    border-radius: 5px;
+  }
+
 
 </style>
