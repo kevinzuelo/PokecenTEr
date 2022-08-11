@@ -60,13 +60,14 @@
         class="btn btn-lg btn-primary btn-block"
         type="submit"
         v-bind:disabled="!requiredFieldsValid"
+        v-bind:class="{ 'dead-button': !requiredFieldsValid }"
       >ADD POKEMON</button>
       <button v-on:click="goToCollection()" class="btn">CANCEL</button>
       </div>
 
     </form>
     </div>
-    <div id="add-pokemon-preview">
+    <div id="add-pokemon-preview" v-if="newPokemon.species != ''">
     <p>{{ this.pokemonFeedback }}</p>
     <img v-bind:src="pokemonUrl" v-if="validPokemon" />
     </div>
@@ -176,6 +177,15 @@ export default {
 </script>
 
 <style scoped>
+
+.dead-button {
+  background-color: grey;
+
+}
+
+.dead-button:hover {
+  cursor: default;
+}
 
 #add-pokemon-page {
   display: flex;
