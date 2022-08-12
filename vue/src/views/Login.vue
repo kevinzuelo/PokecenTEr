@@ -37,26 +37,27 @@
         v-model="user.password"
         required
       />
-      <!-- <router-link :to="{ name: 'register' }">Need an account?</router-link> -->
       <div id="button-row">
         <button type="submit">LOG IN</button>
         <button v-on:click="goToRegister()">REGISTER</button>
       </div>
     </form>
-    <!--<h3>Recent Collections</h3> -->
-    <!--<div id="recent-collections">
+    <br>
+    <h3><em>Not ready to make an account?</em> Browse some recent public collections:</h3>
+    <div id="recent-collections">
       <public-collection-preview v-for="collection in recentCollections" v-bind:key="collection.id" v-bind:collection="collection" />
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
 import authService from "../services/AuthService";
 import collectionService from "../services/CollectionService";
+import PublicCollectionPreview from "@/components/PublicCollectionPreview.vue"
 
 export default {
   name: "login",
-  components: { },
+  components: { PublicCollectionPreview },
   data() {
     return {
       user: {
@@ -102,6 +103,7 @@ export default {
 <style scoped>
   div#recent-collections{
     display:flex;
+    gap:20px;
   }
 
   div#login {
@@ -118,13 +120,14 @@ export default {
     background-color:rgb(4, 4, 48);
     color: yellow;
     padding: 20px 40px 20px 40px;
-    border-radius: 20px;
+    border-radius: 10px;
     gap: 10px;
+    width: 300px;
   }
 
   #button-row{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
   }
 
   router-link {
@@ -133,15 +136,21 @@ export default {
 
   .top-img {
     max-height: 15%;
-    position: fixed;
-    top:40px;
+    position: relative;
+    top:100px;
+    margin: 30px;
   }
 
   #top-blurb {
     text-align: center;
     color: white;
     font-weight: bold;
-    
+    margin-top: 80px;
+  }
+  h3 {
+    text-align: center;
+    color: white;
+    font-weight: bold;
   }
 
 </style>
