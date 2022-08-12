@@ -17,7 +17,7 @@
         class="form-control"
         placeholder="Species"
         v-model="newPokemon.species"
-        v-on:blur="checkPokemonExist(newPokemon.species)"
+        v-on:keyup="similarPokemonNames(newPokemon.species)"
         required
         autofocus
       />
@@ -41,7 +41,7 @@
         id="isShiny"
         class="form-control"
         v-model="newPokemon.isShiny"
-        
+        v-on:change="checkPokemonExist(newPokemon.species)"
        
       
       />
@@ -70,9 +70,10 @@
 
     </form>
     </div>
-    <div id="add-pokemon-preview" v-if="newPokemon.species != ''">
+    <div id="add-pokemon-preview">
     <p>{{ this.pokemonFeedback }}</p>
     <img v-bind:src="pokemonUrl" v-if="validPokemon" />
+    <img v-else src="https://i.gifer.com/origin/28/2860d2d8c3a1e402e0fc8913cd92cd7a_w200.gif" width="100px" />
     </div>
   </div>
   <div id="add-more-pokemon" v-else>
@@ -81,7 +82,10 @@
     <button v-on:click.prevent="resetForm()">Add Another Pokemon</button>
     <button v-on:click="goToCollection()">Go to Collection</button>
   </div>
-
+  <div v-if="this.giveSuggestions && !this.validPokemon" id="instructions">
+    <h5> Similar pokemon names:</h5>
+    <h5 v-for="suggestion in this.suggestions" v-bind:key="suggestion">{{ suggestion }},</h5>
+  </div>
 </div>
 
 </template>
@@ -90,6 +94,7 @@
 
 import pokemonService from '@/services/PokemonService.js'
 import PokeAPIService from '@/services/PokeAPIService.js'
+import PokedexService from '@/services/PokedexService.js'
 
 
 export default {
@@ -107,9 +112,11 @@ export default {
       showForm: true,
       registrationErrors: false,
       registrationErrorMsg: "There were problems adding the pokemon.",
-      pokemonFeedback: "Invalid Pokemon",
+      pokemonFeedback: "Enter Valid Species",
       validPokemon: false,
-      pokemonUrl: ""
+      pokemonUrl: "",
+      giveSuggestions: false,
+      suggestions: []
     };
   },
   computed: {
@@ -148,20 +155,25 @@ export default {
       this.registrationErrorMsg = "There were problems registering this user.";
     },
     checkPokemonExist(pokeSpecies){
+      this.validPokemon = false;
       PokeAPIService.getPokemon(pokeSpecies.toLowerCase()).then(response =>{
-        this.pokemonFeedback = "Valid Pokemon";
+        this.pokemonFeedback = "Preview";
         this.validPokemon = true;
-        this.pokemonUrl = response.data.sprites.front_default;
+        if(this.newPokemon.isShiny){
+          this.pokemonUrl = response.data.sprites.front_shiny;
+        }else{
+          this.pokemonUrl = response.data.sprites.front_default;
+        }
       }).catch((error) => {
         console.log(error);
         if(pokeSpecies.toLowerCase()=="meowstic"){
             this.validPokemon = false;
-            this.pokemonFeedback = "For Meowstic please indicate gender i.e. Mewostic-male or Meowstic-female";
+            this.pokemonFeedback = "Enter Valid Species";
           }else if(pokeSpecies.toLowerCase()=="nidoran"){
             this.validPokemon = false;
-            this.pokemonFeedback = "For Nidoran please indicate gender i.e. Nidoran-m or Nidoran-f";
+            this.pokemonFeedback = "Enter Valid Species";
           }else{
-            this.pokemonFeedback = "Invalid Pokemon";
+            this.pokemonFeedback = "Enter Valid Species";
             this.validPokemon = false;
           }
       })
@@ -172,6 +184,19 @@ export default {
         this.newPokemon.isShiny = "",
         this.newPokemon.notes = "",
         this.showForm = true;
+    },
+    similarPokemonNames() {
+      if(this.newPokemon.species.length>0){
+        this.giveSuggestions = true;
+        if(this.newPokemon.species.length>11){
+          this.suggestions = ["Try with a shorter name."];
+          return;
+        }
+        PokedexService.getSimilarPokemonNames(this.newPokemon.species).then(response => {
+          this.suggestions = response.data;
+        });
+        this.checkPokemonExist(this.newPokemon.species);
+      }
     }
   },
   created() {
@@ -236,12 +261,15 @@ export default {
 }
 
 #add-pokemon-preview {
+  display: flex;
+  flex-direction: column;
   background-color: rgba(0,0,0,0.5);
   color: yellow;
   font-weight: bold;
   padding: 20px;
   border-radius: 20px;
-
+  align-items: center;
+  width: 150px;
 }
 
 #shiny-checkbox {
@@ -309,4 +337,12 @@ label {
   align-items: center;
 }
 
+#instructions {
+  color: yellow;
+  text-align: center;
+  display: flex;
+}
+#instructions>h5 {
+  padding: 3px;
+}
 </style>

@@ -19,23 +19,26 @@ export default {
 
 <style scoped>
     h3 {          
-        color: yellow;
+        color: white;
     }
 
     #addPokemon {
         display: flex;
         width: 150px;
+        height: 150px;
         margin: 10px;
     }
 
     #addPokemon div {
-        background-color: rgba(0,0,0,0.5);
-        color: yellow;
+        background-color: rgba(135,206,250,0.3);
+        color: white;
         border-radius: 15px;
         text-align: center;
         width: 150px;
+    }
 
-        
+    #addPokemon div:hover {
+        background-color: rgba(135,206,250, 0.8);
     }
 
     a div {
@@ -46,4 +49,6 @@ export default {
     a div i {
         font-size: 35px
     }
+
+
 </style>
