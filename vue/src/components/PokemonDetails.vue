@@ -14,7 +14,6 @@
       />
         <p class="notes">{{pokemon.notes}}</p>
     
-    <p class="notes">{{ pokemon.notes }}</p>
     <div id="pokemon-preview-buttons">
       <pokemon-preview-buttons />
     </div>
