@@ -1,9 +1,10 @@
 <template>
 <div id="grid">
+  
     <div class="collection-container">
     <pokemon-preview v-for="poke in pokemon" v-bind:key="poke.pokemonId" v-bind:pokemon="poke" />
   </div>
-  <add-pokemon />
+  <add-pokemon class="add" />
 </div>
 
 </template>

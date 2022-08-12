@@ -23,8 +23,9 @@ export default {
     }
 
     #addPokemon {
-        display: block;
+        display: flex;
         width: 150px;
+        margin: 10px;
     }
 
     #addPokemon div {
@@ -33,6 +34,7 @@ export default {
         border-radius: 15px;
         text-align: center;
         width: 150px;
+
         
     }
 
