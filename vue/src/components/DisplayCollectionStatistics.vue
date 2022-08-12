@@ -10,8 +10,8 @@
         <img class="stat-image" :src="images[index]" width="50px" />
         <h5>: {{ stats[typeList[index]] }}</h5>
       </div>
-      <h5><i class="fa-solid fa-star"></i> : {{ shinyStats }}  </h5>
-      <h5>
+      <h5 class="totals"><i class="fa-solid fa-star"></i> : {{ shinyStats }}  </h5>
+      <h5 class="totals">
         <img src="..\images\pokeball.png" id="poke-ball-icon" /> :
         {{ totalCount }}
       </h5>
@@ -88,8 +88,8 @@ export default {
   align-items: center;
 }
 #statistics-container {
-  max-height: 50%;
-  width: 50%;
+  max-height: 700px;
+  max-width: 200px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -104,7 +104,7 @@ export default {
   align-items: center;
 }
 .stat-image {
-  padding: 15px;
+  padding: 10px;
 }
 #poke-ball-icon {
   height: 1.5em;
@@ -113,5 +113,8 @@ export default {
 .fa-star {
   color: white;
   font-size: 1.5em;
+}
+.totals {
+  padding: 10px;
 }
 </style>
