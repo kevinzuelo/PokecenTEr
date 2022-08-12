@@ -19,6 +19,10 @@ export default {
 
   deletePokemon(pokemonId) {
     return axios.delete(`/pokemon/${pokemonId}`);
+  },
+
+  updatePokemon(updatedPokemon) {
+    return axios.put(`/pokemon/${updatedPokemon.pokemonId}`, updatedPokemon);
   }
 
 }
