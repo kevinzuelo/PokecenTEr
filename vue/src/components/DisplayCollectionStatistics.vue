@@ -1,5 +1,5 @@
 <template>
-  <div id="main-container">
+  <div id="main-container" class="stat-container">
     <h3>Collection Statistics</h3>
     <div v-if="isLoaded" id="statistics-container">
       <div
@@ -80,20 +80,34 @@ export default {
 </script>
 
 <style scoped>
-#main-container {
+h3 {
+    display: inline-block;
+    font-size: 2em;
+    text-transform: capitalize;
+    background-color: rgba(135, 206, 250, 0.3);
+    color:white;
+    padding: 10px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.527);
+    text-align: center;
+}
+
+.stat-container {
+  background-color: rgb(0,0,0,0.5);
   display: flex;
   flex-direction: column;
   color: yellow;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  
 }
 #statistics-container {
   max-height: 700px;
-  max-width: 200px;
+  
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  background-color: rgba(0, 0, 0, 0.5);
   align-items: center;
   justify-content: center;
   border-radius: 10px;
