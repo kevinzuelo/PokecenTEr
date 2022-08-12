@@ -2,8 +2,11 @@
     <div class="pokemon-details">
         <h3 class="species-name">{{pokemon.species}}</h3>
         <h4 class="level">Lvl {{pokemon.level}}</h4>
-        <img v-bind:src=pokemon.imgMain />
-        <br>
+        <div id="imgContainer">
+          <img id="main" v-bind:src=pokemon.imgMain />
+          <img id="glitter" src="../images/shiny.gif" v-if="pokemon.isShiny">
+        </div>
+        
         <img class="type-image" v-for="type in typeArray" v-bind:key="type" v-bind:src="type" />
         <p class="notes">{{pokemon.notes}}</p>
     </div>
@@ -103,5 +106,20 @@ export default {
     border-radius: 5px;
   }
 
+  #imgContainer {
+    position: relative;
+  }
+
+  #main {
+    position: relative;
+    z-index: 1;
+
+  }
+
+  #glitter {
+    position: absolute;
+    z-index: 2;
+    left: -20px;
+  }
 
 </style>
