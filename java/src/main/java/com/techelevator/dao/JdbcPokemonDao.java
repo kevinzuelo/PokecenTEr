@@ -113,6 +113,16 @@ public class JdbcPokemonDao implements PokemonDao {
     }
 
     @Override
+    public int updatePokemon(Pokemon poke, int pokemon_id) {
+        String sql = "UPDATE pokemon SET pokemon_level = ?, is_shiny = ?, notes = ?, collection_id = ?, image_sprite = ? " +
+                "WHERE pokemon_id = ?";
+        poke.setImgSprite(PokeAPICaller.getPokemonSpriteUrl(poke));
+        return jdbcTemplate.update(sql, poke.getLevel(), poke.getIsShiny(), poke.getNotes(), poke.getCollectionId(), poke.getImgSprite(), pokemon_id);
+
+    }
+
+
+    @Override
     public Integer getTotalPokemonByUserId(int userId){
         String sql = "SELECT COUNT(*) AS total_pokemon " +
                     "FROM users " +

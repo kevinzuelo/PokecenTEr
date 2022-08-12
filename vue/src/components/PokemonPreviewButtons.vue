@@ -1,6 +1,8 @@
 <template>
   <div id="modify">
-      <i id="edit" class="fa-solid fa-pen-to-square"></i>
+      <router-link :to="{ name: 'edit', params: { id: this.pokemon.pokemonId } }">
+          <i id="edit" class="fa-solid fa-pen-to-square"></i>
+      </router-link>
       <i id="delete" class= "fa-solid fa-trash-can" v-on:click="deleteAlert = true"></i>
       <i id="move" class="fa-solid fa-arrow-right"></i>
       <div id="alert" v-if="deleteAlert">
@@ -32,7 +34,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 #alert {
     background-color: rgb(250, 110, 110);
@@ -48,7 +50,6 @@ export default {
     
     background-color: rgb(255, 152, 152);
 }
-
 
 #deleteButton:hover {
     background-color: red !important;
@@ -67,6 +68,7 @@ export default {
 
 #modify i {
     cursor: pointer;
+    color: rgba(0,0,0,0.6);
     
 }
 
