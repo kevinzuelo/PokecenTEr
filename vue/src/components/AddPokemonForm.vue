@@ -23,6 +23,7 @@
       />
       
       <label for="level" >Level</label>
+      <p class='invalid-message' v-if='newPokemon.level < 1 || newPokemon.level > 100'>Pokemon level must be between 1 and 100</p>
       <input
         type="number"
         id="level"
@@ -98,7 +99,7 @@ export default {
      
       newPokemon: {
         species: "",
-        level: "",
+        level: 1,
         isShiny: false,
         notes: "",
         collectionId: "",
@@ -113,7 +114,7 @@ export default {
   },
   computed: {
     requiredFieldsValid() {
-      let isValid = (this.validPokemon && this.newPokemon.level);
+      let isValid = (this.validPokemon && this.newPokemon.level >=1 && this.newPokemon.level <=100);
       return isValid;
     }
   },
@@ -184,6 +185,10 @@ export default {
 </script>
 
 <style scoped>
+
+.invalid-message {
+  color: red;
+}
 
 #error-message {
   width: 300px;

@@ -19,6 +19,7 @@ import DisplayCollectionStatistics from '../components/DisplayCollectionStatisti
 export default {
   data() {
     return {
+      showCollection: false,
       pokemon: [],
       collection: {}
     }
@@ -30,6 +31,7 @@ export default {
   },
     name: "collection",
     created() {
+
       PokemonService.getPokemonByCollectionId(this.$route.params.id).then((response) => {
         this.pokemon = response.data;
         console.log(this.pokemon);
