@@ -9,6 +9,7 @@ import AddCollection from "@/views/AddCollection"
 import Collection from "@/views/Collection.vue"
 import AddPokemon from "@/views/AddPokemon.vue"
 import Detail from '../views/Detail.vue'
+import UpdatePokemon from '../views/UpdatePokemon.vue'
 
 Vue.use(Router)
 
@@ -87,6 +88,14 @@ const router = new Router({
       component: Detail,
       meta: {
         requiresAuth: false
+      }
+    },
+    {
+      path: "/pokemon/:id/edit",
+      name: "edit",
+      component: UpdatePokemon,
+      meta: {
+        requiresAuth: true
       }
     }
     

@@ -15,6 +15,8 @@ public interface PokemonDao {
 
     boolean releasePokemon(int pokemon_id);
 
+    int updatePokemon(Pokemon poke, int pokemonId);
+
     Integer getTotalPokemonByUserId(int userId);
 
     Map<String, Integer> getTypesByCollectionId(int collectionId);

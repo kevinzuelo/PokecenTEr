@@ -23,6 +23,10 @@ export default {
 
   getCollectionTypeStatistics(collectionId) {
     return axios.get(`/collections/${collectionId}/typeStats`);
+  },
+  
+  updatePokemon(updatedPokemon) {
+    return axios.put(`/pokemon/${updatedPokemon.pokemonId}`, updatedPokemon);
   }
 
 }

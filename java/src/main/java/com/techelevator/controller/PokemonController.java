@@ -42,5 +42,10 @@ public class PokemonController {
     @RequestMapping(path = "users/collections/{id}/totalpokemon", method = RequestMethod.GET)
     public Integer getTotalPokemonByCollectionId(@PathVariable("id") int collectionId) {return pokemonDao.getTotalPokemonByCollectionId(collectionId);}
 
+    @RequestMapping(path = "/pokemon/{id}", method = RequestMethod.PUT)
+    public void updatePokemon(@RequestBody Pokemon pokemon, @PathVariable("id") int pokemonId) {
+        pokemonDao.updatePokemon(pokemon, pokemonId);
+    }
+
 }
 
