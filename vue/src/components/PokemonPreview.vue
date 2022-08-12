@@ -27,6 +27,7 @@ export default {
   created() {
       this.typeArray = this.pokemon.type.split(" ")
       this.typeArray.pop();
+      
       for(let i = 0; i<this.typeArray.length; i++){
         if(this.typeArray[i]=="bug"){
           this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/6/64/Type_Bug.gif"
@@ -66,10 +67,12 @@ export default {
           this.typeArray[i]="https://static.wikia.nocookie.net/pokemon/images/e/ed/Type_Water.gif"
         }
       }
+      if (this.typeArray.length > 2) {
+        this.typeArray.shift();
+      }
     },
   methods: {
-  
-      
+
     }
   }
 
@@ -83,9 +86,11 @@ export default {
     padding: 10px;
     text-align: center;
     border-radius: 4px;
+    min-width: 115px;
   }
   .type-image {
     width: 50px;
+    margin: 2px;
   }
   .species-name {
     font-size: 1em;

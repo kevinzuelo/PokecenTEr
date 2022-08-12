@@ -49,6 +49,17 @@ public class JdbcUserDao implements UserDao {
 	}
 
     @Override
+    public User getUserByCollectionId(int collectionId) {
+        String sql = "SELECT * FROM users JOIN collections ON users.user_id = collections.user_id WHERE collection_id = ? ;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, collectionId);
+        if (results.next()) {
+            return mapRowToUser(results);
+        } else {
+            throw new UserNotFoundException();
+        }
+    }
+
+    @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
         String sql = "select * from users";
