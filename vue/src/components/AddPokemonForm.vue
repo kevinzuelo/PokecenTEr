@@ -166,16 +166,16 @@ export default {
         }
       }).catch((error) => {
         console.log(error);
-        if(pokeSpecies.toLowerCase()=="meowstic"){
-            this.validPokemon = false;
-            this.pokemonFeedback = "Enter Valid Species";
-          }else if(pokeSpecies.toLowerCase()=="nidoran"){
-            this.validPokemon = false;
-            this.pokemonFeedback = "Enter Valid Species";
-          }else{
-            this.pokemonFeedback = "Enter Valid Species";
-            this.validPokemon = false;
-          }
+        // if(pokeSpecies.toLowerCase()=="meowstic"){
+        //     this.validPokemon = false;
+        //     this.pokemonFeedback = "Enter Valid Species";
+        //   }else if(pokeSpecies.toLowerCase()=="nidoran"){
+        //     this.validPokemon = false;
+        //     this.pokemonFeedback = "Enter Valid Species";
+        //   }else{
+        //     this.pokemonFeedback = "Enter Valid Species";
+        //     this.validPokemon = false;
+        //   }
       })
     },
     resetForm() {
