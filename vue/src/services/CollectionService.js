@@ -20,8 +20,13 @@ export default {
 
   getPokemonTypesByUserId(userId) {
     return axios.get(`/user/${userId}/typeStats`)
+  },
+  
+  getShinyPokemonByUserId(userId) {
+    return axios.get(`/user/${userId}/shinyStats`)
+  },
+
+  getShinyPokemonByCollectionId(collectionId) {
+    return axios.get(`/collections/${collectionId}/shinyStats`)
   }
-
-
-
 }

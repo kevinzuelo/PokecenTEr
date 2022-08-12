@@ -2,10 +2,12 @@ import axios from 'axios';
 
 export default {
 
-
-
   getPokemonByCollectionId(collectionId) {
     return axios.get(`/collections/${collectionId}`)
+  },
+
+  getNumberOfPokemonByCollectionId(collectionId) {
+    return axios.get(`/users/collections/${collectionId}/totalpokemon`)
   },
 
   getPokemonByPokemonId(pokemonId) {
@@ -27,6 +29,10 @@ export default {
   
   updatePokemon(updatedPokemon) {
     return axios.put(`/pokemon/${updatedPokemon.pokemonId}`, updatedPokemon);
+  },
+  
+  getAllPokemonByUserId(userId) {
+    return axios.get(`/users/${userId}/totalpokemon`);
   }
 
 }
