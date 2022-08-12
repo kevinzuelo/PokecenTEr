@@ -113,6 +113,16 @@ public class JdbcPokemonDao implements PokemonDao {
     }
 
     @Override
+    public int updatePokemon(Pokemon poke, int pokemon_id) {
+        String sql = "UPDATE pokemon SET pokemon_level = ?, is_shiny = ?, notes = ?, collection_id = ?, image_sprite = ? " +
+                "WHERE pokemon_id = ?";
+        poke.setImgSprite(PokeAPICaller.getPokemonSpriteUrl(poke));
+        return jdbcTemplate.update(sql, poke.getLevel(), poke.getIsShiny(), poke.getNotes(), poke.getCollectionId(), poke.getImgSprite(), pokemon_id);
+
+    }
+
+
+    @Override
     public Integer getTotalPokemonByUserId(int userId){
         String sql = "SELECT COUNT(*) AS total_pokemon " +
                     "FROM users " +
@@ -153,6 +163,11 @@ public class JdbcPokemonDao implements PokemonDao {
     public Map<String, Integer> getTypesByCollectionId(int collectionId) {
         Map<String, Integer> typeMap = new HashMap<>();
 
+        String[] typeList = new String[]{"bug","dark","dragon","electric","fairy","fighting","fire","flying","ghost","grass","ground","ice","normal","poison","psychic","rock","steel","water"};
+        for(int i =0; i<typeList.length;i++){
+            typeMap.put(typeList[i], 0);
+        }
+
         String sql = "SELECT SPLIT_PART(type, ' ', 1) as first_type, COUNT(*) " +
                 "FROM pokemon " +
                 "WHERE collection_id = ? " +
@@ -170,6 +185,11 @@ public class JdbcPokemonDao implements PokemonDao {
     @Override
     public Map<String, Integer> getTypesByUserId(int userId) {
         Map<String, Integer> typeMap = new HashMap<>();
+
+        String[] typeList = new String[]{"bug","dark","dragon","electric","fairy","fighting","fire","flying","ghost","grass","ground","ice","normal","poison","psychic","rock","steel","water"};
+        for(int i =0; i<typeList.length;i++){
+            typeMap.put(typeList[i], 0);
+        }
 
         String sql = "SELECT SPLIT_PART(type, ' ', 1) as first_type, COUNT(*) " +
                 "FROM pokemon " +

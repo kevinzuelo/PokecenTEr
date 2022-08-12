@@ -13,6 +13,7 @@ import collectionService from '@/services/CollectionService.js'
 import pokemonService from '@/services/PokemonService.js'
 import Redirect from '@/views/Redirect.vue'
 import NotFound from '@/views/NotFound.vue'
+import UpdatePokemon from '../views/UpdatePokemon.vue'
 
 Vue.use(Router)
 
@@ -144,7 +145,14 @@ const router = new Router({
               });
         
       }
-     
+    },
+    {
+      path: "/pokemon/:id/edit",
+      name: "edit",
+      component: UpdatePokemon,
+      meta: {
+        requiresAuth: true
+      }
     },
     
     {

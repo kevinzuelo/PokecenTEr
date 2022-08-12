@@ -1,8 +1,6 @@
 <template>
   <div id="modify">
-      <router-link :to="{ name: 'edit', params: { id: this.pokemon.pokemonId } }">
-          <i id="edit" class="fa-solid fa-pen-to-square"></i>
-      </router-link>
+      <i id="edit" class="fa-solid fa-pen-to-square"></i>
       <i id="delete" class= "fa-solid fa-trash-can" v-on:click="deleteAlert = true"></i>
       <i id="move" class="fa-solid fa-arrow-right"></i>
       <div id="alert" v-if="deleteAlert">
@@ -20,36 +18,36 @@ export default {
         return{
             deleteAlert: false
         }
- 
     },
-    name: "pokemon-preview-buttons",
+    name: "pokemon-detail-buttons",
     props: ["pokemon"],
     methods: {
         deletePoke() {
             PokemonService.deletePokemon(this.pokemon.pokemonId);
+            this.$router.push({ name: 'collection', params: { id: this.pokemon.collectionId }});
             window.location.reload()
         }
     }    
-
 }
+
 </script>
 
-<style scoped>
+<style>
 
 #alert {
     background-color: rgb(250, 110, 110);
     border-radius: 5px;
     position: absolute;
-    width: 150px;
+    width: 300px;
 }
 #alert button {
     background-color: rgb(250, 110, 110);
 }
 
 #alert button:hover {
-    
     background-color: rgb(255, 152, 152);
 }
+
 
 #deleteButton:hover {
     background-color: red !important;
@@ -63,13 +61,10 @@ export default {
     display: flex;
     justify-content: space-evenly;
     margin-top: 10px;
-    
 }
 
 #modify i {
     cursor: pointer;
-    color: rgba(0,0,0,0.6);
-    
 }
 
 #modify i:hover {
