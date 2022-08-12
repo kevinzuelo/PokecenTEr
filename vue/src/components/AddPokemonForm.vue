@@ -17,7 +17,7 @@
         class="form-control"
         placeholder="Species"
         v-model="newPokemon.species"
-        v-on:blur="checkPokemonExist(newPokemon.species)"
+        v-on:keyup="similarPokemonNames(newPokemon.species)"
         required
         autofocus
       />
@@ -82,8 +82,9 @@
     <button v-on:click.prevent="resetForm()">Add Another Pokemon</button>
     <button v-on:click="goToCollection()">Go to Collection</button>
   </div>
-  <div id="instructions">
-
+  <div v-if="this.giveSuggestions && !this.validPokemon" id="instructions">
+    <h5> Similar pokemon names:</h5>
+    <h5 v-for="suggestion in this.suggestions" v-bind:key="suggestion">{{ suggestion }},</h5>
   </div>
 </div>
 
@@ -93,6 +94,7 @@
 
 import pokemonService from '@/services/PokemonService.js'
 import PokeAPIService from '@/services/PokeAPIService.js'
+import PokedexService from '@/services/PokedexService.js'
 
 
 export default {
@@ -112,7 +114,9 @@ export default {
       registrationErrorMsg: "There were problems adding the pokemon.",
       pokemonFeedback: "Enter Valid Species",
       validPokemon: false,
-      pokemonUrl: ""
+      pokemonUrl: "",
+      giveSuggestions: false,
+      suggestions: []
     };
   },
   computed: {
@@ -151,6 +155,7 @@ export default {
       this.registrationErrorMsg = "There were problems registering this user.";
     },
     checkPokemonExist(pokeSpecies){
+      this.validPokemon = false;
       PokeAPIService.getPokemon(pokeSpecies.toLowerCase()).then(response =>{
         this.pokemonFeedback = "Preview";
         this.validPokemon = true;
@@ -179,6 +184,19 @@ export default {
         this.newPokemon.isShiny = "",
         this.newPokemon.notes = "",
         this.showForm = true;
+    },
+    similarPokemonNames() {
+      if(this.newPokemon.species.length>0){
+        this.giveSuggestions = true;
+        if(this.newPokemon.species.length>11){
+          this.suggestions = ["Try with a shorter name."];
+          return;
+        }
+        PokedexService.getSimilarPokemonNames(this.newPokemon.species).then(response => {
+          this.suggestions = response.data;
+        });
+        this.checkPokemonExist(this.newPokemon.species);
+      }
     }
   },
   created() {
@@ -319,4 +337,12 @@ label {
   align-items: center;
 }
 
+#instructions {
+  color: yellow;
+  text-align: center;
+  display: flex;
+}
+#instructions>h5 {
+  padding: 3px;
+}
 </style>
