@@ -66,7 +66,7 @@ public class JdbcCollectionDao implements CollectionDao{
     @Override
     public List<Collection> listRecentPublicCollections() {
         List<Collection> recentPubCollections = new ArrayList<>();
-        String sql = "SELECT collection_id, collection_name, user_id, is_private, FROM collections "+
+        String sql = "SELECT collection_id, collection_name, user_id, is_private FROM collections "+
                 "WHERE is_private IS NOT true "+
                 "ORDER BY collection_id DESC "+
                 "LIMIT 5;";
