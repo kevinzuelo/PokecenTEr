@@ -140,14 +140,13 @@ public class JdbcPokemonDao implements PokemonDao {
         return totalPokemon;
     }
 
-
     @Override
     public Integer getTotalPokemonByCollectionId(int collectionId){
         String sql = "SELECT COUNT(*) AS total_pokemon " +
-                "FROM users " +
-                "JOIN collections ON users.user_id = collections.user_id " +
+                "FROM collections " +
+                "JOIN users ON users.user_id = collections.user_id " +
                 "JOIN pokemon ON collections.collection_id = pokemon.collection_id " +
-                "WHERE users.user_id = (SELECT user_id FROM collections WHERE collection_id = ? ); ";
+                "WHERE collections.collection_id = ? ; ";
 
         Integer totalPokemon = 0;
 
