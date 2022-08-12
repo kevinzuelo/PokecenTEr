@@ -1,10 +1,10 @@
-<template>
+<template> 
   <div class="statistics-container">
-    <h1>Aggregate Statistics</h1>
-    <div id="all-type-statistic" v-for="(n,index) in this.typeList.length" v-bind:key="index">
-      <h5>{{ typeList[index] }} : {{ userStats[typeList[index]] }}</h5>
-    </div>
-  </div>
+    <h1>Overall Statistics</h1> 
+      <div id="all-type-statistics" v-for="(n, index) in this.typeList.length" v-bind:key="index">
+        <h5><img :src="images[index]" width="50px"  /> : {{ userStats[typeList[index]] }}</h5>
+      </div>
+</div>
 </template>
 
 <script>
@@ -15,27 +15,45 @@ export default {
     return {
       typeList: ["bug","dark","dragon","electric","fairy","fighting","fire","flying","ghost","grass","ground","ice","normal","poison","psychic","rock","steel","water"],
       userStats: {},
+      images: [],
+      isLoaded: false
     }
   },
   props: ["user"],
   name: "aggregate-statistics",
-  created() {
+   created(){
     CollectionService.getPokemonTypesByUserId(this.$store.state.user.id).then(response => {
       this.userStats = response.data;
-      console.log(this.userStats);
     });
+    for(let i = 0; i<this.typeList.length; i++){
+      this.images.push(this.$store.state.images[this.typeList[i]])
+    }
+    this.isLoaded = true;
   }
 }
 </script>
 
 <style scoped>
   .statistics-container {
+  margin-top: 60px;
   background-color:rgba(0,0,0,0.5);
   padding: 30px;
+  color: white;
+  border-radius: 30px;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  width: 50%;
-  color: white;
+  flex-direction: row;
+  gap: 15px;
+  width: 80%;
+  justify-content: center;
   }
+  
+  #all-type-statistics {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 3px;
+
+  }
+
 </style>

@@ -51,9 +51,9 @@ div#user {
    padding: .6em;
    align-items: center;
    justify-content: space-around;
-   position:fixed;
-   top:0px;
-   right:0px;
+   position:relative;
+   top:-7px;
+   right:-7px;
    max-height: 60px;
    max-width: 350px
  }
@@ -72,8 +72,9 @@ div#user {
   position: relative;
 top: 20px;
 left: 20px;
-width: 25%;
-height: 25%;
+width: 35%;
+height: 35%;
+max-width: 400px;
 }
 
 #header {

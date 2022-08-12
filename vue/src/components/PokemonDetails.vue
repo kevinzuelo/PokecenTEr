@@ -1,31 +1,30 @@
 <template>
-    <div class="pokemon-details">
-        <h3 class="species-name">{{pokemon.species}}</h3>
-        <h4 class="level">Lvl {{pokemon.level}}</h4>
-        <div id="imgContainer">
-          <img id="main" v-bind:src=pokemon.imgMain />
-          <img id="glitter" src="../images/shiny.gif" v-if="pokemon.isShiny">
-        </div>
-         <img
-        class="type-image"
-        v-for="type in typeArray2"
-        v-bind:key="type"
-        v-bind:src="type"
-      />
-        <p class="notes">{{pokemon.notes}}</p>
-    
-    <div id="pokemon-preview-buttons">
-      <pokemon-preview-buttons />
+  <div class="pokemon-details">
+    <h3 class="species-name">{{ pokemon.species }}</h3>
+    <h4 class="level">Lvl {{ pokemon.level }}</h4>
+    <div id="imgContainer">
+      <img id="main" v-bind:src="pokemon.imgMain" />
+      <img id="glitter" src="../images/shiny.gif" v-if="pokemon.isShiny" />
+    </div>
+    <img
+      class="type-image"
+      v-for="type in typeArray2"
+      v-bind:key="type"
+      v-bind:src="type"
+    />
+    <p class="notes">{{ pokemon.notes }}</p>
+
+    <div id="pokemon-detail-buttons">
+      <pokemon-detail-buttons v-bind:pokemon="this.pokemon" />
     </div>
   </div>
-  
 </template>
 
 <script>
-import PokemonPreviewButtons from "./PokemonPreviewButtons.vue";
+import PokemonDetailButtons from "./PokemonDetailButtons.vue";
 
 export default {
-  components: { PokemonPreviewButtons },
+  components: { PokemonDetailButtons },
   data() {
     return {
       typeArray: [],
@@ -95,9 +94,9 @@ export default {
               "https://static.wikia.nocookie.net/pokemon/images/e/ed/Type_Water.gif";
           }
         }
-              if (types.length > 2) {
-                    types.shift();
-      }
+        if (types.length > 2) {
+          types.shift();
+        }
         return types;
       } else return "";
     },
@@ -139,33 +138,35 @@ export default {
   font-size: 1.875em;
 }
 .notes {
+  text-align: center;
   font-size: 1em;
-  max-width: 325px ;
+  max-width: 325px;
   text-transform: capitalize;
   background-color: white;
   color: black;
   padding: 15px;
   border-radius: 5px;
-  overflow-wrap: normal;
+  overflow-wrap:break-word;
+  margin: 15px auto 25px;
 }
 
-  #imgContainer {
-    position: relative;
-  }
+#imgContainer {
+  position: relative;
+}
 
-  #main {
-    position: relative;
-    z-index: 1;
+#main {
+  position: relative;
+  z-index: 1;
+}
 
-  }
-
-  #glitter {
-    position: absolute;
-    z-index: 2;
-    left: -20px;
-  }
-#pokemon-preview-buttons {
-font-size: 1.5em;
+#glitter {
+  position: absolute;
+  z-index: 2;
+  left: -20px;
+}
+#pokemon-detail-buttons {
+  font-size: 1.5em;
+  margin-bottom: 15px;
 }
 
 .main-image {
