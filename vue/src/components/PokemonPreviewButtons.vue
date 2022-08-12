@@ -4,7 +4,9 @@
           <i id="edit" class="fa-solid fa-pen-to-square"></i>
       </router-link>
       <i id="delete" class= "fa-solid fa-trash-can" v-on:click="deleteAlert = true"></i>
+      <router-link :to="{ name: 'move', params: { id: this.pokemon.pokemonId } }">
       <i id="move" class="fa-solid fa-arrow-right"></i>
+      </router-link>
       <div id="alert" v-if="deleteAlert">
           <h3>Are you sure you want to delete this pokemon?</h3>
           <button id ="deleteButton" v-on:click="deletePoke" title="Delete">Yes</button>
