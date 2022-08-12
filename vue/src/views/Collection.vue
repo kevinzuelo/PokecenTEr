@@ -4,8 +4,8 @@
   <div class="collection-container">
   <pokemon-preview v-for="poke in pokemon" v-bind:key="poke.pokemonId" v-bind:pokemon="poke" />
   </div>
-  <add-pokemon class="add" />
   <display-collection-statistics v-bind:collectionId="this.$route.params.id" />
+  <add-pokemon class="add" />
 </div>
 
 </template>
