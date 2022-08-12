@@ -9,6 +9,10 @@ import AddCollection from "@/views/AddCollection"
 import Collection from "@/views/Collection.vue"
 import AddPokemon from "@/views/AddPokemon.vue"
 import Detail from '../views/Detail.vue'
+import collectionService from '@/services/CollectionService.js'
+import pokemonService from '@/services/PokemonService.js'
+import Redirect from '@/views/Redirect.vue'
+import NotFound from '@/views/NotFound.vue'
 
 Vue.use(Router)
 
@@ -42,6 +46,14 @@ const router = new Router({
       }
     },
     {
+      path: "/redirect",
+      name: "redirect",
+      component: Redirect,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
       path: "/logout",
       name: "logout",
       component: Logout,
@@ -70,26 +82,76 @@ const router = new Router({
         path: "/collection/:id",
         name: "collection",
         component: Collection,
-        meta: {
-          requiresAuth: false
+        beforeEnter(to, from, next) {
+          
+          let collectionId = to.params.id;
+
+          let collection = {}
+          collectionService.getCollectionByCollectionId(collectionId)
+                                            .then( (response) => {
+
+                                              collection = response.data;
+                                              if(collection.isPrivate && store.state.token === ''){
+                                                next("/redirect");
+                                              }
+                                              else {
+                                                next();
+                                              }
+
+                                            });
+          
         }
       },
 
     {
       path: "/collection/:id/addPokemon",
       name: "add-pokemon",
-      component: AddPokemon
+      component: AddPokemon,
+      meta: {
+        requiresAuth: true
+      }
     },
     
     {
       path: "/pokemon/:id",
       name: "detail",
       component: Detail,
-      meta: {
-        requiresAuth: false
+      beforeEnter(to, from, next) {
+
+        let pokemonId = to.params.id;
+        let pokemon = {};
+
+        pokemonService.getPokemonByPokemonId(pokemonId)
+            .then( (response) => {
+              pokemon = response.data;
+            
+ 
+        let collectionId = pokemon.collectionId;
+
+        let collection = {}
+        collectionService.getCollectionByCollectionId(collectionId)
+                                          .then( (response) => {
+
+                                            collection = response.data;
+                                            if(collection.isPrivate && store.state.token === ''){
+                                              next("/redirect");
+                                            }
+                                            else {
+                                              next();
+                                            }
+
+                                          })
+              });
+        
       }
-    }
+     
+    },
     
+    {
+    path: '*',
+    name: "not-found", 
+    component: NotFound
+    }
   ]
 })
 

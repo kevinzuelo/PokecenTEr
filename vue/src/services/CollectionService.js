@@ -12,6 +12,12 @@ export default {
 
   getRecentCollections() {
     return axios.get('/collections/public/recent')
+  },
+
+  getCollectionByCollectionId(collectionId) {
+    return axios.get(`/collections/id/${collectionId}`)
   }
+
+
 
 }
