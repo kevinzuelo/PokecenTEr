@@ -86,8 +86,11 @@ export default {
   },
   computed: {
     requiredFieldsValid() {
-      let isValid = (this.updatedPokemon.level || this.updatedPokemon.notes || this.updatedPokemon.isShiny);
-      return isValid;
+      if (this.updatedPokemon.level >= 1 && this.updatedPokemon <= 100) {
+        
+        return true;
+      }
+      return  false;
     }
   },
   created() {
@@ -95,6 +98,7 @@ export default {
             this.updatedPokemon = response.data;
         })
   },
+
   methods: {
   addPokemon() {
       PokemonService.updatePokemon(this.updatedPokemon)
@@ -132,7 +136,7 @@ export default {
         this.showForm = true;
     }
   }
-};
+}
 
 
 
