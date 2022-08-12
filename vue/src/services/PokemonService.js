@@ -19,6 +19,10 @@ export default {
 
   deletePokemon(pokemonId) {
     return axios.delete(`/pokemon/${pokemonId}`);
+  },
+
+  getCollectionTypeStatistics(collectionId) {
+    return axios.get(`/collections/${collectionId}/typeStats`);
   }
 
 }
