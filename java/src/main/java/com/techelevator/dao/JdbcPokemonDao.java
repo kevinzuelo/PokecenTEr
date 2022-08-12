@@ -153,6 +153,11 @@ public class JdbcPokemonDao implements PokemonDao {
     public Map<String, Integer> getTypesByCollectionId(int collectionId) {
         Map<String, Integer> typeMap = new HashMap<>();
 
+        String[] typeList = new String[]{"bug","dark","dragon","electric","fairy","fighting","fire","flying","ghost","grass","ground","ice","normal","poison","psychic","rock","steel","water"};
+        for(int i =0; i<typeList.length;i++){
+            typeMap.put(typeList[i], 0);
+        }
+
         String sql = "SELECT SPLIT_PART(type, ' ', 1) as first_type, COUNT(*) " +
                 "FROM pokemon " +
                 "WHERE collection_id = ? " +
@@ -170,6 +175,11 @@ public class JdbcPokemonDao implements PokemonDao {
     @Override
     public Map<String, Integer> getTypesByUserId(int userId) {
         Map<String, Integer> typeMap = new HashMap<>();
+
+        String[] typeList = new String[]{"bug","dark","dragon","electric","fairy","fighting","fire","flying","ghost","grass","ground","ice","normal","poison","psychic","rock","steel","water"};
+        for(int i =0; i<typeList.length;i++){
+            typeMap.put(typeList[i], 0);
+        }
 
         String sql = "SELECT SPLIT_PART(type, ' ', 1) as first_type, COUNT(*) " +
                 "FROM pokemon " +
