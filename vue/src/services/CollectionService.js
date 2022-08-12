@@ -12,6 +12,10 @@ export default {
 
   getRecentCollections() {
     return axios.get('/collections/public/recent')
+  },
+
+  getPokemonTypesByUserId(userId) {
+    return axios.get(`/user/${userId}/typeStats`)
   }
 
 }
