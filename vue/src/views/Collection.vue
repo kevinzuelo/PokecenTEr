@@ -6,7 +6,8 @@
       id="edit-name"
       type="text"
       v-model="collection.name"
-      v-on:blur="editName()"
+      v-on:blur.prevent="editName()"
+      v-on:keyup.enter="editName()"
       />
   
     <div id="collection-name" v-else>
@@ -77,7 +78,7 @@
             <h3>Delete Collection</h3>
   </button>
   <button id="privacy-button" v-on:click.prevent="togglePrivacy()">
-    <!-- <img v-bind:src="privacyImage"/> -->
+    <img v-bind:src="privacyImage"/>
     <p>{{ collection.isPrivate ? "PRIVATE" : "PUBLIC"}}</p>
   </button>
 </div>
@@ -162,20 +163,23 @@ export default {
     methods: {
     
       editName() {
-        CollectionService.updateCollection(this.$route.params.id, this.collection)
+
+        CollectionService.updateCollection(this.collection)
                   .then( (response) => {
             alert(response.status)
             if(response.status === 200){
               this.editingName = false;
             }
-      });
+                  
+          });
       },
 
       togglePrivacy() {
 
         this.collection.isPrivate = !this.collection.isPrivate;
 
-        CollectionService.updateCollection(this.$route.params.id, this.collection)
+
+        CollectionService.updateCollection(this.collection)
                   .then( () => {
 
         });

@@ -30,8 +30,8 @@ export default {
     return axios.get(`/collections/${collectionId}/shinyStats`)
   },
   
-  updateCollection(collectionId, collection) {
-    return axios.get(`/collections/${collectionId}`, collection)
+  updateCollection(collection) {
+    return axios.put(`/collections/${collection.collectionId}`, collection)
   }
 
 }
