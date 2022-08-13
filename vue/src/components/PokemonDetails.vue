@@ -12,19 +12,19 @@
       v-bind:key="type"
       v-bind:src="type"
     />
-    <p class="notes">{{ pokemon.notes }}</p>
+    <p class="notes" v-if="this.pokemon.notes != ''">{{ pokemon.notes }}</p>
 
     <div id="pokemon-detail-buttons">
-      <pokemon-detail-buttons v-bind:pokemon="this.pokemon" />
+      <pokemon-preview-buttons v-bind:pokemon="this.pokemon" />
     </div>
   </div>
 </template>
 
 <script>
-import PokemonDetailButtons from "./PokemonDetailButtons.vue";
+import PokemonPreviewButtons from './PokemonPreviewButtons.vue';
 
 export default {
-  components: { PokemonDetailButtons },
+  components: {  PokemonPreviewButtons },
   data() {
     return {
       typeArray: [],

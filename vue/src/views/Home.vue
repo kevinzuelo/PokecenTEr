@@ -3,7 +3,7 @@
     <display-aggregate-statistics />
     <h1>My Collections</h1>
     <div class="myCollections">
-    <collection-preview v-for="collection in collections" v-bind:key="collection.id" v-bind:collection="collection"/>
+    <collection-preview-link v-for="collection in collections" v-bind:key="collection.id" v-bind:collection="collection"/>
     <add-new-collection />
     </div>
     <h1>Browse All Collections</h1>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import CollectionPreview from '../components/CollectionPreview.vue';
+import CollectionPreviewLink from '../components/CollectionPreviewLink.vue';
 import AddNewCollection from '../components/AddNewCollection.vue';
 import CollectionService from '../services/CollectionService';
 import DisplayAggregateStatistics from '../components/DisplayAggregateStatistics.vue';
@@ -23,7 +23,7 @@ export default {
      collections : []
     }
   },
-  components: { CollectionPreview, AddNewCollection, DisplayAggregateStatistics},
+  components: { CollectionPreviewLink, AddNewCollection, DisplayAggregateStatistics},
   name: "home",
   created() {
     CollectionService.getCollectionsByUserId(this.$store.state.user.id).then((response) => {

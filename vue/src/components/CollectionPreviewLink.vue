@@ -1,22 +1,21 @@
 <template>
-    <div class="collection-container">
-        <h1>{{collection.name}}</h1>
-        <div class="img-preview-container" :style="{'grid-template-columns': pokemonInCollection.length <4 ? pokemonInCollection.length ==1 ? '1fr' : '1fr 1fr' : '1fr 1fr 1fr'}">
-            <img class="pokeIcon" v-for="poke in pokemonInCollection" v-bind:key="poke.pokemonId" v-bind:src="poke.imgSprite" />
-        </div>
-    </div>
+    <router-link :to="{ name: 'collection', params: { id: collection.collectionId } }">
+    <collection-preview v-bind:collection="collection"/>
+    </router-link>
 </template>
 
 
 <script>
 import PokemonService from "../services/PokemonService.js"
+import CollectionPreview from "../components/CollectionPreview.vue"
 
 export default {
-name: "collection-preview",
+name: "collection-preview-link",
 props: ["collection"],
+components: {CollectionPreview},
 data() {
     return {
-        pokemonInCollection: []
+        pokemonInCollection: [],
     }
 },
 created() {
