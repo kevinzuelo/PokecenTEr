@@ -49,7 +49,7 @@
         v-bind:disabled="!requiredFieldsValid"
         v-bind:class="{ 'dead-button': !requiredFieldsValid }"
       >UPDATE POKEMON</button>
-      <button v-on:click="goToCollection" class="btn">CANCEL</button>
+      <button v-on:click.prevent="goToCollection" class="btn">CANCEL</button>
       </div>
 
     </form>
