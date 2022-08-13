@@ -15,6 +15,7 @@ import Redirect from '@/views/Redirect.vue'
 import NotFound from '@/views/NotFound.vue'
 import UpdatePokemon from '../views/UpdatePokemon.vue'
 import MovePokemon from '../views/MovePokemon.vue'
+import Browse from '@/views/Browse.vue'
 
 
 Vue.use(Router)
@@ -162,6 +163,14 @@ const router = new Router({
       component: MovePokemon,
       meta: {
         requiresAuth: true
+      }
+    },
+    {
+      path: "/browse",
+      name: "browse",
+      component: Browse,
+      meta: {
+        requiresAuth: false
       }
     },
     

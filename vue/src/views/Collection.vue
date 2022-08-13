@@ -84,8 +84,9 @@
     <img v-bind:src="privacyImage"/>
     <p>{{ collection.isPrivate ? "PRIVATE" : "PUBLIC"}}</p>
   </button>
-  
-  <button v-else>Browse Collections</button>
+  <router-link v-bind:to="{name: 'browse'}" v-else>
+    <button>Browse Collections</button>
+  </router-link>
   
   <div id="delete-collection-alert" v-if="deleteAlert">
           <h3>Are you sure you want to delete this collection? All pokemon in collection will be released.</h3>
