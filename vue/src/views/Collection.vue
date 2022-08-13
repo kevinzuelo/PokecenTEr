@@ -79,7 +79,7 @@
             <h3>Delete Collection</h3>
   </button>
   <router-link v-bind:to="{name: 'home'}" v-else>
-    <button>Go to Login</button>
+
   </router-link>
   <button id="privacy-button" v-on:click.prevent="togglePrivacy()" v-if="isMine" >
     <img v-bind:src="privacyImage"/>

@@ -102,9 +102,7 @@ export default {
         return types;
       } else return "";
     },
-
      isMine() {
-        
         return this.$store.state.token != "" && (this.ownerId === this.$store.state.user.id);
       }
   },
@@ -145,13 +143,15 @@ export default {
 }
 
 .species-name {
-  font-size: 1.75em;
+  font-size: 2em;
   text-transform: capitalize;
   background-color: #030b42;
   color: white;
   padding: 2px;
   border-radius: 30px;
   box-shadow: 0px 0px 7px red;
+  font-family: 'Silkscreen', cursive;
+  align-content: center;
 }
 
 .level {
