@@ -9,7 +9,7 @@
         <img class="type-image" v-for="type in typeArray" v-bind:key="type" v-bind:src="type" />
       </div>
       </router-link>    
-        <pokemon-preview-buttons v-bind:pokemon="this.pokemon"/>
+        <pokemon-preview-buttons v-bind:pokemon="this.pokemon" />
     </div>
 
 </template>
@@ -19,7 +19,8 @@ export default {
   components: { PokemonPreviewButtons },
     data() {
     return {
-        typeArray: []
+        typeArray: [],
+        ownerId: ""
     }
     },
   name: "pokemon-preview",
@@ -70,6 +71,8 @@ export default {
       if (this.typeArray.length > 2) {
         this.typeArray.shift();
       }
+
+
     },
   methods: {
 
