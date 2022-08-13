@@ -6,25 +6,32 @@
         <!-- :style="{'grid-template-columns': pokemonInCollection.length <4 ? pokemonInCollection.length ==1 ? '1fr' : '1fr 1fr' : '1fr 1fr 1fr'}" -->
             <img class="pokeIcon" v-for="poke in pokemonInCollection" v-bind:key="poke.pokemonId" v-bind:src="poke.imgSprite" />
         </div>
-      <h5>User: {{collection.userId}}</h5>
+      <h5>Collection owner:<br> {{user.username}}</h5>
   </div>
 </router-link>
 </template>
 
 <script>
 import PokemonService from "../services/PokemonService.js"
+import UserService from "../services/UserService.js"
+
 
 export default {
     name: "public-collection-preview",
-    props: ["collection", "user"],
+    props: ["collection"],
 data() {
     return {
-        pokemonInCollection: []
+        pokemonInCollection: [],
+        user: {}
     }
 },
 created() {
     PokemonService.getPokemonByCollectionId(this.collection.collectionId).then(response => {
         let fullCollection = response.data;
+
+        UserService.getUserByUserId(this.collection.userId).then(response => {
+            this.user = response.data;
+         })
         for(let i=0; i<fullCollection.length; i++){
             if(i > 8){
                 break;
@@ -87,6 +94,10 @@ created() {
 .pokeIcon{
   height: 80px;
   margin: -20px;
+}
+h5 {
+  text-align: center;
+  color: #ffe019;
 }
 
 </style>

@@ -70,17 +70,23 @@
 
   <div id="collection-container">
     <pokemon-preview v-for="poke in filteredPokemon" v-bind:key="poke.pokemonId" v-bind:pokemon="poke" />
-    <add-pokemon class="add" />
+    <add-pokemon class="add" v-if="isMine" />
   </div>
   <display-collection-statistics id="stats" v-bind:collectionId="this.$route.params.id" />
-  <button id="delete-button" v-on:click="deleteAlert = true">
+  <button id="delete-button" v-on:click="deleteAlert = true" v-if="isMine" >
             <i class="fa-solid fa-trash-can"></i>
             <h3>Delete Collection</h3>
   </button>
-  <button id="privacy-button" v-on:click.prevent="togglePrivacy()">
+  <router-link v-bind:to="{name: 'home'}" v-else>
+    <button>Go to Login</button>
+  </router-link>
+  <button id="privacy-button" v-on:click.prevent="togglePrivacy()" v-if="isMine" >
     <img v-bind:src="privacyImage"/>
     <p>{{ collection.isPrivate ? "PRIVATE" : "PUBLIC"}}</p>
   </button>
+  
+  <button v-else>Browse Collections</button>
+  
   <div id="delete-collection-alert" v-if="deleteAlert">
           <h3>Are you sure you want to delete this collection? All pokemon in collection will be released.</h3>
           <div id="alert-buttons">
@@ -124,6 +130,10 @@ export default {
   },
   name: "collection",
   computed: {
+    isMine(){
+        return this.$store.state.token != "" && (this.collection.userId === this.$store.state.user.id);
+    },
+
     filteredPokemon(){
       let filtered = this.pokemon;
 

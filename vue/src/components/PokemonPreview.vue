@@ -8,18 +8,23 @@
         <br>
         <img class="type-image" v-for="type in typeArray" v-bind:key="type" v-bind:src="type" />
       </div>
-      </router-link>    
-        <pokemon-preview-buttons v-bind:pokemon="this.pokemon"/>
+      </router-link>
+       
+        <pokemon-preview-buttons v-bind:pokemon="this.pokemon" v-if="isMine" ></pokemon-preview-buttons>
+     
     </div>
 
+<!-- v-if="ownerId === $store.state.currentUser.userId" -->
 </template>
 <script>
 import PokemonPreviewButtons from './PokemonPreviewButtons.vue';
+import CollectionService from '@/services/CollectionService.js'
 export default {
   components: { PokemonPreviewButtons },
     data() {
     return {
-        typeArray: []
+        typeArray: [],
+        ownerId: ""
     }
     },
   name: "pokemon-preview",
@@ -70,7 +75,30 @@ export default {
       if (this.typeArray.length > 2) {
         this.typeArray.shift();
       }
+
+    let collectionId = this.pokemon.collectionId;
+
+    CollectionService.getCollectionByCollectionId(collectionId)
+                      .then( (response) => {
+                        
+                        if(response.status === 200) {
+                          console.log(response.data.userId)
+                          this.ownerId = response.data.userId;
+                        }
+                      });
     },
+
+    computed: {
+      
+      isMine() {
+        
+        return this.$store.state.token != "" && (this.ownerId === this.$store.state.user.id);
+      }
+
+
+    },
+
+
   methods: {
 
     }
@@ -95,7 +123,7 @@ export default {
   .species-name {
     font-size: 1em;
     text-transform: capitalize;
-    background-color: darkblue;
+    background-color: #030b42;
     color:white;
     padding: 2px;
     border-radius: 30px;
