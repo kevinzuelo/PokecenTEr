@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <router-link v-bind:to="{ name: 'home' }">
+    
     <current-user v-if="$store.state.token != ''" v-bind:user="this.$store.state.user"/>
+    <anon-user v-if="!isLoggedIn && areWeHome"/>
     </router-link>
     <div id="nav">
    
@@ -13,11 +15,21 @@
 
 <script>
 import CurrentUser from '@/components/CurrentUser.vue'
+import AnonUser from '@/components/AnonUser.vue'
 
 export default {
   components: {
-    CurrentUser
-  }
+    CurrentUser,
+    AnonUser
+  },
+      computed: {
+        isLoggedIn() {
+        return this.$store.state.token != "";
+      },
+        areWeHome() {
+          return this.$route.name != "login";
+        }
+      }
 }
 </script>
 

@@ -86,8 +86,8 @@ export default {
 }
 
 .collection-container:hover {
-  outline: 9px solid rgb(255, 255, 129);
-    outline-offset: -9px;
+  box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.3);
+    outline-offset: -5px;
 }
 
 #confirmMove {
@@ -104,7 +104,7 @@ export default {
 }
 
 .selected {
-     outline: 9px solid yellow;
+     outline: 9px solid #00d431;
     outline-offset: -9px;
 }
 
