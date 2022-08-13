@@ -82,7 +82,7 @@ export default {
 }
 
 #collection-flex > div {
-  margin: 10px;
+  margin-bottom: 10px;
 }
 
 .collection-container:hover {
