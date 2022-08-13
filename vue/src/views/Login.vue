@@ -151,6 +151,7 @@ export default {
     text-align: center;
     color: white;
     font-weight: bold;
+    margin: 30px;
   }
 
 </style>

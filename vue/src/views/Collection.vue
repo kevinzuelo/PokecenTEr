@@ -5,6 +5,7 @@
       v-if="editingName"
       id="edit-name"
       type="text"
+      maxlength="30"
       v-model="collection.name"
       v-on:blur.prevent="editName()"
       v-on:keyup.enter="editName()"
@@ -12,7 +13,7 @@
   
     <div id="collection-name" v-else>
       <h1>{{ collection.name }}</h1>
-      <i id="edit" class="fa-solid fa-pen-to-square" v-on:click="editingName=true" ></i>
+      <i id="edit" class="fa-solid fa-pen-to-square" v-on:click="editingName=true" v-if="isMine" ></i>
     </div>
   </div>
 
@@ -184,7 +185,7 @@ export default {
 
         CollectionService.updateCollection(this.collection)
                   .then( (response) => {
-            alert(response.status)
+
             if(response.status === 200){
               this.editingName = false;
             }

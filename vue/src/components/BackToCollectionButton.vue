@@ -25,7 +25,7 @@ export default {
         border-radius: 15px;
         text-align: center;
         width: 10em;
-        
+        font-family: 'Silkscreen', cursive;
     }
 
     a div {

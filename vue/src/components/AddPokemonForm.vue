@@ -71,7 +71,7 @@
     </form>
     </div>
     <div id="add-pokemon-preview">
-    <p>{{ this.pokemonFeedback }}</p>
+    <p class="valid-text">{{ this.pokemonFeedback }}</p>
     <img v-bind:src="pokemonUrl" v-if="validPokemon" />
     <img v-else src="https://i.gifer.com/origin/28/2860d2d8c3a1e402e0fc8913cd92cd7a_w200.gif" width="100px" />
     </div>
@@ -345,4 +345,9 @@ label {
 #instructions>h5 {
   padding: 3px;
 }
+.valid-text {
+  font-family: 'Silkscreen', cursive;
+  text-align: center;
+}
+
 </style>

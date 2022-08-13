@@ -8,6 +8,7 @@
             <label for="collection-name" >Collection Name</label>
             <input
                 type="text"
+                maxlength="30"
                 id="collection-name"
                 placeholder="Collection Name"
                 v-model="newCollection.name"
