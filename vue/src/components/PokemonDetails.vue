@@ -12,7 +12,7 @@
       v-bind:key="type"
       v-bind:src="type"
     />
-    <p class="notes">{{ pokemon.notes }}</p>
+    <p class="notes" v-if="this.pokemon.notes != ''">{{ pokemon.notes }}</p>
 
     <div id="pokemon-detail-buttons">
       <pokemon-detail-buttons v-bind:pokemon="this.pokemon" />
