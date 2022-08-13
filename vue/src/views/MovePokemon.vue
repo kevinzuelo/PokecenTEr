@@ -1,7 +1,16 @@
 <template>
     <div id="viewContainer">
       <pokemon-details v-bind:pokemon="this.pokemon"/>
-            <i id="moveTo" class="fa-solid fa-arrow-right move"></i>
+            <div id="middleIcons">
+                <div id="moveTo">
+                    <i  class="fa-solid fa-arrow-right move"></i>
+                    <p>Select a new Collection</p>
+                </div>           
+                <div id="back" v-on:click="goToCollection">
+                    <i  class="fa-solid fa-arrow-left"></i>
+                    <p>Go Back</p>
+                </div>           
+            </div>
       <move-pokemon-form/>
     </div>
 </template>
@@ -25,6 +34,11 @@ export default {
             this.pokemon = response.data;
         })
   },
+  methods: {
+      goToCollection() {
+      this.$router.push({ name: 'collection', params: {id: this.pokemon.collectionId}});
+    }
+  }
 }
 
 </script>
@@ -33,31 +47,51 @@ export default {
 #viewContainer {
     display: flex;
     width: 100%;
-    justify-content: space-around;
     align-items: center;
 }
 
-#moveArrow {
-    color: yellow;
-    background-color: rgba(0,0,0,0.5);
-    width: 170px;
-    height: 170px;
-    border-radius: 10px;
+#middleIcons {
     display: flex;
-    justify-content: center;
-    align-content: center;
+    flex-direction: column;
+    gap: 15px;
+    margin: 30px;
+    padding: 10px;
 }
 
-i#moveTo {
-    font-size: 80px;
+
+
+#moveTo {
+    font-size: 50px;
     color: yellow;
     background-color: rgba(0,0,0,0.5);
-    height: 80px;
+    height: auto;
     width: 80px;
     text-align: center;
     padding: 30px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+}
 
+#moveTo p {
+    font-size: 20px;
+    
+}
+
+#back {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    justify-items: center;
+    background-color: rgba(135,206,250,0.3);
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+}   
+
+#back:hover {
+    cursor: pointer;
+    background-color: rgba(135,206,250, 0.8);
 }
 
 
