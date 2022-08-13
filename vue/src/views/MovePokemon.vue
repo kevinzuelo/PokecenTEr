@@ -2,6 +2,9 @@
     <div id="viewContainer">
       <pokemon-details v-bind:pokemon="this.pokemon"/>
             <div id="middleIcons">
+                <div id="gif">
+                    <img src="../images/pikachu-running.gif">
+                </div>
                 <div id="moveTo">
                     <i  class="fa-solid fa-arrow-right move"></i>
                     <p>Select a new Collection</p>
@@ -56,6 +59,14 @@ export default {
     gap: 15px;
     margin: 30px;
     padding: 10px;
+}
+
+#gif {
+    width: 140px;
+}
+
+#gif > img{
+    width: 100%;
 }
 
 
