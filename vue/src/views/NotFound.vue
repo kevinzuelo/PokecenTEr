@@ -22,7 +22,7 @@ export default {
     margin-top: 20px;
     align-items: center;
     background-color: rgb(0,0,0,0,0.5);
-    color: yellow;
+    color: #ffe019;
     gap: 20px;
 }
 </style>

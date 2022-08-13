@@ -19,6 +19,7 @@ public class JdbcCollectionDao implements CollectionDao{
             this.jdbcTemplate = jdbcTemplate;
         }
 
+
     @Override
     public List<Collection> listByID(int user_id) {
         List<Collection> lists = new ArrayList<>();
@@ -31,6 +32,21 @@ public class JdbcCollectionDao implements CollectionDao{
 
         }
         return lists;
+    }
+
+    @Override
+    public List<Collection> listAllCollections() {
+        List<Collection> collections = new ArrayList<>();
+        String sql = "SELECT collection_id, collection_name, user_id, is_private " +
+                    "FROM collections; ";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while (results.next()) {
+            Collection collection = mapRowToCollection(results);
+            collections.add(collection);
+
+        }
+
+        return collections;
     }
 
     @Override

@@ -73,7 +73,7 @@ export default {
 
 #moveTo {
     font-size: 50px;
-    color: yellow;
+    color: #ffe019;
     background-color: rgba(0,0,0,0.5);
     height: auto;
     width: 80px;

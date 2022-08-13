@@ -20,6 +20,7 @@ export default {
 <style scoped>
     h3 {          
         color: white;
+        font-family: 'Silkscreen', cursive;
     }
 
     #addPokemon {

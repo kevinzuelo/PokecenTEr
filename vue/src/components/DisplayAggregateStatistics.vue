@@ -13,9 +13,9 @@
         </h5>
       </div>
       <br />
-      <h5><i class="fa-solid fa-star"></i> : {{ shinyStats }}</h5>
+      <h5><i class="fa-solid fa-star"></i> shiny : {{ shinyStats }}</h5>
       <h5>
-        <img src="..\images\pokeball.png" id="poke-ball-icon" /> :
+        <img src="..\images\pokeball.png" id="poke-ball-icon" /> total :
         {{ totalCount }}
       </h5>
     </div>
@@ -117,6 +117,7 @@ export default {
 }
 h1 {
   font-size: 1.5em;
+  font-family: 'Silkscreen', cursive;
 }
 .fa-star {
   font-size: 1.5em;
