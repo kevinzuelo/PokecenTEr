@@ -24,6 +24,12 @@ public class CollectionController {
         this.pokemonDao = pokemonDao;
     }
 
+
+    @RequestMapping(path = "/collections", method = RequestMethod.GET)
+    public List<Collection> getAllCollections(){
+        return collectionDao.listAllCollections();
+    }
+
     @RequestMapping(path = "/collections/id/{id}", method = RequestMethod.GET)
     public Collection getCollectionByCollectionId(@PathVariable("id") int id){
         return collectionDao.getCollectionByCollectionId(id);
