@@ -43,9 +43,10 @@ public class JdbcCollectionDao implements CollectionDao{
         return collectionId;
     }
 
-    public boolean deleteCollection(int userId, int collectionId) {
-        String sql = "DELETE FROM collections WHERE user_id = ? && collection_id = ?;";
-        int numberOfRowsDeleted = jdbcTemplate.update(sql, userId, collectionId);
+    public boolean deleteCollection(int collectionId) {
+        String sql = "DELETE FROM pokemon WHERE collection_id = ?;" +
+                "DELETE FROM collections WHERE collection_id = ?;";
+        int numberOfRowsDeleted = jdbcTemplate.update(sql, collectionId, collectionId);
 
         return numberOfRowsDeleted != 0;
     }

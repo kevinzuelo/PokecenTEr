@@ -73,7 +73,7 @@
     <add-pokemon class="add" />
   </div>
   <display-collection-statistics id="stats" v-bind:collectionId="this.$route.params.id" />
-  <button id="delete-button">
+  <button id="delete-button" v-on:click="deleteAlert = true">
             <i class="fa-solid fa-trash-can"></i>
             <h3>Delete Collection</h3>
   </button>
@@ -81,6 +81,13 @@
     <img v-bind:src="privacyImage"/>
     <p>{{ collection.isPrivate ? "PRIVATE" : "PUBLIC"}}</p>
   </button>
+  <div id="delete-collection-alert" v-if="deleteAlert">
+          <h3>Are you sure you want to delete this collection? All pokemon in collection will be released.</h3>
+          <div id="alert-buttons">
+            <button id ="deleteButton" v-on:click.prevent="deleteCollection" title="Delete">Yes</button>
+            <button v-on:click="deleteAlert = false">No</button>
+          </div>
+      </div>
 </div>
 
 </template>
@@ -97,6 +104,7 @@ export default {
   data() {
 
     return {
+      deleteAlert: false,
       filter: {
         species: "",
         type: "",
@@ -183,8 +191,23 @@ export default {
                   .then( () => {
 
         });
-      }
-    },
+      },
+
+      deleteCollection(){
+        CollectionService.deleteCollection(this.collection.collectionId)
+                          .then( response => {
+                            if(response.status === 200){
+                              this.$router.push( { name: 'home'})
+                            }
+                          })
+                            .catch( (error) => {
+                              if(error){
+                              this.errorMessage = "There was a problem deleting the collection."
+                              }
+                            });
+                          }
+      },
+    
 
   created() {
 
@@ -285,6 +308,25 @@ export default {
   color: white;
 }
 
+#delete-collection-alert {
+  text-align: center;
+  border: solid black 5px;
+  border-radius: 10px;
+  background-color: rgb(250, 110, 110);
+  height: 200px;
+  width: 400px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+div#alertbuttons {
+  display: flex;
+  justify-content: center;
+}
 
   
 

@@ -50,9 +50,9 @@ public class CollectionController {
         return pokemonDao.getAllPokemonByCollectionId(id);
     }
 
-    @RequestMapping(path = "/user/{userId}/collections/{collectionId}", method = RequestMethod.DELETE)
-    public boolean deleteCollection(@PathVariable("id") int userId, @PathVariable("collectionId") int collectionId) {
-        return collectionDao.deleteCollection(userId, collectionId);
+    @RequestMapping(path = "/collections/{collectionId}", method = RequestMethod.DELETE)
+    public void deleteCollection(@PathVariable("collectionId") int collectionId) {
+        collectionDao.deleteCollection(collectionId);
     }
 
     @RequestMapping(path = "/user/{id}/collections", method = RequestMethod.GET)
@@ -89,8 +89,9 @@ public class CollectionController {
     @RequestMapping(path = "/collections/{id}", method = RequestMethod.PUT)
     public void updateCollection(@PathVariable("id") int updatedCollectionId, @RequestBody Collection updatedCollection){
 
-        System.out.println(updatedCollectionId);
         collectionDao.updateCollection(updatedCollectionId, updatedCollection);
     }
+
+
 }
 
