@@ -1,15 +1,15 @@
 <template>
   <div id="modify">
-      <router-link :to="{ name: 'edit', params: { id: this.pokemon.pokemonId } }">
+      <router-link :to="{ name: 'edit', params: { id: this.pokemon.pokemonId } }" v-if="this.$route.name != 'edit'">
           <i id="edit" class="fa-solid fa-pen-to-square"></i>
       </router-link>
       <i id="delete" class= "fa-solid fa-trash-can" v-on:click="deleteAlert = true"></i>
-      <router-link :to="{ name: 'move', params: { id: this.pokemon.pokemonId } }">
+      <router-link :to="{ name: 'move', params: { id: this.pokemon.pokemonId } }" v-if="this.$route.name != 'move'">
       <i id="move" class="fa-solid fa-arrow-right"></i>
       </router-link>
       <div id="alert" v-if="deleteAlert">
           <h3>Are you sure you want to delete this pokemon?</h3>
-          <button id ="deleteButton" v-on:click="deletePoke" title="Delete">Yes</button>
+          <button id ="deleteButton" v-on:click.prevent="deletePoke" title="Delete">Yes</button>
           <button v-on:click="deleteAlert = false">No</button>
       </div>
   </div>
@@ -29,7 +29,10 @@ export default {
     methods: {
         deletePoke() {
             PokemonService.deletePokemon(this.pokemon.pokemonId);
-            window.location.reload()
+            if(this.$route.name == 'collection') {
+                window.location.reload();
+            }
+            this.$router.push({ name: 'collection', params: {id: this.pokemon.collectionId}});
         }
     }    
 
