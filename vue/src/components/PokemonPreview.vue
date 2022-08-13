@@ -121,13 +121,14 @@ export default {
     margin: 2px;
   }
   .species-name {
-    font-size: 1em;
+    font-size: .875em;
     text-transform: capitalize;
     background-color: #030b42;
     color:white;
     padding: 2px;
     border-radius: 30px;
     box-shadow: 0px 0px 7px red;
+    font-family: 'Silkscreen', cursive;
   }
 
 .level {

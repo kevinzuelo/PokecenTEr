@@ -79,14 +79,14 @@
             <h3>Delete Collection</h3>
   </button>
   <router-link v-bind:to="{name: 'home'}" v-else>
-    <button>Go to Login</button>
+
   </router-link>
   <button id="privacy-button" v-on:click.prevent="togglePrivacy()" v-if="isMine" >
     <img v-bind:src="privacyImage"/>
     <p>{{ collection.isPrivate ? "PRIVATE! click to make public" : "PUBLIC! click to make private"}}</p>
   </button>
   
-  <button v-else>Browse Collections</button>
+  <button v-else>Browse All Public Collections</button>
   
   <div id="delete-collection-alert" v-if="deleteAlert">
           <h3>Are you sure you want to delete this collection? All pokemon in collection will be released.</h3>
