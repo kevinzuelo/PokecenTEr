@@ -32,6 +32,10 @@ export default {
   
   updateCollection(collection) {
     return axios.put(`/collections/${collection.collectionId}`, collection)
+  },
+
+  deleteCollection(collectionId) {
+    return axios.delete(`/collections/${collectionId}`);
   }
 
 }

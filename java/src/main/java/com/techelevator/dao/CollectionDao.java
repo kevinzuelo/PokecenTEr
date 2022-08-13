@@ -10,7 +10,7 @@ public interface CollectionDao {
 
     public int createCollection(Collection collection);
 
-    public boolean deleteCollection(int userId, int collectionId);
+    public boolean deleteCollection(int collectionId);
 
     public List<Collection> listPublicCollections();
 
