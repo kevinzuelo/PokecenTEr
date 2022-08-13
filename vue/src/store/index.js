@@ -18,6 +18,7 @@ if(currentToken != null) {
 
 export default new Vuex.Store({
   state: {
+    updatedCollection: {},
     token: currentToken || '',
     user: currentUser || {},
     images: {
@@ -57,6 +58,9 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+    SET_UPDATED_COLLECTION (state, updatedCollection) {
+      state.updatedCollection = updatedCollection;
     }
   }
 })

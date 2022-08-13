@@ -6,8 +6,8 @@
       id="edit-name"
       type="text"
       v-model="collection.name"
-      v-on:blur="editingName = false"
-      v-on:keyup.enter="editingName = false"
+      v-on:blur.prevent="editName()"
+      v-on:keyup.enter="editName()"
       />
   
     <div id="collection-name" v-else>
@@ -77,6 +77,10 @@
             <i class="fa-solid fa-trash-can"></i>
             <h3>Delete Collection</h3>
   </button>
+  <button id="privacy-button" v-on:click.prevent="togglePrivacy()">
+    <img v-bind:src="privacyImage"/>
+    <p>{{ collection.isPrivate ? "PRIVATE" : "PUBLIC"}}</p>
+  </button>
 </div>
 
 </template>
@@ -110,7 +114,7 @@ export default {
     DisplayCollectionStatistics
    
   },
-    name: "collection",
+  name: "collection",
   computed: {
     filteredPokemon(){
       let filtered = this.pokemon;
@@ -145,8 +149,42 @@ export default {
       }
       
       return filtered;
+    },
+    privacyImage(){
+      if(this.collection.isPrivate){
+        return 'https://i.gifer.com/origin/28/2860d2d8c3a1e402e0fc8913cd92cd7a_w200.gif';
+      }
+      else{
+        return this.$store.state.user.iconUrl;
+      }
     }
   },
+
+    methods: {
+    
+      editName() {
+
+        CollectionService.updateCollection(this.collection)
+                  .then( (response) => {
+            alert(response.status)
+            if(response.status === 200){
+              this.editingName = false;
+            }
+                  
+          });
+      },
+
+      togglePrivacy() {
+
+        this.collection.isPrivate = !this.collection.isPrivate;
+
+
+        CollectionService.updateCollection(this.collection)
+                  .then( () => {
+
+        });
+      }
+    },
 
   created() {
 
@@ -159,7 +197,7 @@ export default {
         this.collection = response.data;
       })
     }
-}
+  }
 </script>
 
 <style scoped>
@@ -173,7 +211,7 @@ export default {
   grid-template-areas:
     "name filter stats"
     "collection-container collection-container stats"
-    "delete-button . stats";
+    "delete-button privacy-button stats";
   grid-template-columns: 2fr 2fr 1fr;
   margin: 60px 30px 30px 30px;
   gap: 25px;
@@ -198,6 +236,7 @@ export default {
 #delete-button {
   grid-area: delete-button;
   width: 60%;
+  min-width: 150px;
 }
 #collection-filter {
   grid-area: filter;
@@ -208,7 +247,23 @@ export default {
   max-height: 50px;
 }
 
+#privacy-button {
+  grid-area: privacy-button;
+  background-color: rgb(0, 128, 122);
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  color: yellow;
+}
 
+#privacy-button:hover {
+  background-color: rgba(0, 128, 85, 0.548);
+}
+
+#privacy-button img {
+  height: 100px;
+}
 #stats {
   grid-area: stats;
 }
