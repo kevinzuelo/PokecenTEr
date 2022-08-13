@@ -84,7 +84,7 @@ h3 {
     display: inline-block;
     font-size: 2em;
     text-transform: capitalize;
-    background-color: rgba(135, 206, 250, 0.3);
+    background-color: #030b42;
     color:white;
     padding: 10px;
     border-radius: 30px;
@@ -96,7 +96,7 @@ h3 {
   background-color: rgb(0,0,0,0.5);
   display: flex;
   flex-direction: column;
-  color: yellow;
+  color: #ffe019;
   justify-content: center;
   align-items: center;
   padding: 20px;

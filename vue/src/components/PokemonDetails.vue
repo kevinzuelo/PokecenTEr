@@ -127,7 +127,7 @@ export default {
 .species-name {
   font-size: 1.75em;
   text-transform: capitalize;
-  background-color: darkblue;
+  background-color: #030b42;
   color: white;
   padding: 2px;
   border-radius: 30px;
@@ -141,7 +141,6 @@ export default {
   text-align: center;
   font-size: 1em;
   max-width: 325px;
-  text-transform: capitalize;
   background-color: white;
   color: black;
   padding: 15px;

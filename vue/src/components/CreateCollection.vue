@@ -78,7 +78,10 @@ export default {
 
 <style>
     h1 {
-        color: yellow;
+        color: #ffe019;
+        text-align: center;
+        align-content: center;
+        justify-content: center;
     }
 
     #create-collection-form {
@@ -88,7 +91,7 @@ export default {
         background-color:rgba(0,0,0,0.5);
         padding: 20px 40px 50px 40px;
         border-radius: 20px;
-        color: yellow;
+        color: #ffe019;
         justify-content: space-evenly;
         gap: 5px;
         min-height: 200px;
