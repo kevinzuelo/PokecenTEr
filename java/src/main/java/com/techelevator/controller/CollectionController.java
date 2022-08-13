@@ -86,5 +86,9 @@ public class CollectionController {
         return pokemonDao.getShinyByUserId(userId);
     }
 
+    @RequestMapping(path = "/collections/{id}", method = RequestMethod.PUT)
+    public void updateCollection(@PathVariable("id") int updatedCollectionId, @RequestBody Collection updatedCollection){
+        collectionDao.updateCollection(updatedCollectionId, updatedCollection);
+    }
 }
 

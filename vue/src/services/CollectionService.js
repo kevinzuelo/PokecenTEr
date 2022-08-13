@@ -28,5 +28,10 @@ export default {
 
   getShinyPokemonByCollectionId(collectionId) {
     return axios.get(`/collections/${collectionId}/shinyStats`)
+  },
+  
+  updateCollection(collectionId, collection) {
+    return axios.get(`/collections/${collectionId}`, collection)
   }
+
 }

@@ -19,4 +19,6 @@ public interface CollectionDao {
     public Collection getRandomCollection();
 
     public Collection getCollectionByCollectionId(int collectionId);
+
+    public void updateCollection(int collectionId, Collection collection);
 }

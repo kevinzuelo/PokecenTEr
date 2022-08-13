@@ -98,6 +98,16 @@ public class JdbcCollectionDao implements CollectionDao{
         return collToReturn;
     }
 
+    @Override
+    public void updateCollection(int collectionId, Collection collection){
+        String sql =    "UPDATE collections SET collection_name = ? , is_private = ? " +
+                        "WHERE collection_id = ? ;";
+
+        jdbcTemplate.update(sql, collection.getName(), collection.getIsPrivate(), collectionId);
+
+
+    }
+
     private Collection mapRowToCollection(SqlRowSet collectionMap) {
         Collection collection = new Collection();
         collection.setCollectionId(collectionMap.getInt("collection_id"));
