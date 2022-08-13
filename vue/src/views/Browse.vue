@@ -28,7 +28,7 @@
         </div>
         
         <div id="browse-collections">
-            <public-collection-preview v-for="collection in filteredCollections" v-bind:key="collection.id" v-bind:collection="collection" />
+            <public-collection-preview v-for="collection in filteredCollections" v-bind:key="collection.collectionId" v-bind:collection="collection" />
         </div>
 
     </div>
@@ -66,28 +66,27 @@ export default {
 
             let filtered = this.visibleCollections;
 
-                filtered = filtered.filter( (collection) => {
-                    if(this.filter.username != ""){
-                        return collection.owner.startsWith(this.filter.username);
-                    }
-                });
+                if(this.filter.username != ""){
+                    filtered = filtered.filter( (currentCollection) => {
+                        return currentCollection.owner.startsWith(this.filter.username);
+                    });                    
+                }
                 
-               
-                filtered = filtered.filter( (collection) => {
-                    if(this.filter.collection != ""){
-                        return collection.name.startsWith(this.filter.collectionName)
-                    }
-                });
-
-                filtered = filtered.filter( (collection) => {
-                    if(this.filter.pokemon != ""){
-                        for(let pokemon in collection.pokemon){
-                            if (pokemon.species.startsWith(this.filter.pokemon)){
+                if(this.filter.collection != ""){
+                    filtered = filtered.filter( (currentCollection) => {
+                        return currentCollection.name.startsWith(this.filter.collectionName)
+                    });
+                }
+                
+                if(this.filter.pokemon != ""){
+                    filtered = filtered.filter( (currentCollection) => {
+                        for(let pokemon of currentCollection.pokemon){
+                            if (pokemon.species.startsWith(this.filter.pokemon.toLowerCase())){
                                 return true;
                             }
                         }
-                    }
-                })
+                    });
+                }
 
             return filtered;
            
