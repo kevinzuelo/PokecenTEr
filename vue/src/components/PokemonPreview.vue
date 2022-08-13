@@ -8,13 +8,17 @@
         <br>
         <img class="type-image" v-for="type in typeArray" v-bind:key="type" v-bind:src="type" />
       </div>
-      </router-link>    
-        <pokemon-preview-buttons v-bind:pokemon="this.pokemon" />
+      </router-link>
+       
+        <pokemon-preview-buttons v-bind:pokemon="this.pokemon" v-if="isMine" ></pokemon-preview-buttons>
+     
     </div>
 
+<!-- v-if="ownerId === $store.state.currentUser.userId" -->
 </template>
 <script>
 import PokemonPreviewButtons from './PokemonPreviewButtons.vue';
+import CollectionService from '@/services/CollectionService.js'
 export default {
   components: { PokemonPreviewButtons },
     data() {
@@ -72,8 +76,29 @@ export default {
         this.typeArray.shift();
       }
 
+    let collectionId = this.pokemon.collectionId;
+
+    CollectionService.getCollectionByCollectionId(collectionId)
+                      .then( (response) => {
+                        
+                        if(response.status === 200) {
+                          console.log(response.data.userId)
+                          this.ownerId = response.data.userId;
+                        }
+                      });
+    },
+
+    computed: {
+      
+      isMine() {
+        
+        return this.$store.state.token != "" && (this.ownerId === this.$store.state.user.id);
+      }
+
 
     },
+
+
   methods: {
 
     }
