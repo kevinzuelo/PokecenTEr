@@ -79,7 +79,7 @@
   </button>
   <button id="privacy-button" v-on:click.prevent="togglePrivacy()">
     <img v-bind:src="privacyImage"/>
-    <p>{{ collection.isPrivate ? "PRIVATE" : "PUBLIC"}}</p>
+    <p>{{ collection.isPrivate ? "PRIVATE! click to make public" : "PUBLIC! click to make private"}}</p>
   </button>
   <div id="delete-collection-alert" v-if="deleteAlert">
           <h3>Are you sure you want to delete this collection? All pokemon in collection will be released.</h3>
@@ -250,6 +250,8 @@ export default {
   flex-wrap: wrap;
   gap: 20px;
   width: auto;
+  height:auto;
+  align-items: center;
 }
 
 #name {
@@ -258,30 +260,44 @@ export default {
 
 #delete-button {
   grid-area: delete-button;
-  width: 60%;
-  min-width: 150px;
+  width: 30%;
+  height: 125px;
+  min-width: 175px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid darkred;
+}
+.fa-trash-can {
+  font-size: 1.5em;
 }
 #collection-filter {
   grid-area: filter;
   text-align: left;
   background-color: rgba(0,0,0,0.5);
-  color: yellow;
+  color: #ffe019;
   padding: 10px;
   max-height: 50px;
 }
 
 #privacy-button {
   grid-area: privacy-button;
-  background-color: rgb(0, 128, 122);
+  background-color: #030b42;
   display:flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
-  color: yellow;
+  color: white;
+  max-width: 400px;
+  font-size: 1.5em;
+  height: 125px;
+  justify-self: right;
+  border: 3px solid #000835;
 }
 
 #privacy-button:hover {
-  background-color: rgba(0, 128, 85, 0.548);
+  background-color: rgba(135,206,250, 0.7);
+  border: 3px solid rgba(135,206,250, 0.7);
 }
 
 #privacy-button img {
@@ -299,7 +315,7 @@ export default {
 }
 
 #edit-name {
-  color: yellow;
+  color: #ffe019;
   font-size: 1.5em;
   background-color: rgba(0,0,0,0.5);
 }
@@ -310,9 +326,9 @@ export default {
 
 #delete-collection-alert {
   text-align: center;
-  border: solid black 5px;
+  box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.5);
   border-radius: 10px;
-  background-color: rgb(250, 110, 110);
+  background-color: red;
   height: 200px;
   width: 400px;
   position: absolute;

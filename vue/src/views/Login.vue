@@ -118,7 +118,7 @@ export default {
     display: flex;
     flex-direction: column;
     background-color:rgb(4, 4, 48);
-    color: yellow;
+    color: #ffe019;
     padding: 20px 40px 20px 40px;
     border-radius: 10px;
     gap: 10px;
@@ -131,7 +131,7 @@ export default {
   }
 
   router-link {
-    color: yellow;
+    color: #ffe019;
   }
 
   .top-img {

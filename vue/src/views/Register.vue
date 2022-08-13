@@ -165,7 +165,7 @@ export default {
   padding: 20px 40px 50px 40px;
   border-radius: 20px;
   height: 50%;
-  color: yellow;
+  color: #ffe019;
   justify-content: space-evenly;
   gap: 5px;
 }
