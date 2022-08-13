@@ -17,7 +17,7 @@
                             <input type="text" v-model="filter.username" id="usernameFilter"  />
                         </td>
                         <td>
-                            <input type="text" v-model="filter.collection" id="collectionFilter" />
+                            <input type="text" v-model="filter.collectionName" id="collectionFilter" />
                         </td>
                         <td>
                             <input type="text" v-model="filter.pokemon" id="pokemonFilter" />
@@ -37,6 +37,8 @@
 <script>
 import CollectionService from '@/services/CollectionService.js'
 import PublicCollectionPreview from '@/components/PublicCollectionPreview.vue'
+import UserService from '../services/UserService'
+import PokemonService from '@/services/PokemonService.js'
 
 export default {
     name: 'browse',
@@ -48,7 +50,7 @@ export default {
         return {
             filter: {
             username: "",
-            collection: "",
+            collectionName: "",
             pokemon: ""
             },
 
@@ -62,13 +64,33 @@ export default {
     computed: {
         filteredCollections(){
 
-            
+            let filtered = this.visibleCollections;
 
+                filtered = filtered.filter( (collection) => {
+                    if(this.filter.username != ""){
+                        return collection.owner.startsWith(this.filter.username);
+                    }
+                });
+                
+               
+                filtered = filtered.filter( (collection) => {
+                    if(this.filter.collection != ""){
+                        return collection.name.startsWith(this.filter.collectionName)
+                    }
+                });
 
+                filtered = filtered.filter( (collection) => {
+                    if(this.filter.pokemon != ""){
+                        for(let pokemon in collection.pokemon){
+                            if (pokemon.species.startsWith(this.filter.pokemon)){
+                                return true;
+                            }
+                        }
+                    }
+                })
 
-
-
-            return this.visibleCollections;
+            return filtered;
+           
         }
     },
 
@@ -91,6 +113,25 @@ export default {
                                     this.visibleCollections = collections;
                                 }
                             }
+
+                            this.visibleCollections.forEach( (collection) => {
+                                UserService.getUserByUserId(collection.userId)
+                                    .then( (response) => {
+                                        if(response.status === 200){
+                                            collection.owner = response.data.username;
+                                        }
+
+                                        PokemonService.getPokemonByCollectionId(collection.collectionId)
+                                                    .then( (response) => {
+                                                        if(response.status === 200){
+                                                            collection.pokemon = response.data;
+                                                        }
+                                                    })
+                                    });
+                            }
+                            )
+
+                            
                         });
                                 
 
