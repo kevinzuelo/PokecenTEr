@@ -180,7 +180,7 @@ export default {
   align-items: center;
   flex-direction: column;
   background-color: rgba(0,0,0,0.5);
-  color: yellow;
+  color: #ffe019;
   font-weight: bold;
   padding: 20px;
   border-radius: 20px;
@@ -198,7 +198,7 @@ export default {
 
 #add-pokemon-preview {
   background-color: rgba(0,0,0,0.5);
-  color: yellow;
+  color: #ffe019;
   font-weight: bold;
   padding: 20px;
   border-radius: 20px;
@@ -219,7 +219,7 @@ export default {
   padding: 20px 40px 50px 40px;
   border-radius: 20px;
   height: 50%;
-  color: yellow;
+  color: #ffe019;
   justify-content: space-evenly;
   gap: 5px;
 }

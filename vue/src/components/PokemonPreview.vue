@@ -98,7 +98,7 @@ export default {
   .species-name {
     font-size: 1em;
     text-transform: capitalize;
-    background-color: darkblue;
+    background-color: #030b42;
     color:white;
     padding: 2px;
     border-radius: 30px;
