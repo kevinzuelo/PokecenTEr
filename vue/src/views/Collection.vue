@@ -141,7 +141,7 @@ export default {
 
       if(this.filter.species != ""){
         filtered = filtered.filter( (pokemon) => {
-          return pokemon.species.startsWith(this.filter.species)
+          return pokemon.species.startsWith(this.filter.species.toLowerCase())
         });
       }
 
@@ -231,6 +231,8 @@ export default {
       CollectionService.getCollectionByCollectionId(this.$route.params.id).then((response) => {
         this.collection = response.data;
       })
+
+      
     }
   }
 </script>

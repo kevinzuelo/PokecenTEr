@@ -21,6 +21,7 @@ export default new Vuex.Store({
     updatedCollection: {},
     token: currentToken || '',
     user: currentUser || {},
+    currentCollection: '',
     images: {
       "bug": "https://static.wikia.nocookie.net/pokemon/images/6/64/Type_Bug.gif",
       "dark": "https://static.wikia.nocookie.net/pokemon/images/0/0d/Type_Dark.gif",
@@ -61,6 +62,9 @@ export default new Vuex.Store({
     },
     SET_UPDATED_COLLECTION (state, updatedCollection) {
       state.updatedCollection = updatedCollection;
+    },
+    SET_CURRENT_COLLECTION (state, collection) {
+      state.currentCollection = collection;
     }
   }
 })

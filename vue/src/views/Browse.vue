@@ -1,14 +1,26 @@
 <template>
     <div id="browse-page">
-        <h1 id="title">{{ $store.state.token ? "All Collections" : "All Public Collections" }}</h1>
+        <div id="title">
+            <h1>{{ $store.state.token ? "All Collections" : "All Public Collections" }}</h1>
+            <div v-if="$store.state.token">
+                <router-link v-bind:to="{ name: 'home' }"><button>Go Back to My Collection</button></router-link>
+            </div>
+            <div  v-else>
+                <h2>Log in or register to view more collections and create your own!</h2>
+                <div id = "links">
+                    <router-link v-bind:to="{ name: 'login' }"><button  class="btn">LOGIN</button></router-link>
+                    <router-link v-bind:to="{ name: 'register' }"><button  class="btn">REGISTER</button></router-link>
+                </div>
+            </div>
+        </div>
         <div id="browse-filter-container">
-            <h2>Search By</h2>
+            <h2>Search By:</h2>
             <table id="browse-filter">
                 <thead>
                     <tr>
-                        <th>Username</th>
-                        <th>Collection</th>
-                        <th>Pokemon</th>
+                        <th>Username:</th>
+                        <th>Collection:</th>
+                        <th>Pokemon:</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -156,6 +168,7 @@ h1 {
     grid-template-areas: 
     "title filter"
     "collections collections";
+    margin: 20px;
 
 }
 
@@ -168,6 +181,24 @@ h1 {
     color: yellow;
     background-color: rgba(0,0,0,0.5);
     padding: 20px;
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.527);
+    text-align: left;
+    max-height: 150px;
+}
+
+#browse-filter-container input {
+    background-color:lightgray;
+    
+}
+
+#browse-filter-container h2 {
+    padding-left: 20px;
+}
+
+#browse-filter td,th {
+    padding: 5px 20px;
 }
 
 #browse-collections {
@@ -178,4 +209,9 @@ h1 {
     gap: 20px;
 
 }
+
+  #links {
+        display: flex;
+        gap: 20px;
+    }
 </style>

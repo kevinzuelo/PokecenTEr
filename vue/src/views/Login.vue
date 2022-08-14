@@ -47,6 +47,9 @@
     <div id="recent-collections">
       <public-collection-preview v-for="collection in recentCollections" v-bind:key="collection.id" v-bind:collection="collection" />
     </div>
+    <router-link v-bind:to="{ name: 'browse' }">
+      <button>Browse All Collections</button>
+    </router-link>
   </div>
 </template>
 
