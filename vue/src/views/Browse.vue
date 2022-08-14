@@ -2,14 +2,16 @@
     <div id="browse-page">
         <div id="title">
             <h1>{{ $store.state.token ? "All Collections" : "All Public Collections" }}</h1>
-            <div v-if="$store.state.token">
-                <router-link v-bind:to="{ name: 'home' }"><button>Go Back to My Collection</button></router-link>
-            </div>
-            <div  v-else>
-                <h2>Log in or register to view more collections and create your own!</h2>
-                <div id = "links">
-                    <router-link v-bind:to="{ name: 'login' }"><button  class="btn">LOGIN</button></router-link>
-                    <router-link v-bind:to="{ name: 'register' }"><button  class="btn">REGISTER</button></router-link>
+            <div id="link-container">
+                <div v-if="$store.state.token">
+                    <router-link v-bind:to="{ name: 'home' }"><button>Go Back to My Collections</button></router-link>
+                </div>
+                <div id="login-register" v-else>
+                    <h2>Log in or register to view more collections and create your own!</h2>
+                    <div id = "links">
+                        <router-link v-bind:to="{ name: 'login' }"><button  class="btn">LOGIN</button></router-link>
+                        <router-link v-bind:to="{ name: 'register' }"><button  class="btn">REGISTER</button></router-link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -162,6 +164,11 @@ export default {
 h1 {
     font-size: 3em;
 }
+
+h2 {
+    color: yellow;
+}
+
 #browse-page {
     
     display: grid;
@@ -210,8 +217,21 @@ h1 {
 
 }
 
-  #links {
-        display: flex;
-        gap: 20px;
-    }
+#links {
+    display: flex;
+    gap: 20px;
+}
+
+#link-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#login-register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 </style>

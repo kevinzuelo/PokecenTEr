@@ -65,10 +65,6 @@
   </table>
 
 
-
-
-
-
   <div id="collection-container">
     <pokemon-preview v-for="poke in filteredPokemon" v-bind:key="poke.pokemonId" v-bind:pokemon="poke" />
     <add-pokemon class="add" v-if="isMine" />
@@ -358,6 +354,15 @@ div#alertbuttons {
   justify-content: center;
 }
 
+#collection-filter input,select {
+  background-color: lightgray;
+}
+
+#collection-name i:hover{
+  cursor: pointer;
+  color: green;
+  transform: scale(1.2);
+}
   
 
 </style>
