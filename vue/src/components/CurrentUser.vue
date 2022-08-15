@@ -2,8 +2,12 @@
 <div id="header">
   <img src="..\images\PokecenterUpdated.png" class="header-img"/>
   <div id="user">
-    <img id="user-logo" v-bind:src="user.iconUrl">
+          <img  v-bind:src="user.iconUrl">
+          <div id="user-id">
     <h2>Hi, {{user.username}}</h2>
+    <h3 v-if="user.authorities[0].name == 'ROLE_PREMIUM_USER'">PREMIUM</h3>
+          </div>
+
     <router-link id="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">
       <div id="logout">
         <div>
@@ -32,10 +36,19 @@ a {
   text-decoration: none;
   color: white;
 }
+#user-id > h2{
+margin: 0px;
+text-align: center;
+}
 
-#user-logo {
-  width: 100px;
-  
+#user-id > h3{
+  letter-spacing: 4px;
+  font-size: 12px;
+  background-color: rgb(21, 123, 206);
+  padding: 3px 5px 3px 8px;
+  border-radius: 4px;
+  margin: 0px;
+  bottom: 5px;
 }
 
 /* h2 {

@@ -61,7 +61,7 @@ export default {
 
       },
       goToCollection() {
-      this.$router.push({ name: 'collection', params: {id: this.currentCollectionId}});
+      this.$router.push({ name: 'collection', params: {id: this.pokemon.collectionId}});
     },
     reset() {
           this.selectedCollectionId = 0;
@@ -87,7 +87,7 @@ export default {
 
 .collection-container:hover {
   box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.65);
-    outline-offset: -5px;
+  cursor: pointer;
 }
 
 #confirmMove {
