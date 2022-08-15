@@ -137,7 +137,7 @@ export default {
   .top-img {
     max-height: 175px;
     position: relative;
-    top:150px;
+    top:175px;
     margin: 30px;
   }
 
@@ -145,7 +145,8 @@ export default {
     text-align: center;
     color: white;
     font-weight: bold;
-    margin-top: 120px;
+    margin-top: 140px;
+    font-size: 1.25em;
   }
   h3 {
     text-align: center;
