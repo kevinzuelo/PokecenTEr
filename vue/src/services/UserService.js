@@ -4,6 +4,10 @@ export default {
 
   getUserByUserId(userId) {
     return axios.get(`/users/${userId}`)
+  },
+
+  getAllUsers() {
+    return axios.get('/users')
   }
 
 }

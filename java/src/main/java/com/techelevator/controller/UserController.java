@@ -29,4 +29,9 @@ public class UserController {
         return userDao.getUserById(id);
     }
 
+    @RequestMapping(path = "/users", method = RequestMethod.GET)
+    public List<User> getAllUsers(){
+        return userDao.findAll();
+    }
+
 }
