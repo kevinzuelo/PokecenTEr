@@ -18,15 +18,16 @@ export default {
 
 <style scoped>
     h3 {          
-        color: yellow;
+        color: #ffe019;
     }
 
     a {
         background-color: rgba(0,0,0,0.5);
-        color: yellow;
+        color: #ffe019;
         border-radius: 15px;
         text-align: center;
         width: 10em;
+        font-family: 'Silkscreen', cursive;
         
     }
 

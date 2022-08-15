@@ -11,6 +11,7 @@
       </div>
      
       <label for="level" >Level</label>
+      <p class='invalid-message' v-if='updatedPokemon.level < 1 || updatedPokemon.level > 100'>Pokemon level must be between 1 and 100</p>
       <input
         type="number"
         id="level"
@@ -48,7 +49,7 @@
         v-bind:disabled="!requiredFieldsValid"
         v-bind:class="{ 'dead-button': !requiredFieldsValid }"
       >UPDATE POKEMON</button>
-      <button v-on:click="goToCollection" class="btn">CANCEL</button>
+      <button v-on:click.prevent="goToCollection" class="btn">CANCEL</button>
       </div>
 
     </form>
@@ -86,7 +87,7 @@ export default {
   },
   computed: {
     requiredFieldsValid() {
-      if (this.updatedPokemon.level >= 1 && this.updatedPokemon <= 100) {
+      if (this.updatedPokemon.level >= 1 && this.updatedPokemon.level <= 100) {
         
         return true;
       }
@@ -163,6 +164,10 @@ export default {
   cursor: default;
 }
 
+.invalid-message {
+  color: red;
+}
+
 #add-pokemon-page {
   display: flex;
   flex-direction: row;
@@ -175,7 +180,7 @@ export default {
   align-items: center;
   flex-direction: column;
   background-color: rgba(0,0,0,0.5);
-  color: yellow;
+  color: #ffe019;
   font-weight: bold;
   padding: 20px;
   border-radius: 20px;
@@ -193,7 +198,7 @@ export default {
 
 #add-pokemon-preview {
   background-color: rgba(0,0,0,0.5);
-  color: yellow;
+  color: #ffe019;
   font-weight: bold;
   padding: 20px;
   border-radius: 20px;
@@ -214,7 +219,7 @@ export default {
   padding: 20px 40px 50px 40px;
   border-radius: 20px;
   height: 50%;
-  color: yellow;
+  color: #ffe019;
   justify-content: space-evenly;
   gap: 5px;
 }

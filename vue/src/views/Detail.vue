@@ -17,7 +17,8 @@ export default {
   
   data() {
     return {
-      pokemon: {}
+      pokemon: {},
+     
     };
   },
   name: "detail",
@@ -30,8 +31,13 @@ export default {
       (response) => {
         this.pokemon = response.data;
         console.log(this.pokemon);
+
+      
+
       }
     );
+
+    
   },
 };
 </script>

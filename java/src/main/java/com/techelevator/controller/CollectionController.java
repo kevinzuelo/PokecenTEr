@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.CollectionDao;
 
 import com.techelevator.dao.PokemonDao;
+import com.techelevator.exception.LinkNotAuthorizedException;
 import com.techelevator.model.Collection;
 import com.techelevator.model.Pokemon;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,12 @@ public class CollectionController {
     public CollectionController( CollectionDao collectionDao, PokemonDao pokemonDao) {
         this.collectionDao = collectionDao;
         this.pokemonDao = pokemonDao;
+    }
+
+
+    @RequestMapping(path = "/collections", method = RequestMethod.GET)
+    public List<Collection> getAllCollections(){
+        return collectionDao.listAllCollections();
     }
 
     @RequestMapping(path = "/collections/id/{id}", method = RequestMethod.GET)
@@ -50,9 +57,9 @@ public class CollectionController {
         return pokemonDao.getAllPokemonByCollectionId(id);
     }
 
-    @RequestMapping(path = "/user/{userId}/collections/{collectionId}", method = RequestMethod.DELETE)
-    public boolean deleteCollection(@PathVariable("id") int userId, @PathVariable("collectionId") int collectionId) {
-        return collectionDao.deleteCollection(userId, collectionId);
+    @RequestMapping(path = "/collections/{collectionId}", method = RequestMethod.DELETE)
+    public void deleteCollection(@PathVariable("collectionId") int collectionId) {
+        collectionDao.deleteCollection(collectionId);
     }
 
     @RequestMapping(path = "/user/{id}/collections", method = RequestMethod.GET)
@@ -62,8 +69,8 @@ public class CollectionController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/collections", method = RequestMethod.POST)
-    public void addCollection(@RequestBody Collection collection) {
-        collectionDao.createCollection(collection);
+    public int addCollection(@RequestBody Collection collection) {
+        return collectionDao.createCollection(collection);
     }
 
     @RequestMapping(path = "/collections/{id}/typeStats", method = RequestMethod.GET)
@@ -84,6 +91,29 @@ public class CollectionController {
     @RequestMapping(path = "/user/{id}/shinyStats", method = RequestMethod.GET)
     public Integer getShinyByUserId(@PathVariable("id") int userId){
         return pokemonDao.getShinyByUserId(userId);
+    }
+
+    @RequestMapping(path = "/collections/{id}", method = RequestMethod.PUT)
+    public void updateCollection(@PathVariable("id") int updatedCollectionId, @RequestBody Collection updatedCollection){
+
+        collectionDao.updateCollection(updatedCollectionId, updatedCollection);
+    }
+
+    @RequestMapping(path = "/collections/{id}/{key}", method = RequestMethod.GET)
+    public String authorizeLink(@PathVariable("id") int collectionId, @PathVariable("key") String key) throws LinkNotAuthorizedException {
+        String actualKey = collectionDao.getLinkKeyByCollectionId(collectionId);
+
+        if(!key.equals(actualKey)) {
+            throw new LinkNotAuthorizedException("The key does not match.");
+        }
+        else{
+            return "Authorized";
+        }
+    }
+
+    @RequestMapping(path = "/collections/{id}/key", method = RequestMethod.GET)
+    public String getLinkKey(@PathVariable("id") int collectionId){
+        return collectionDao.getLinkKeyByCollectionId(collectionId);
     }
 
 }

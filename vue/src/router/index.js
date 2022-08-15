@@ -14,6 +14,9 @@ import pokemonService from '@/services/PokemonService.js'
 import Redirect from '@/views/Redirect.vue'
 import NotFound from '@/views/NotFound.vue'
 import UpdatePokemon from '../views/UpdatePokemon.vue'
+import MovePokemon from '../views/MovePokemon.vue'
+import Browse from '@/views/Browse.vue'
+
 
 Vue.use(Router)
 
@@ -89,19 +92,33 @@ const router = new Router({
 
           let collection = {}
           collectionService.getCollectionByCollectionId(collectionId)
-                                            .then( (response) => {
+          .then( (response) => {
 
-                                              collection = response.data;
-                                              if(collection.isPrivate && store.state.token === ''){
-                                                next("/redirect");
-                                              }
-                                              else {
-                                                next();
-                                              }
+            collection = response.data;
+            
+            if(!collection.isPrivate  || store.state.token != '' || (store.state.currentCollection && store.state.currentCollection.collectionId === collectionId)){
+              next();
+            }
+            else if(to.query.key){
+              collectionService.getLinkAuthorization(collectionId, to.query.key)
+                            .then( (response) => {
+                              if(response.data == 'Authorized'){
+                                store.commit('SET_CURRENT_COLLECTION', collection)
+                                next();
+                              }
+                              else{
+                                next("/redirect");
+                              }
+                            });
+            }
+            else{
+              next("/redirect");
+            }
 
-                                            });
-          
+          });
         }
+          
+        
       },
 
     {
@@ -131,18 +148,18 @@ const router = new Router({
 
         let collection = {}
         collectionService.getCollectionByCollectionId(collectionId)
-                                          .then( (response) => {
+        .then( (response) => {
 
-                                            collection = response.data;
-                                            if(collection.isPrivate && store.state.token === ''){
-                                              next("/redirect");
-                                            }
-                                            else {
-                                              next();
-                                            }
+          collection = response.data;
+          if(!collection.isPrivate || store.state.token != '' || store.state.currentCollection.collectionId === collectionId){
+            next();
+          }
+          else {
+            next("/redirect");
+          }
 
-                                          })
-              });
+        })
+});
         
       }
     },
@@ -152,6 +169,22 @@ const router = new Router({
       component: UpdatePokemon,
       meta: {
         requiresAuth: true
+      }
+    },
+    {
+      path: "/pokemon/:id/move",
+      name: "move",
+      component: MovePokemon,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/browse",
+      name: "browse",
+      component: Browse,
+      meta: {
+        requiresAuth: false
       }
     },
     

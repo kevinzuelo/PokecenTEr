@@ -12,22 +12,27 @@
       v-bind:key="type"
       v-bind:src="type"
     />
-    <p class="notes">{{ pokemon.notes }}</p>
+    <p class="notes" v-if="this.pokemon.notes != ''">{{ pokemon.notes }}</p>
 
     <div id="pokemon-detail-buttons">
-      <pokemon-detail-buttons v-bind:pokemon="this.pokemon" />
+      <pokemon-preview-buttons v-bind:pokemon="this.pokemon" v-if="isMine"/>
     </div>
+
   </div>
 </template>
 
 <script>
-import PokemonDetailButtons from "./PokemonDetailButtons.vue";
+import PokemonPreviewButtons from './PokemonPreviewButtons.vue';
+import PokemonService from '@/services/PokemonService.js'
+import CollectionService from '@/services/CollectionService.js'
+
 
 export default {
-  components: { PokemonDetailButtons },
+  components: {  PokemonPreviewButtons },
   data() {
     return {
       typeArray: [],
+      ownerId: ""
     };
   },
   name: "pokemon-details",
@@ -100,7 +105,29 @@ export default {
         return types;
       } else return "";
     },
+
+     isMine() {
+        
+        return this.$store.state.token != "" && (this.ownerId === this.$store.state.user.id);
+      }
   },
+
+  created() {
+
+
+    PokemonService.getPokemonByPokemonId(this.$route.params.id).then(
+      (response) => {
+       let pokemon = response.data;
+        
+          CollectionService.getCollectionByCollectionId(pokemon.collectionId)
+                          .then( (response) => {
+                            this.ownerId = response.data.userId;
+                          });
+      
+      
+      });
+      
+  }
 };
 </script>
 
@@ -127,7 +154,7 @@ export default {
 .species-name {
   font-size: 1.75em;
   text-transform: capitalize;
-  background-color: darkblue;
+  background-color: #030b42;
   color: white;
   padding: 2px;
   border-radius: 30px;
@@ -141,7 +168,6 @@ export default {
   text-align: center;
   font-size: 1em;
   max-width: 325px;
-  text-transform: capitalize;
   background-color: white;
   color: black;
   padding: 15px;

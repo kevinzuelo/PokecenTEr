@@ -71,8 +71,8 @@
     </form>
     </div>
     <div id="add-pokemon-preview">
-    <p>{{ this.pokemonFeedback }}</p>
-    <img v-bind:src="pokemonUrl" v-if="validPokemon" width="200px" />
+    <p class="valid-text">{{ this.pokemonFeedback }}</p>
+    <img v-bind:src="pokemonUrl" v-if="validPokemon" wight ="200x"/>
     <img v-else src="https://i.gifer.com/origin/28/2860d2d8c3a1e402e0fc8913cd92cd7a_w200.gif" />
     </div>
   </div>
@@ -180,10 +180,11 @@ export default {
     },
     resetForm() {
         this.newPokemon.species = "",
-        this.newPokemon.level = "",
+        this.newPokemon.level = 1,
         this.newPokemon.isShiny = "",
         this.newPokemon.notes = "",
-        this.showForm = true;
+        this.showForm = true,
+        this.validPokemon = false;
     },
     similarPokemonNames() {
       if(this.newPokemon.species.length>0){
@@ -234,6 +235,7 @@ export default {
 }
 
 #add-pokemon-page {
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -244,7 +246,7 @@ export default {
   align-items: center;
   flex-direction: column;
   background-color: rgba(0,0,0,0.5);
-  color: yellow;
+  color: #ffe019;
   font-weight: bold;
   padding: 20px;
   border-radius: 20px;
@@ -264,7 +266,7 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: rgba(0,0,0,0.5);
-  color: yellow;
+  color: #ffe019;
   font-weight: bold;
   padding: 20px;
   border-radius: 20px;
@@ -286,7 +288,7 @@ export default {
   padding: 20px 40px 50px 40px;
   border-radius: 20px;
   height: 50%;
-  color: yellow;
+  color: #ffe019;
   justify-content: space-evenly;
   gap: 5px;
 }
@@ -338,11 +340,16 @@ label {
 }
 
 #instructions {
-  color: yellow;
+  color: #ffe019;
   text-align: center;
   display: flex;
 }
 #instructions>h5 {
   padding: 3px;
 }
+.valid-text {
+  font-family: 'Silkscreen', cursive;
+  text-align: center;
+}
+
 </style>

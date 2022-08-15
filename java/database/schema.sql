@@ -18,6 +18,7 @@ CREATE TABLE collections (
     collection_name varchar(100) NOT NULL,
     user_id int,
     is_private boolean,
+    link_key varchar(50),
     CONSTRAINT PK_collections PRIMARY KEY (collection_id),
     CONSTRAINT FK_collections_user_id FOREIGN KEY (user_id) REFERENCES users (user_id)
 );

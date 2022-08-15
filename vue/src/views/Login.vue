@@ -47,6 +47,9 @@
     <div id="recent-collections">
       <public-collection-preview v-for="collection in recentCollections" v-bind:key="collection.id" v-bind:collection="collection" />
     </div>
+    <router-link v-bind:to="{ name: 'browse' }">
+      <button>Browse All Collections</button>
+    </router-link>
   </div>
 </template>
 
@@ -118,7 +121,7 @@ export default {
     display: flex;
     flex-direction: column;
     background-color:rgb(4, 4, 48);
-    color: yellow;
+    color: #ffe019;
     padding: 20px 40px 20px 40px;
     border-radius: 10px;
     gap: 10px;
@@ -131,7 +134,7 @@ export default {
   }
 
   router-link {
-    color: yellow;
+    color: #ffe019;
   }
 
   .top-img {
@@ -151,6 +154,7 @@ export default {
     text-align: center;
     color: white;
     font-weight: bold;
+    margin: 30px;
   }
 
 </style>

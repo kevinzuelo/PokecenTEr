@@ -2,6 +2,10 @@ import axios from 'axios';
 
 export default {
 
+  getAllCollections(){
+    return axios.get('/collections')
+  },
+
   createCollection(newCollection) {
     return axios.post('/collections', newCollection)
   },
@@ -28,5 +32,22 @@ export default {
 
   getShinyPokemonByCollectionId(collectionId) {
     return axios.get(`/collections/${collectionId}/shinyStats`)
+  },
+  
+  updateCollection(collection) {
+    return axios.put(`/collections/${collection.collectionId}`, collection)
+  },
+
+  deleteCollection(collectionId) {
+    return axios.delete(`/collections/${collectionId}`);
+  },
+
+  getLinkAuthorization(collectionId, key) {
+    return axios.get(`/collections/${collectionId}/${key}`);
+  },
+
+  getLinkKeyByCollectionId(collectionId){
+    return axios.get(`/collections/${collectionId}/key`);
   }
+
 }

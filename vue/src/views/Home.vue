@@ -1,34 +1,48 @@
 <template>
   <div class="home">
+    <h1>{{ $store.state.user.username }}</h1>
     <display-aggregate-statistics />
     <h1>My Collections</h1>
     <div class="myCollections">
-    <collection-preview v-for="collection in collections" v-bind:key="collection.id" v-bind:collection="collection"/>
-    <add-new-collection />
+    <collection-preview-link v-for="collection in collections" v-bind:key="collection.id" v-bind:collection="collection"/>
+    <add-new-collection id="add-new" />
     </div>
-    <h1>Browse All Collections</h1>
-    
+    <div id="browse-collections">
+      <h1>Recent Collections</h1>
+      <div id="recent-collections">
+        <public-collection-preview v-for="collection in recentCollections" v-bind:key="collection.id" v-bind:collection="collection" />
+      </div>
+      <router-link v-bind:to="{ name: 'browse' }">
+        <button>Browse All Collections</button>
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
-import CollectionPreview from '../components/CollectionPreview.vue';
+import CollectionPreviewLink from '../components/CollectionPreviewLink.vue';
 import AddNewCollection from '../components/AddNewCollection.vue';
 import CollectionService from '../services/CollectionService';
 import DisplayAggregateStatistics from '../components/DisplayAggregateStatistics.vue';
+import PublicCollectionPreview from '@/components/PublicCollectionPreview.vue';
 
 export default {
   data() {
     return {
-     collections : []
+     collections : [],
+     recentCollections: []
     }
   },
-  components: { CollectionPreview, AddNewCollection, DisplayAggregateStatistics},
+  components: { CollectionPreviewLink, AddNewCollection, DisplayAggregateStatistics, PublicCollectionPreview},
   name: "home",
   created() {
     CollectionService.getCollectionsByUserId(this.$store.state.user.id).then((response) => {
       this.collections = response.data;
       console.log(response.data)
+    })
+
+    CollectionService.getRecentCollections().then(response =>{
+      this.recentCollections = response.data;
     })
   }
 };
@@ -38,13 +52,32 @@ export default {
 
 h1 {
   color: white;
+  font-size: 2em;
 }
 .myCollections {
   display: flex;
   flex-wrap: wrap;
   gap: 25px;
   align-items: center;
+  
 }
 
+#browse-collections {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+#recent-collections {
+ display: flex;
+ gap: 20px;
+}
+
+.home {
+  margin: 50px;
+}
+
+#add-new:hover {
+  box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.527);
+}
 </style>

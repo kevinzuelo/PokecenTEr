@@ -8,6 +8,7 @@
             <label for="collection-name" >Collection Name</label>
             <input
                 type="text"
+                maxlength="30"
                 id="collection-name"
                 placeholder="Collection Name"
                 v-model="newCollection.name"
@@ -61,7 +62,7 @@ export default {
           .then(response => {
             this.creationErrors = false;
             if (response.status === 201) {
-              this.$router.push({name: "home"});
+              this.$router.push({name: "collection", params: { id: response.data }});
             }
           })
           .catch(error => {
@@ -78,7 +79,10 @@ export default {
 
 <style>
     h1 {
-        color: yellow;
+        color: #ffe019;
+        text-align: center;
+        align-content: center;
+        justify-content: center;
     }
 
     #create-collection-form {
@@ -88,7 +92,7 @@ export default {
         background-color:rgba(0,0,0,0.5);
         padding: 20px 40px 50px 40px;
         border-radius: 20px;
-        color: yellow;
+        color: #ffe019;
         justify-content: space-evenly;
         gap: 5px;
         min-height: 200px;

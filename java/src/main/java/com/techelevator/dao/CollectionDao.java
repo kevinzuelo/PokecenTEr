@@ -6,17 +6,23 @@ import java.util.List;
 
 public interface CollectionDao {
 
-    public List<Collection> listByID(int user_id);
+    List<Collection> listAllCollections();
 
-    public int createCollection(Collection collection);
+    List<Collection> listByID(int user_id);
 
-    public boolean deleteCollection(int userId, int collectionId);
+    int createCollection(Collection collection);
 
-    public List<Collection> listPublicCollections();
+    boolean deleteCollection(int collectionId);
 
-    public List<Collection> listRecentPublicCollections();
+    List<Collection> listPublicCollections();
 
-    public Collection getRandomCollection();
+    List<Collection> listRecentPublicCollections();
 
-    public Collection getCollectionByCollectionId(int collectionId);
+    Collection getRandomCollection();
+
+    Collection getCollectionByCollectionId(int collectionId);
+
+    void updateCollection(int collectionId, Collection collection);
+
+    String getLinkKeyByCollectionId(int collectionId);
 }
