@@ -72,7 +72,7 @@
     </div>
     <div id="add-pokemon-preview">
     <p class="valid-text">{{ this.pokemonFeedback }}</p>
-    <img v-bind:src="pokemonUrl" v-if="validPokemon" wight ="200x"/>
+    <img v-bind:src="pokemonUrl" v-if="validPokemon" width ="200x"/>
     <img v-else src="https://i.gifer.com/origin/28/2860d2d8c3a1e402e0fc8913cd92cd7a_w200.gif" />
     </div>
   </div>
