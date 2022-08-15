@@ -46,7 +46,7 @@ export default {
 html {
   background-image: url('../src/images/Background2.png');
   background-repeat: no-repeat;
-  background-position: top;
+  background-attachment: fixed;
   height: 100%;
   /* font-family: 'Rubik', sans-serif; */
 /* font-family: 'Carter One', cursive; */
