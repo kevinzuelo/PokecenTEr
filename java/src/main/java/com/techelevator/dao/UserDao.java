@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.User;
+import com.techelevator.model.UserUpdate;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface UserDao {
     boolean create(String username, String password, String role, String email, String continent, String iconUrl);
 
     User getUserByCollectionId(int collectionId);
+
+    boolean updateUser(UserUpdate user);
 }

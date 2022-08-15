@@ -1,11 +1,11 @@
 <template>
-<div>
+<div id="update-status">
   <h1>Update Account</h1>
-  <div v-for="user in users" v-bind:key="user.id">
-      <h2>{{ user.username }}</h2>
-      <select name='user-status' v-model="user.authorities[0]">
-          <option value='ROLE_USER' v-bind:selected="user.authorities[0] === value">Standard User</option>
-          <option value='ROLE_PREMIUM_USER' v-bind:selected="user.authorities[0] === value">Premium User</option>
+  <div v-for="(user, index) in users" v-bind:key="user.id" class="user-status">
+      <h2>{{ user.username }}:</h2>
+      <select name='user-status'  v-model="users[index].role" v-on:change="updateUser(user)">
+          <option value='ROLE_USER' v-bind:selected="user.role === 'ROLE_USER'">Standard User</option>
+          <option value='ROLE_PREMIUM_USER' v-bind:selected="user.role === 'ROLE_PREMIUM_USER'">Premium User</option>
       </select>
   </div>
 </div>
@@ -18,16 +18,17 @@ export default {
     name: 'update-user-status',
     data() {
         return {
-            users: [],
+            users: []
         }
     },
     methods: {
-        setAuthorities(user, authority) {
-            let authorities = [];
-            authorities.push(authority);
-            user.authorities[0] = authorities;
-        }
-
+       
+    updateUser(user){
+        UserService.updateUser(user)
+                    .then( (response) => {
+                        console.log(response);
+                    })
+    }
 
 
     },
@@ -41,9 +42,12 @@ export default {
                     if (authority.name === 'ROLE_ADMIN') {
                         return false;
                     }
+                    user.role = user.authorities[0].name;
                 }
                 return true;
-            })
+            });
+
+           
         }
 
 
@@ -57,5 +61,19 @@ export default {
 <style>
     h2 {
         color: yellow;
+    }
+
+    .user-status {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        justify-content: space-between;
+    }
+
+    #update-status {
+        background-color: rgba(0,0,0,0.5);
+        max-width: 250px;
+        padding: 20px;
+        border-radius: 20px;
     }
 </style>

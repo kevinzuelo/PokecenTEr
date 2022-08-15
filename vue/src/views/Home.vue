@@ -16,7 +16,7 @@
         <button>Browse All Collections</button>
       </router-link>
     </div>
-    <update-user-status/>
+    <update-user-status v-if="isAdmin" />
   </div>
 </template>
 
@@ -46,6 +46,11 @@ export default {
     CollectionService.getRecentCollections().then(response =>{
       this.recentCollections = response.data;
     })
+  },
+  computed: {
+    isAdmin() {
+      return this.$store.state.user.authorities[0].name === "ROLE_ADMIN";
+    }
   }
 };
 </script>

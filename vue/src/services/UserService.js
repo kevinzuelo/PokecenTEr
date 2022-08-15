@@ -8,6 +8,11 @@ export default {
 
   getAllUsers() {
     return axios.get('/users')
+  },
+
+  updateUser(user){
+    return axios.put(`/users/${user.id}`, user)
   }
+
 
 }
