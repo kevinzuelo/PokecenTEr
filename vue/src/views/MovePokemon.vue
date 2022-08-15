@@ -37,6 +37,7 @@ export default {
         PokemonService.getPokemonByPokemonId(this.$route.params.id).then((response) => {
             this.pokemon = response.data;
         })
+       
   },
   methods: {
       goToCollection() {

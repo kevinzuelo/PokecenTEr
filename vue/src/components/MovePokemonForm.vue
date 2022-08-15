@@ -29,14 +29,14 @@ export default {
     name: 'move-pokemon-form',
     components: {CollectionPreview},
      created() {
-    CollectionService.getCollectionsByUserId(this.$store.state.user.id).then((response) => {
-      this.collections = response.data;
-      console.log(response.data)
-    }),
-    PokemonService.getPokemonByPokemonId(this.$route.params.id).then((response) => {
+        PokemonService.getPokemonByPokemonId(this.$route.params.id).then((response) => {
       this.pokemon = response.data;
       this.currentCollectionId = response.data.collectionId
+    }),
+    CollectionService.getCollectionsByUserId(this.$store.state.user.id).then((response) => {
+      this.collections = response.data.filter((collection) => collection.collectionId != this.pokemon.collectionId);
     })
+   
   },
   methods: {
       select(collection) {
