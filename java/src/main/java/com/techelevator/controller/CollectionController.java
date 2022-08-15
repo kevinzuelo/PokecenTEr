@@ -69,8 +69,8 @@ public class CollectionController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/collections", method = RequestMethod.POST)
-    public void addCollection(@RequestBody Collection collection) {
-        collectionDao.createCollection(collection);
+    public int addCollection(@RequestBody Collection collection) {
+        return collectionDao.createCollection(collection);
     }
 
     @RequestMapping(path = "/collections/{id}/typeStats", method = RequestMethod.GET)

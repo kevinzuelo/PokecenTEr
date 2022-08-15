@@ -62,7 +62,7 @@ export default {
           .then(response => {
             this.creationErrors = false;
             if (response.status === 201) {
-              this.$router.push({name: "home"});
+              this.$router.push({name: "collection", params: { id: response.data }});
             }
           })
           .catch(error => {
