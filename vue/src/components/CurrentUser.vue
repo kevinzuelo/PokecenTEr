@@ -1,6 +1,6 @@
 <template>
 <div id="header">
-  <img src="..\images\Pokecenter-logo.png" class="header-img"/>
+  <img src="..\images\PokecenterUpdated.png" class="header-img"/>
   <div id="user">
     <img id="user-logo" v-bind:src="user.iconUrl">
     <h2>Hi, {{user.username}}</h2>
@@ -70,8 +70,8 @@ div#user {
 
 .header-img {
   position: relative;
-top: 20px;
-left: 20px;
+top: 0px;
+left: 0px;
 width: 35%;
 height: 35%;
 max-width: 400px;

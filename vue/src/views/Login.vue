@@ -1,6 +1,6 @@
 <template>
   <div id="login" class="text-center">
-    <img src="..\images\Pokecenter-logo.png" class="top-img"/>
+    <img src="..\images\PokecenterUpdated.png" class="top-img"/>
     <p id="top-blurb">Welcome to PokecenTEr! 
       <br><br>This is a place for you to keep track of all of your Pokemon, and trade Pokemon with your friends. 
       <br><br><em>Gotta catch 'em all!</em>
@@ -138,9 +138,9 @@ export default {
   }
 
   .top-img {
-    max-height: 15%;
+    max-height: 175px;
     position: relative;
-    top:100px;
+    top:175px;
     margin: 30px;
   }
 
@@ -148,7 +148,8 @@ export default {
     text-align: center;
     color: white;
     font-weight: bold;
-    margin-top: 80px;
+    margin-top: 140px;
+    font-size: 1.25em;
   }
   h3 {
     text-align: center;
