@@ -1,6 +1,6 @@
 <template>
   <div id="login" class="text-center">
-    <img src="..\images\Pokecenter-logo.png" class="top-img"/>
+    <img src="..\images\PokecenterUpdated.png" class="top-img"/>
     <p id="top-blurb">Welcome to PokecenTEr! 
       <br><br>This is a place for you to keep track of all of your Pokemon, and trade Pokemon with your friends. 
       <br><br><em>Gotta catch 'em all!</em>
@@ -48,7 +48,7 @@
       <public-collection-preview v-for="collection in recentCollections" v-bind:key="collection.id" v-bind:collection="collection" />
     </div>
     <router-link v-bind:to="{ name: 'browse' }">
-      <button>Browse All Collections</button>
+      <button class="browse-all-collections-button">Browse All Collections</button>
     </router-link>
   </div>
 </template>
@@ -122,10 +122,12 @@ export default {
     flex-direction: column;
     background-color:rgb(4, 4, 48);
     color: #ffe019;
-    padding: 20px 40px 20px 40px;
+    padding: 10px 40px 20px 40px;
     border-radius: 10px;
     gap: 10px;
     width: 300px;
+    position: absolute;
+    top: 340px;
   }
 
   #button-row{
@@ -138,23 +140,40 @@ export default {
   }
 
   .top-img {
-    max-height: 15%;
-    position: relative;
-    top:100px;
-    margin: 30px;
+    max-height: 175px;
+    position: absolute;
+    top: 5px;
+    margin: 10px;
   }
 
   #top-blurb {
     text-align: center;
     color: white;
     font-weight: bold;
-    margin-top: 80px;
+    position: absolute;
+    top: 175px;
+    font-size: 1.25em;
   }
   h3 {
     text-align: center;
     color: white;
     font-weight: bold;
     margin: 30px;
+    position: absolute;
+    top: 580px;
+  }
+
+  #recent-collections {
+    margin: 30px;
+    position: absolute;
+    top: 640px;
+  }
+  .browse-all-collections-button {
+    text-align: center;
+    position: absolute;
+    top: 1040px;
+    margin-bottom: 40px;
+    
   }
 
 </style>

@@ -6,7 +6,7 @@
         <!-- :style="{'grid-template-columns': pokemonInCollection.length <4 ? pokemonInCollection.length ==1 ? '1fr' : '1fr 1fr' : '1fr 1fr 1fr'}" -->
             <img class="pokeIcon" v-for="poke in pokemonInCollection" v-bind:key="poke.pokemonId" v-bind:src="poke.imgSprite" />
         </div>
-      <h5>Collection owner:<br> {{user.username}}</h5>
+      <h5>Owner:<br> {{user.username}}</h5>
   </div>
 </router-link>
 </template>

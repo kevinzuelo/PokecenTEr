@@ -254,13 +254,8 @@ export default {
 </script>
 
 <style scoped>
-
-
-
-
 #collection-grid {
   display: grid;
-  
   grid-template-areas:
     "name filter privacy-button stats"
     "collection-container collection-container collection-container stats"
@@ -272,7 +267,6 @@ export default {
 }
 
 #collection-container {
-  
   grid-area: collection-container;
   background-color:rgba(0,0,0,0.5);
   padding: 30px;
@@ -293,7 +287,6 @@ export default {
 }
 
 #name {
-  
   grid-area: name;
   align-self: end;
 }
@@ -319,8 +312,6 @@ export default {
   padding: 10px;
   max-height: 50px;
   align-self: end;
-  
-  
 }
 
 #privacy-button {
@@ -404,6 +395,11 @@ div#alertbuttons {
   color: yellow;
   padding: 10px;
 }
+
+#collection-container :hover {
+    transform: scale(1.025);
+  }
+
   
 
 </style>

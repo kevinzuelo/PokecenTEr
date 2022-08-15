@@ -86,7 +86,7 @@ export default {
 }
 
 .collection-container:hover {
-  box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.3);
+  box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.65);
     outline-offset: -5px;
 }
 
