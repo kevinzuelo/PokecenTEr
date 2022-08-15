@@ -43,7 +43,7 @@ export default {
                     PokemonService.addPokemon(this.singlePokemon).then(response => {
                         if(response.status == 201){
                             console.log(response.status);
-                            textArea.value = textArea.value + "Success: " + this.singlePokemon.species + "\r\n";
+                            textArea.value = textArea.value + "Success \r\n";
                         }
                     }).catch((error) =>{
                         textArea.value = textArea.value + "Error: " + error.response.data.message + "\r\n";
