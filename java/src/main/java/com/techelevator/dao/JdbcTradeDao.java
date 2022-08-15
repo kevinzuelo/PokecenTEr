@@ -20,7 +20,7 @@ public class JdbcTradeDao implements TradeDao{
 //        SELECT * FROM trades
 //        WHERE from_pokemon IN (SELECT pokemon_id FROM pokemon WHERE collection_id IN (SELECT collection_id FROM collections WHERE user_id = 3)) OR
 //        to_pokemon IN (SELECT pokemon_id FROM pokemon WHERE collection_id IN (SELECT collection_id FROM collections WHERE user_id = 3))
-        
+
         return trades;
     }
 
