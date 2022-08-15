@@ -2,7 +2,7 @@
 <div id="header">
   <img src="..\images\PokecenterUpdated.png" class="header-img"/>
   <div id="user">
-          <img v-bind:src="require(`../images/Icons/${image}`)" v-if="isLoaded" >
+          <img id="icon" v-bind:src="require(`../images/Icons/${image}`)" v-if="isLoaded" >
           <div id="user-id">
     <h2>Hi, {{user.username}}</h2>
     <h3 v-if="user.authorities[0].name == 'ROLE_PREMIUM_USER'">PREMIUM</h3>
@@ -81,6 +81,9 @@ div#user {
    right:-7px;
    max-height: 60px;
    max-width: 350px
+ }
+ #icon {
+   width: 60px
  }
 
  #logout {
