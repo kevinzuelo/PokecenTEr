@@ -110,11 +110,12 @@ export default {
   }
 
   div#login {
-    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    
   }
 
   form.form-signin {
@@ -126,8 +127,6 @@ export default {
     border-radius: 10px;
     gap: 10px;
     width: 300px;
-    position: absolute;
-    top: 340px;
   }
 
   #button-row{
@@ -140,18 +139,15 @@ export default {
   }
 
   .top-img {
-    max-height: 175px;
-    position: absolute;
-    top: 5px;
-    margin: 10px;
+    top: 0;
+    max-width: 40%;
+    min-width: 400px
   }
 
   #top-blurb {
     text-align: center;
     color: white;
     font-weight: bold;
-    position: absolute;
-    top: 175px;
     font-size: 1.25em;
   }
   h3 {
@@ -159,20 +155,20 @@ export default {
     color: white;
     font-weight: bold;
     margin: 30px;
-    position: absolute;
     top: 580px;
   }
 
   #recent-collections {
     margin: 30px;
-    position: absolute;
-    top: 640px;
   }
   .browse-all-collections-button {
     text-align: center;
-    position: absolute;
-    top: 1040px;
     margin-bottom: 40px;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
     
   }
 
