@@ -5,6 +5,10 @@
         <div class="img-preview-container">
         <!-- :style="{'grid-template-columns': pokemonInCollection.length <4 ? pokemonInCollection.length ==1 ? '1fr' : '1fr 1fr' : '1fr 1fr 1fr'}" -->
             <img class="pokeIcon" v-for="poke in pokemonInCollection" v-bind:key="poke.pokemonId" v-bind:src="poke.imgSprite" />
+            <div id ="empty-collection" v-if="!pokemonInCollection.length">
+             <img src="../images/pokeballs.png" alt="">
+                <h2>Empty Collection</h2>
+            </div>
         </div>
       <h5>Owner:<br> {{user.username}}</h5>
   </div>
@@ -98,6 +102,25 @@ created() {
 h5 {
   text-align: center;
   color: #ffe019;
+}
+
+#empty-collection {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#empty-collection > img{
+  width: 100px;
+  margin: auto;
+  padding: 20px;
+}
+
+#empty-collection > h2{
+  color: #ffe019;
+  font-size: 15px;
+  margin: auto;
+  
 }
 
 </style>
