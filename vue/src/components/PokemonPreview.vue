@@ -117,6 +117,8 @@ export default {
     min-width: 115px;
   }
 
+
+
   .type-image {
     width: 50px;
     margin: 2px;

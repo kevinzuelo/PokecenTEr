@@ -2,7 +2,7 @@
 <div id="header">
   <img src="..\images\PokecenterUpdated.png" class="header-img"/>
   <div id="user">
-    <img id="user-logo" v-bind:src="user.iconUrl">
+    <img id="user-logo" v-bind:src="require(`../images/Icons/${image}`)" v-if="isLoaded">
     <h2>Hi, {{user.username}}</h2>
     <router-link id="logout" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">
       <div id="logout">
@@ -19,9 +19,21 @@
 <script>
 import '@fortawesome/fontawesome-free/css/all.css'
 
+// import image from "../images/Icons-04.png";
+
 export default {
     name: 'user-info',
-    props: ["user"]
+    props: ["user"],
+    data() {
+      return {
+        image: '',
+        isLoaded: false
+      }
+    },
+    created () {
+      this.image = this.user.iconUrl
+      this.isLoaded = true;
+    }
 
 }
 </script>
@@ -34,7 +46,7 @@ a {
 }
 
 #user-logo {
-  width: 100px;
+  width: 60px;
   
 }
 
