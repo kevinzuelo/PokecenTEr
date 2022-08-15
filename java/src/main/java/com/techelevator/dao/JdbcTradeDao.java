@@ -4,24 +4,80 @@ import com.techelevator.model.Collection;
 import com.techelevator.model.Pokemon;
 import com.techelevator.model.Trade;
 import com.techelevator.model.User;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Component
 public class JdbcTradeDao implements TradeDao{
 
+
+    private JdbcTemplate jdbcTemplate;
+    private JdbcUserDao userDao;
+    private JdbcPokemonDao pokemonDao;
+    private JdbcCollectionDao collectionDao;
+
+
+    public JdbcTradeDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.userDao = new JdbcUserDao(jdbcTemplate);
+        this.pokemonDao = new JdbcPokemonDao(jdbcTemplate);
+        this.collectionDao = new JdbcCollectionDao(jdbcTemplate);
+    }
+
+
     @Override
     public List<Trade> getAllTradesByUserId(int userId) {
-        List<Trade> trades = null;
+        List<Trade> trades = new ArrayList<>();
 
-//        SELECT * FROM trades
-//        WHERE from_pokemon IN (SELECT pokemon_id FROM pokemon WHERE collection_id IN (SELECT collection_id FROM collections WHERE user_id = 3)) OR
-//        to_pokemon IN (SELECT pokemon_id FROM pokemon WHERE collection_id IN (SELECT collection_id FROM collections WHERE user_id = 3))
-        
+        String sql = "SELECT * FROM trades " +
+                    "WHERE from_pokemon IN (SELECT pokemon_id FROM pokemon WHERE collection_id IN (SELECT collection_id FROM collections WHERE user_id = ? )) OR " +
+                    "to_pokemon IN (SELECT pokemon_id FROM pokemon WHERE collection_id IN (SELECT collection_id FROM collections WHERE user_id = ? ))";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId, userId);
+
+        System.out.println("Test");
+        while(results.next()){
+
+            Trade trade = mapRowToTrade(results);
+
+            trades.add(trade);
+
+        }
+
+
+
         return trades;
+    }
+
+    private Trade mapRowToTrade(SqlRowSet results){
+
+        Trade trade = new Trade();
+
+        trade.setTradeId(results.getInt("trade_id"));
+
+        int fromPokemonId = results.getInt("from_pokemon");
+        int toPokemonId = results.getInt("to_pokemon");
+
+        trade.setTradeStatus(results.getString("trade_status"));
+
+        trade.setRequestedPokemon(pokemonDao.getPokemonById(toPokemonId));
+        trade.setOfferedPokemon(pokemonDao.getPokemonById(fromPokemonId));
+
+        trade.setReceiverCollection(collectionDao.getCollectionByCollectionId(trade.getRequestedPokemon().getCollectionId()));
+        trade.setRequestorCollection(collectionDao.getCollectionByCollectionId(trade.getOfferedPokemon().getCollectionId()));
+
+        trade.setTradeInitiator(userDao.getUserById(trade.getRequestorCollection().getUserId()));
+        trade.setTradeReceiver(userDao.getUserById(trade.getReceiverCollection().getUserId()));
+
+        return trade;
+
+
     }
 
     private User mapRowToUser(SqlRowSet rs) {
@@ -60,6 +116,8 @@ public class JdbcTradeDao implements TradeDao{
 
         return pokemon;
     }
+
+
 
 }
 
