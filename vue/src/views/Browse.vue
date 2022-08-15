@@ -82,20 +82,20 @@ export default {
 
                 if(this.filter.username != ""){
                     filtered = filtered.filter( (currentCollection) => {
-                        return currentCollection.owner.startsWith(this.filter.username);
+                        return currentCollection.owner.toLowerCase().startsWith(this.filter.username.toLowerCase());
                     });                    
                 }
                 
                 if(this.filter.collection != ""){
                     filtered = filtered.filter( (currentCollection) => {
-                        return currentCollection.name.startsWith(this.filter.collectionName)
+                        return currentCollection.name.toLowerCase().startsWith(this.filter.collectionName.toLowerCase());
                     });
                 }
                 
                 if(this.filter.pokemon != ""){
                     filtered = filtered.filter( (currentCollection) => {
                         for(let pokemon of currentCollection.pokemon){
-                            if (pokemon.species.startsWith(this.filter.pokemon.toLowerCase())){
+                            if (pokemon.species.toLowerCase().startsWith(this.filter.pokemon.toLowerCase())){
                                 return true;
                             }
                         }
@@ -147,9 +147,6 @@ export default {
                             
                         });
                                 
-
-
-
 
     }
 
