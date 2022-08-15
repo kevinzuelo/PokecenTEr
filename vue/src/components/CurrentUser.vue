@@ -2,7 +2,7 @@
 <div id="header">
   <img src="..\images\PokecenterUpdated.png" class="header-img"/>
   <div id="user">
-          <img  v-bind:src="user.iconUrl">
+          <img v-bind:src="require(`../images/Icons/${image}`)" v-if="isLoaded" >
           <div id="user-id">
     <h2>Hi, {{user.username}}</h2>
     <h3 v-if="user.authorities[0].name == 'ROLE_PREMIUM_USER'">PREMIUM</h3>
@@ -23,9 +23,21 @@
 <script>
 import '@fortawesome/fontawesome-free/css/all.css'
 
+// import image from "../images/Icons-04.png";
+
 export default {
     name: 'user-info',
-    props: ["user"]
+    props: ["user"],
+    data() {
+      return {
+        image: '',
+        isLoaded: false
+      }
+    },
+    created () {
+      this.image = this.user.iconUrl
+      this.isLoaded = true;
+    }
 
 }
 </script>
