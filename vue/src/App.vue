@@ -37,13 +37,24 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@500&display=swap');
 
 
 html {
-  background-image: radial-gradient(#0b1c8a, #030b42);
+  background-image: url('../src/images/Background2.png');
+  background-repeat: no-repeat;
+  background-position: top;
   height: 100%;
-  font-family: 'Rubik', sans-serif;
-  
+  /* font-family: 'Rubik', sans-serif; */
+/* font-family: 'Carter One', cursive; */
+font-family: 'Changa One', cursive;
+/* font-family: 'Racing Sans One', cursive; */
+  /* letter-spacing: 1px; */
+  /* font-family: 'Lilita One', cursive; */
+font-family: 'Signika Negative', sans-serif;
 }
 
 button:hover {

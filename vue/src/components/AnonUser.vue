@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <img src="..\images\Pokecenter-logo.png" class="header-img" />
+    <img src="..\images\PokecenterUpdated.png" class="header-img" />
     <div id="anon-user">
       <router-link id="login" v-bind:to="{ name: 'login' }">
         <div id="login">
@@ -47,8 +47,8 @@ export default {
 
 .header-img {
   position: relative;
-  top: 20px;
-  left: 20px;
+  top: 0px;
+  left: 0px;
   width: 35%;
   height: 35%;
   max-width: 400px;

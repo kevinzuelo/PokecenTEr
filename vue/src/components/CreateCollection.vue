@@ -79,7 +79,8 @@ export default {
 
 <style>
     h1 {
-        color: #ffe019;
+        color: white;
+          letter-spacing: 2px;
         text-align: center;
         align-content: center;
         justify-content: center;
