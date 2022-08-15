@@ -180,10 +180,11 @@ export default {
     },
     resetForm() {
         this.newPokemon.species = "",
-        this.newPokemon.level = "",
+        this.newPokemon.level = 1,
         this.newPokemon.isShiny = "",
         this.newPokemon.notes = "",
-        this.showForm = true;
+        this.showForm = true,
+        this.validPokemon = false;
     },
     similarPokemonNames() {
       if(this.newPokemon.species.length>0){
@@ -234,6 +235,7 @@ export default {
 }
 
 #add-pokemon-page {
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;

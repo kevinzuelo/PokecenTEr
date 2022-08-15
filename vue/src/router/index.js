@@ -95,16 +95,30 @@ const router = new Router({
           .then( (response) => {
 
             collection = response.data;
-            if(collection.isPrivate && store.state.token === ''){
-              next("/redirect");
-            }
-            else {
+            
+            if(!collection.isPrivate  || store.state.token != '' || (store.state.currentCollection && store.state.currentCollection.collectionId === collectionId)){
               next();
+            }
+            else if(to.query.key){
+              collectionService.getLinkAuthorization(collectionId, to.query.key)
+                            .then( (response) => {
+                              if(response.data == 'Authorized'){
+                                store.commit('SET_CURRENT_COLLECTION', collection)
+                                next();
+                              }
+                              else{
+                                next("/redirect");
+                              }
+                            });
+            }
+            else{
+              next("/redirect");
             }
 
           });
-          
         }
+          
+        
       },
 
     {
@@ -137,11 +151,11 @@ const router = new Router({
         .then( (response) => {
 
           collection = response.data;
-          if(collection.isPrivate && store.state.token === ''){
-            next("/redirect");
+          if(!collection.isPrivate || store.state.token != '' || store.state.currentCollection.collectionId === collectionId){
+            next();
           }
           else {
-            next();
+            next("/redirect");
           }
 
         })

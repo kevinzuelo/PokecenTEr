@@ -40,6 +40,14 @@ export default {
 
   deleteCollection(collectionId) {
     return axios.delete(`/collections/${collectionId}`);
+  },
+
+  getLinkAuthorization(collectionId, key) {
+    return axios.get(`/collections/${collectionId}/${key}`);
+  },
+
+  getLinkKeyByCollectionId(collectionId){
+    return axios.get(`/collections/${collectionId}/key`);
   }
 
 }

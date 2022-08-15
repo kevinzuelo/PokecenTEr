@@ -8,6 +8,7 @@ import java.util.Random;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class JdbcCollectionDao implements CollectionDao{
@@ -51,11 +52,17 @@ public class JdbcCollectionDao implements CollectionDao{
 
     @Override
     public int createCollection(Collection collection){
-        String sql = "INSERT INTO collections (collection_name, user_id, is_private) " +
-                "VALUES (?,?,?) RETURNING collection_id;";
+
+        UUID randomUUID = UUID.randomUUID();
+
+        String linkKey = randomUUID.toString().replace("-","");
+
+
+        String sql = "INSERT INTO collections (collection_name, user_id, is_private, link_key) " +
+                "VALUES (?,?,?,?) RETURNING collection_id;";
 
         Integer collectionId = jdbcTemplate.queryForObject(sql, Integer.class, collection.getName(),
-                collection.getUserId(), collection.getIsPrivate());
+                collection.getUserId(), collection.getIsPrivate(), linkKey);
         return collectionId;
     }
 
@@ -123,6 +130,22 @@ public class JdbcCollectionDao implements CollectionDao{
         jdbcTemplate.update(sql, collection.getName(), collection.getIsPrivate(), collectionId);
 
 
+    }
+
+    @Override
+    public String getLinkKeyByCollectionId(int collectionId){
+        String sql = "SELECT link_key " +
+                    "FROM collections " +
+                    "WHERE collection_id = ?;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, collectionId);
+
+        String linkKey = "";
+        if(results.next()) {
+            linkKey = results.getString("link_key");
+        }
+
+        return linkKey;
     }
 
     private Collection mapRowToCollection(SqlRowSet collectionMap) {

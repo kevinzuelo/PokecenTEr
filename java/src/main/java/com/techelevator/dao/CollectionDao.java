@@ -23,4 +23,6 @@ public interface CollectionDao {
     Collection getCollectionByCollectionId(int collectionId);
 
     void updateCollection(int collectionId, Collection collection);
+
+    String getLinkKeyByCollectionId(int collectionId);
 }
