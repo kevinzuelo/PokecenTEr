@@ -29,14 +29,14 @@ export default {
     name: 'move-pokemon-form',
     components: {CollectionPreview},
      created() {
-    CollectionService.getCollectionsByUserId(this.$store.state.user.id).then((response) => {
-      this.collections = response.data;
-      console.log(response.data)
-    }),
-    PokemonService.getPokemonByPokemonId(this.$route.params.id).then((response) => {
+        PokemonService.getPokemonByPokemonId(this.$route.params.id).then((response) => {
       this.pokemon = response.data;
       this.currentCollectionId = response.data.collectionId
+       CollectionService.getCollectionsByUserId(this.$store.state.user.id).then((response) => {
+      this.collections = response.data.filter((collection) => collection.collectionId != this.pokemon.collectionId);
     })
+    })
+   
   },
   methods: {
       select(collection) {
@@ -86,7 +86,7 @@ export default {
 }
 
 .collection-container:hover {
-  box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.3);
+  box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.65);
     outline-offset: -5px;
 }
 

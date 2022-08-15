@@ -48,7 +48,7 @@
       <public-collection-preview v-for="collection in recentCollections" v-bind:key="collection.id" v-bind:collection="collection" />
     </div>
     <router-link v-bind:to="{ name: 'browse' }">
-      <button>Browse All Collections</button>
+      <button class="browse-all-collections-button">Browse All Collections</button>
     </router-link>
   </div>
 </template>
@@ -110,11 +110,12 @@ export default {
   }
 
   div#login {
-    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    
   }
 
   form.form-signin {
@@ -122,7 +123,7 @@ export default {
     flex-direction: column;
     background-color:rgb(4, 4, 48);
     color: #ffe019;
-    padding: 20px 40px 20px 40px;
+    padding: 10px 40px 20px 40px;
     border-radius: 10px;
     gap: 10px;
     width: 300px;
@@ -138,17 +139,15 @@ export default {
   }
 
   .top-img {
-    max-height: 175px;
-    position: relative;
-    top:175px;
-    margin: 30px;
+    top: 0;
+    max-width: 40%;
+    min-width: 400px
   }
 
   #top-blurb {
     text-align: center;
     color: white;
     font-weight: bold;
-    margin-top: 140px;
     font-size: 1.25em;
   }
   h3 {
@@ -156,6 +155,21 @@ export default {
     color: white;
     font-weight: bold;
     margin: 30px;
+    top: 580px;
+  }
+
+  #recent-collections {
+    margin: 30px;
+  }
+  .browse-all-collections-button {
+    text-align: center;
+    margin-bottom: 40px;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    
   }
 
 </style>

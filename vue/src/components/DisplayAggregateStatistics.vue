@@ -91,7 +91,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 10px;
   color: white;
-  border-radius: 30px;
+  border-radius: 10px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -99,6 +99,7 @@ export default {
   width: 90%;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
 }
 
 .inner-statistics-container {
@@ -113,7 +114,6 @@ export default {
   gap: 0px 10px;
   justify-content: center;
   align-items: center;
-  
 }
 h1 {
   font-size: 1.5em;

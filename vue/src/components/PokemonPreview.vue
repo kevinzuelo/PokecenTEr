@@ -116,6 +116,9 @@ export default {
     border-radius: 4px;
     min-width: 115px;
   }
+
+
+
   .type-image {
     width: 50px;
     margin: 2px;
