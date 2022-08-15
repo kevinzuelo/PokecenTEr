@@ -14,21 +14,21 @@
     />
     <p class="notes" v-if="this.pokemon.notes != ''">{{ pokemon.notes }}</p>
 
-    <div id="pokemon-detail-buttons">
-      <pokemon-preview-buttons v-bind:pokemon="this.pokemon" v-if="isMine"/>
+    <div id="pokemon-modify-buttons">
+      <pokemon-modify-buttons v-bind:pokemon="this.pokemon" v-if="isMine"/>
     </div>
 
   </div>
 </template>
 
 <script>
-import PokemonPreviewButtons from './PokemonPreviewButtons.vue';
+import PokemonModifyButtons from './PokemonModifyButtons.vue';
 import PokemonService from '@/services/PokemonService.js'
 import CollectionService from '@/services/CollectionService.js'
 
 
 export default {
-  components: {  PokemonPreviewButtons },
+  components: {  PokemonModifyButtons },
   data() {
     return {
       typeArray: [],
@@ -190,7 +190,7 @@ export default {
   z-index: 2;
   left: -20px;
 }
-#pokemon-detail-buttons {
+#pokemon-modify-buttons {
   font-size: 1.5em;
   margin-bottom: 15px;
 }

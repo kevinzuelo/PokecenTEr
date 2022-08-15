@@ -24,7 +24,7 @@ export default {
         }
  
     },
-    name: "pokemon-preview-buttons",
+    name: "pokemon-modify-buttons",
     props: ["pokemon"],
     methods: {
         deletePoke() {

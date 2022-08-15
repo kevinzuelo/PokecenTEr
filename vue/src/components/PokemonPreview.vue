@@ -10,17 +10,17 @@
       </div>
       </router-link>
        
-        <pokemon-preview-buttons v-bind:pokemon="this.pokemon" v-if="isMine" ></pokemon-preview-buttons>
+        <pokemon-modify-buttons v-bind:pokemon="this.pokemon" v-if="isMine" ></pokemon-modify-buttons>
      
     </div>
 
 <!-- v-if="ownerId === $store.state.currentUser.userId" -->
 </template>
 <script>
-import PokemonPreviewButtons from './PokemonPreviewButtons.vue';
+import PokemonModifyButtons from './PokemonModifyButtons.vue';
 import CollectionService from '@/services/CollectionService.js'
 export default {
-  components: { PokemonPreviewButtons },
+  components: { PokemonModifyButtons },
     data() {
     return {
         typeArray: [],
