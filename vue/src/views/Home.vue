@@ -16,6 +16,7 @@
         <button>Browse All Collections</button>
       </router-link>
     </div>
+    <update-user-status v-if="isAdmin" />
   </div>
 </template>
 
@@ -25,6 +26,7 @@ import AddNewCollection from '../components/AddNewCollection.vue';
 import CollectionService from '../services/CollectionService';
 import DisplayAggregateStatistics from '../components/DisplayAggregateStatistics.vue';
 import PublicCollectionPreview from '@/components/PublicCollectionPreview.vue';
+import UpdateUserStatus from '../components/UpdateUserStatus.vue';
 
 export default {
   data() {
@@ -33,7 +35,7 @@ export default {
      recentCollections: []
     }
   },
-  components: { CollectionPreviewLink, AddNewCollection, DisplayAggregateStatistics, PublicCollectionPreview},
+  components: { CollectionPreviewLink, AddNewCollection, DisplayAggregateStatistics, PublicCollectionPreview, UpdateUserStatus},
   name: "home",
   created() {
     CollectionService.getCollectionsByUserId(this.$store.state.user.id).then((response) => {
@@ -44,6 +46,11 @@ export default {
     CollectionService.getRecentCollections().then(response =>{
       this.recentCollections = response.data;
     })
+  },
+  computed: {
+    isAdmin() {
+      return this.$store.state.user.authorities[0].name === "ROLE_ADMIN";
+    }
   }
 };
 </script>

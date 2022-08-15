@@ -7,6 +7,7 @@ import com.techelevator.dao.UserDao;
 import com.techelevator.model.Collection;
 import com.techelevator.model.Pokemon;
 import com.techelevator.model.User;
+import com.techelevator.model.UserUpdate;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,4 +30,13 @@ public class UserController {
         return userDao.getUserById(id);
     }
 
+    @RequestMapping(path = "/users", method = RequestMethod.GET)
+    public List<User> getAllUsers(){
+        return userDao.findAll();
+    }
+
+    @RequestMapping (path = "users/{id}", method = RequestMethod.PUT)
+    public void updateUser(@PathVariable("id") int userId, @RequestBody UserUpdate user){
+        userDao.updateUser(user);
+    }
 }

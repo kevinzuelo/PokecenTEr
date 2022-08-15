@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.techelevator.model.Authority;
 import com.techelevator.model.UserNotFoundException;
+import com.techelevator.model.UserUpdate;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -92,6 +94,19 @@ public class JdbcUserDao implements UserDao {
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
 
         return jdbcTemplate.update(insertUserSql, username, password_hash, ssRole, email, continent, iconUrl) == 1;
+    }
+
+    @Override
+    public boolean updateUser(UserUpdate user) {
+
+
+
+        String insertUserSql =  "UPDATE users " +
+                                "SET username = ? , role = ? , email = ? , continent = ? , icon = ? " +
+                                "WHERE user_id = ? ";
+
+
+        return jdbcTemplate.update(insertUserSql, user.getUsername(), user.getRole(), user.getEmail(), user.getContinent(), user.getIconUrl(), user.getId()) == 1;
     }
 
     private User mapRowToUser(SqlRowSet rs) {
