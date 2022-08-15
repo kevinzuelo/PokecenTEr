@@ -16,6 +16,7 @@ import NotFound from '@/views/NotFound.vue'
 import UpdatePokemon from '../views/UpdatePokemon.vue'
 import MovePokemon from '../views/MovePokemon.vue'
 import Browse from '@/views/Browse.vue'
+import BulkAdd from '@/views/BulkAdd.vue'
 
 
 Vue.use(Router)
@@ -125,6 +126,14 @@ const router = new Router({
       path: "/collection/:id/addPokemon",
       name: "add-pokemon",
       component: AddPokemon,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/bulkAdd",
+      name: "bulk-add",
+      component: BulkAdd,
       meta: {
         requiresAuth: true
       }
