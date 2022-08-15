@@ -6,6 +6,7 @@ public class Collection {
     private String name;
     private int  userId;
     private boolean isPrivate;
+    private String linkKey;
 
     public Collection(int collectionId, String name, int userId, boolean isPrivate) {
         this.collectionId = collectionId;
@@ -18,6 +19,13 @@ public class Collection {
 
     }
 
+    public String getLinkKey() {
+        return linkKey;
+    }
+
+    public void setLinkKey(String linkKey) {
+        this.linkKey = linkKey;
+    }
 
     public int getCollectionId() {
         return collectionId;

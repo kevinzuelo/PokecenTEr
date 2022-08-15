@@ -2,7 +2,7 @@
   <div>
     <div class="flexing">
     <pokemon-details v-bind:pokemon="pokemon" />
-    <back-to-collection-button v-bind:pokemon="pokemon" v-bind:ownerId="ownerId" />
+    <back-to-collection-button v-bind:pokemon="pokemon" />
   </div>
   </div>
 </template>

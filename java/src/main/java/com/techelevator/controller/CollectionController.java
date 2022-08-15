@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.CollectionDao;
 
 import com.techelevator.dao.PokemonDao;
+import com.techelevator.exception.LinkNotAuthorizedException;
 import com.techelevator.model.Collection;
 import com.techelevator.model.Pokemon;
 import org.springframework.http.HttpStatus;
@@ -98,6 +99,22 @@ public class CollectionController {
         collectionDao.updateCollection(updatedCollectionId, updatedCollection);
     }
 
+    @RequestMapping(path = "/collections/{id}/{key}", method = RequestMethod.GET)
+    public String authorizeLink(@PathVariable("id") int collectionId, @PathVariable("key") String key) throws LinkNotAuthorizedException {
+        String actualKey = collectionDao.getLinkKeyByCollectionId(collectionId);
+
+        if(!key.equals(actualKey)) {
+            throw new LinkNotAuthorizedException("The key does not match.");
+        }
+        else{
+            return "Authorized";
+        }
+    }
+
+    @RequestMapping(path = "/collections/{id}/key", method = RequestMethod.GET)
+    public String getLinkKey(@PathVariable("id") int collectionId){
+        return collectionDao.getLinkKeyByCollectionId(collectionId);
+    }
 
 }
 

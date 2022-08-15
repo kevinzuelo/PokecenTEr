@@ -15,6 +15,7 @@
       <h1>{{ collection.name }}</h1>
       <i id="edit" class="fa-solid fa-pen-to-square" v-on:click="editingName=true" v-if="isMine" ></i>
     </div>
+    
   </div>
 
   <table id="collection-filter">
@@ -77,13 +78,20 @@
   <router-link v-bind:to="{name: 'home'}" v-else>
 
   </router-link>
-  <button id="privacy-button" v-on:click.prevent="togglePrivacy()" v-if="isMine" >
-    <img v-bind:src="privacyImage"/>
-    <p>{{ collection.isPrivate ? "PRIVATE! click to make public" : "PUBLIC! click to make private"}}</p>
-  </button>
-  <router-link v-bind:to="{name: 'browse'}" v-else>
-    <button>Browse Collections</button>
-  </router-link>
+  <div id="privacy-button-container">
+    <button id="privacy-button" v-on:click.prevent="togglePrivacy()" v-if="isMine" >
+      <img v-bind:src="privacyImage"/>
+      <p>{{ collection.isPrivate ? "PRIVATE! click to make public" : "PUBLIC! click to make private"}}</p>
+    </button>
+    <router-link v-bind:to="{name: 'browse'}" v-else>
+      <button>Browse Collections</button>
+    </router-link>
+  </div>
+  
+  <div id="share-collection" v-if="isMine">
+      <h4>Share this link with a friend to show them your collection!</h4>
+      <p>{{ shareCollectionLink }}</p>
+  </div>
   
   <div id="delete-collection-alert" v-if="deleteAlert">
           <h3>Are you sure you want to delete this collection? All pokemon in collection will be released.</h3>
@@ -91,7 +99,8 @@
             <button id ="deleteButton" v-on:click.prevent="deleteCollection" title="Delete">Yes</button>
             <button v-on:click="deleteAlert = false">No</button>
           </div>
-      </div>
+  </div>
+  
 </div>
 
 </template>
@@ -109,6 +118,7 @@ export default {
 
     return {
       deleteAlert: false,
+      shareCollectionLink: "",
       filter: {
         species: "",
         type: "",
@@ -226,8 +236,18 @@ export default {
 
       CollectionService.getCollectionByCollectionId(this.$route.params.id).then((response) => {
         this.collection = response.data;
+
+        if(this.$store.state.token != "" && (this.collection.userId === this.$store.state.user.id)){
+          CollectionService.getLinkKeyByCollectionId(this.$route.params.id)
+                            .then( (response) => {
+                              if(response.status === 200){
+                                this.shareCollectionLink = window.location.origin + this.$route.path + "?key=" + response.data;
+                              }
+                            });
+        }
       })
 
+      
       
     }
   }
@@ -242,10 +262,10 @@ export default {
   display: grid;
   
   grid-template-areas:
-    "name filter stats"
-    "collection-container collection-container stats"
-    "delete-button privacy-button stats";
-  grid-template-columns: 2fr 2fr 1fr;
+    "name filter privacy-button stats"
+    "collection-container collection-container collection-container stats"
+    "delete-button . share-collection share-collection";
+  grid-template-columns: 2fr 2fr 2fr 1fr;
   margin: 60px 30px 30px 30px;
   gap: 25px;
   width: 95%;
@@ -260,12 +280,22 @@ export default {
   flex-wrap: wrap;
   gap: 20px;
   width: auto;
-  height:auto;
+  height: auto;
   align-items: center;
+  min-height: 600px;
+}
+
+#privacy-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-area: privacy-button;
 }
 
 #name {
+  
   grid-area: name;
+  align-self: end;
 }
 
 #delete-button {
@@ -288,10 +318,12 @@ export default {
   color: #ffe019;
   padding: 10px;
   max-height: 50px;
+  align-self: end;
+  
+  
 }
 
 #privacy-button {
-  grid-area: privacy-button;
   background-color: #030b42;
   display:flex;
   justify-content: center;
@@ -299,7 +331,7 @@ export default {
   gap: 20px;
   color: white;
   max-width: 400px;
-  font-size: 1.5em;
+  font-size: 1.2em;
   height: 125px;
   justify-self: right;
   border: 3px solid #000835;
@@ -322,6 +354,7 @@ export default {
   align-items: center;
   gap: 10px;
   font-size: 1.5em;
+  justify-content: center;
 }
 
 #edit-name {
@@ -362,6 +395,14 @@ div#alertbuttons {
   cursor: pointer;
   color: green;
   transform: scale(1.2);
+}
+
+#share-collection {
+  text-align: center;
+  grid-area: share-collection;
+  background-color: rgba(0,0,0,0.5);
+  color: yellow;
+  padding: 10px;
 }
   
 

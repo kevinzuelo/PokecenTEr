@@ -54,7 +54,7 @@ export default {
         padding: 20px;
         border-radius: 20px;
         gap: 10px;
-        
+        text-align: center;
     }
 
     img {
