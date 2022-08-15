@@ -4,7 +4,7 @@
           <i id="edit" class="fa-solid fa-pen-to-square"></i>
       </router-link>
       <i id="delete" class= "fa-solid fa-trash-can" v-on:click="deleteAlert = true"></i>
-      <router-link :to="{ name: 'move', params: { id: this.pokemon.pokemonId } }" v-if="this.$route.name != 'move'">
+      <router-link :to="{ name: 'move', params: { id: this.pokemon.pokemonId } }" v-if="this.$route.name != 'move' && collectionLength > 1">
       <i id="move" class="fa-solid fa-arrow-right"></i>
       </router-link>
       <div id="alert" v-if="deleteAlert">
@@ -17,10 +17,12 @@
 
 <script>
 import PokemonService from '../services/PokemonService'
+import CollectionService from '../services/CollectionService.js'
 export default {
     data() {
         return{
-            deleteAlert: false
+            deleteAlert: false,
+            collectionLength: 0
         }
  
     },
@@ -34,7 +36,12 @@ export default {
             }
             this.$router.push({ name: 'collection', params: {id: this.pokemon.collectionId}});
         }
-    }    
+    },
+    created() {
+            CollectionService.getCollectionsByUserId(this.$store.state.user.id).then((response) => {
+      this.collectionLength = response.data.length;
+    })
+    }  
 
 }
 </script>

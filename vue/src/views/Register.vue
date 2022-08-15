@@ -65,25 +65,44 @@
       <h3>Choose your icon:</h3>
       <div class="icon-menu">
         <div class="icon-choice">
-          <label for="pikachu"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"></label>
-          <input type="radio" id="pikachu" name="icon" v-model="user.iconUrl" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png">
+          <label for="pikachu"><img src="../images/Icons-04.png" class="icon-image"></label>
+          <input type="radio" id="pikachu" name="icon" v-model="user.iconUrl" value="Icons-04.png">
         </div>
 
         <div class="icon-choice">
-          <label for="bulbasaur"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"></label>
-          <input type="radio" id="bulbasaur" name="icon" v-model="user.iconUrl" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png">
+          <label for="bulbasaur"><img src="..\images\Icons\Icons-03.png" class="icon-image"></label>
+          <input type="radio" id="bulbasaur" name="icon" v-model="user.iconUrl" value="Icons-03.png">
         </div>
 
         <div class="icon-choice">
-          <label for="charmander"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"></label>
-          <input type="radio" id="charmander" name="icon" v-model="user.iconUrl" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png">
+          <label for="charmander"><img src="..\images\Icons\Icons-02.png" class="icon-image"></label>
+          <input type="radio" id="charmander" name="icon" v-model="user.iconUrl" value="Icons-02.png">
         </div>
 
         <div class="icon-choice">
-          <label for="squirtle"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"></label>
-          <input type="radio" id="squirtle" name="icon" v-model="user.iconUrl" value="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png">
+          <label for="squirtle"><img src="..\images\Icons\Icons-01.png" class="icon-image"></label>
+          <input type="radio" id="squirtle" name="icon" v-model="user.iconUrl" value="Icons-01.png">
         </div>
 
+        <div class="icon-choice">
+          <label for="green"><img src="..\images\Icons\Icons-05.png" class="icon-image"></label>
+          <input type="radio" id="squirtle" name="icon" v-model="user.iconUrl" value="Icons-05.png">
+        </div>        
+
+        <div class="icon-choice">
+          <label for="pink"><img src="..\images\Icons\Icons-06.png" class="icon-image"></label>
+          <input type="radio" id="squirtle" name="icon" v-model="user.iconUrl" value="Icons-06.png">
+        </div>
+
+        <div class="icon-choice">
+          <label for="blue"><img src="..\images\Icons\Icons-07.png" class="icon-image"></label>
+          <input type="radio" id="squirtle" name="icon" v-model="user.iconUrl" value="Icons-07.png">
+        </div>        
+
+        <div class="icon-choice">
+          <label for="orange"><img src="..\images\Icons\Icons-08.png" class="icon-image"></label>
+          <input type="radio" id="squirtle" name="icon" v-model="user.iconUrl" value="Icons-08.png">
+        </div>
       </div >
       <div class="buttons">
       <button
@@ -193,6 +212,7 @@ label {
 
 .icon-menu {
   display: flex;
+  gap: 10px;
 }
 .icon-choice{
   display: flex;
@@ -205,5 +225,7 @@ label {
   flex-direction: column;
   align-items: center;
 }
-
+.icon-image {
+  max-width: 70px;
+}
 </style>
