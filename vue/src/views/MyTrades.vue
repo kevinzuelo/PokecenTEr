@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div id="all-trades">
+      <h1>My Trades</h1>
         <trade-requests />
         <pending-trades />
         <trade-history />

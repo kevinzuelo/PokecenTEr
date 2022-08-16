@@ -1,20 +1,21 @@
 <template>
-    <div id="trade-request-component">
+    <div id="trade-request-component" class="trade-tables">
         <h2>Trade Requests</h2>
-        <table>
+        <table v-if="trades.length > 0">
             <tr>
-                <th>My Pokemon</th>
+                <th>Requested Pokemon</th>
                 <th>Offered Pokemon</th>
                 <th>Requestor</th>
                 <th>Approve/Deny</th>
             </tr>
             <tr v-for="trade in trades" v-bind:key=trade.tradeId>
-                <td>Lvl {{trade.requestedPokemon.level }} {{trade.requestedPokemon.species}} <img v-bind:src="trade.requestedPokemon.imgSprite" /></td>
-                <td>Lvl {{trade.offeredPokemon.level }} {{trade.offeredPokemon.species}} <img v-bind:src="trade.offeredPokemon.imgSprite" /></td>
+                <td><div id="flex-in-table-row"><img v-bind:src="trade.requestedPokemon.imgSprite" /> Lvl {{trade.requestedPokemon.level }} {{trade.requestedPokemon.species}} </div></td>
+                <td><div id="flex-in-table-row"> <img v-bind:src="trade.offeredPokemon.imgSprite" /> Lvl {{trade.offeredPokemon.level }} {{trade.offeredPokemon.species}}</div></td>
                 <td>{{trade.tradeInitiator.username}}</td>
-                <td><button v-on:click="respondToTradeRequest(trade.tradeId, 'Approved')">Approve</button><button v-on:click="respondToTradeRequest(trade.tradeId, 'Rejected')" >Reject</button></td>
+                <td><button v-on:click="respondToTradeRequest(trade.tradeId, 'Approved')" id="approve-trade-button">Approve</button><button v-on:click="respondToTradeRequest(trade.tradeId, 'Rejected')" >Reject</button></td>
             </tr>
         </table>
+        <h2 v-else class="no-trades">No trade requests yet...</h2>
     </div>
 </template>
 
@@ -64,8 +65,14 @@ export default {
 </script>
 
 <style>
-#trade-request-component{
+/* #trade-request-component{
     background-color: white;
+} */
+#approve-trade-button{
+    background-color: rgb(0, 180, 0);
+}
+#approve-trade-button:hover {
+    background-color: rgb(0, 90, 0);
 }
 
 </style>

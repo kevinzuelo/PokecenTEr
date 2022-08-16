@@ -1,7 +1,7 @@
 <template>
-    <div id="trade-request-component">
-        <h2>Trade Requests</h2>
-        <table>
+    <div id="pending-trades-component" class="trade-tables">
+        <h2>Pending Requests</h2>
+        <table v-if="trades.length > 0">
             <tr>
                 <th>Requested Pokemon</th>
                 <th>From</th>
@@ -9,12 +9,13 @@
                 <th>Trade Status</th>
             </tr>
             <tr v-for="trade in trades" v-bind:key=trade.tradeId>
-                <td>Lvl {{trade.requestedPokemon.level }} {{trade.requestedPokemon.species}} <img v-bind:src="trade.requestedPokemon.imgSprite" /></td>
+                <td><div id="flex-in-table-row"><img v-bind:src="trade.requestedPokemon.imgSprite" />Lvl {{trade.requestedPokemon.level }} {{trade.requestedPokemon.species}} </div></td>
                 <td>{{trade.tradeReceiver.username}}</td>
-                <td>Lvl {{trade.offeredPokemon.level }} {{trade.offeredPokemon.species}} <img v-bind:src="trade.offeredPokemon.imgSprite" /></td>
+                <td><div id="flex-in-table-row"><img v-bind:src="trade.offeredPokemon.imgSprite" />Lvl {{trade.offeredPokemon.level }} {{trade.offeredPokemon.species}} </div></td>
                 <td>Pending</td>
             </tr>
         </table>
+        <h2 v-else class="no-trades">No pending trades...</h2>
     </div>
 </template>
 
@@ -64,8 +65,8 @@ export default {
 </script>
 
 <style>
-#trade-request-component{
+/* #pending-trades-component{
     background-color: white;
-}
+} */
 
 </style>
