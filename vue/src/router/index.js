@@ -18,6 +18,7 @@ import MovePokemon from '../views/MovePokemon.vue'
 import Browse from '@/views/Browse.vue'
 import BulkAdd from '@/views/BulkAdd.vue'
 import Export from '@/views/Export.vue'
+import MyTrades from '@/views/MyTrades.vue'
 
 
 Vue.use(Router)
@@ -207,6 +208,13 @@ const router = new Router({
       path:"/collection/:id/export",
       name: "export",
       component: Export
+    },
+
+    {
+      path: '/user/:id/trades',
+      name: 'my-trades',
+      component: MyTrades
+
     }
   ]
 })

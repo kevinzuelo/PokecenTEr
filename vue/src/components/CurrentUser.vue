@@ -51,6 +51,7 @@ a {
 #user-id > h2{
 margin: 0px;
 text-align: center;
+color: white;
 }
 
 #user-id > h3{
@@ -83,7 +84,7 @@ div#user {
    max-width: 350px
  }
  #icon {
-   width: 60px
+   width: 55px;
  }
 
  #logout {
@@ -109,6 +110,9 @@ max-width: 400px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+h4 {
+  margin-top: -1px;
 }
 
 </style>

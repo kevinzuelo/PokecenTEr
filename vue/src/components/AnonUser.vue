@@ -1,16 +1,15 @@
 <template>
-  <div id="header">
+  <div id="anon-user-header">
     <img src="..\images\PokecenterUpdated.png" class="header-img" />
-    <div id="anon-user">
-      <router-link id="login" v-bind:to="{ name: 'login' }">
+
+      <router-link v-bind:to="{ name: 'login' }">
         <div id="login">
             <i class="fa-solid fa-door-open"></i>
             <br>
-            <h4>Go to Login</h4>
-
+            <h4 id="login-text">Go to Login</h4>
         </div>
       </router-link>
-    </div>
+
   </div>
 </template>
 
@@ -33,17 +32,14 @@ export default {
   padding: 15px;
   align-items: center;
   justify-content: center;
-  position: relative;
-  top: -8px;
-  right: -8px;
-  width: 200px;
-  height: 50px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 15%;
+  max-height: 70px;
   gap: 10px;
 }
 
-#login div {
-  text-align: center;
-}
 
 .header-img {
   position: relative;
@@ -62,6 +58,12 @@ export default {
 
 .fa-door-open {
   font-size: 1.5em;
+}
+
+#login-text {
+  font-size: 1.25em;
+  justify-content: center;
+  margin: 0px; 
 }
 
 </style>
