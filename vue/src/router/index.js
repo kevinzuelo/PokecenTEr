@@ -132,7 +132,7 @@ const router = new Router({
       }
     },
     {
-      path: "/bulkAdd",
+      path: "/collection/:id/import",
       name: "bulk-add",
       component: BulkAdd,
       meta: {
