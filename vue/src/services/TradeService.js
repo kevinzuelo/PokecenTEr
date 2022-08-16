@@ -16,8 +16,11 @@ export default {
         return axios.post(`/trades`, pokemon);
   },
 
-  updateTrade(updatedTrade) {
-    return axios.put(`/trades/${updatedTrade.tradeId}`, updatedTrade);
+  updateTrade(tradeId, tradeStatus) {
+
+
+    let approval = { approvalStatus: tradeStatus }
+    return axios.put(`/trades/${tradeId}`, approval);
   },
 
   deleteTrade(tradeId) {

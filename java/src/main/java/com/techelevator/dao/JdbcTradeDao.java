@@ -37,12 +37,11 @@ public class JdbcTradeDao implements TradeDao{
         List<Trade> trades = new ArrayList<>();
 
         String sql = "SELECT * FROM trades " +
-                    "WHERE from_pokemon IN (SELECT pokemon_id FROM pokemon WHERE collection_id IN (SELECT collection_id FROM collections WHERE user_id = ? )) OR " +
-                    "to_pokemon IN (SELECT pokemon_id FROM pokemon WHERE collection_id IN (SELECT collection_id FROM collections WHERE user_id = ? ))";
+                    "WHERE requested_pokemon_owner = ? OR offered_pokemon_owner = ? ;";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId, userId);
 
-        System.out.println("Test");
+
         while(results.next()){
 
             Trade trade = mapRowToTrade(results);
@@ -54,13 +53,17 @@ public class JdbcTradeDao implements TradeDao{
     }
 
     @Override
-    public int createTrade(int requestedPokemon, int offeredPokemon){
+    public int createTrade(int requestedPokemonId, int offeredPokemonId){
 
-        String sql = "INSERT INTO trades (from_pokemon, to_pokemon, trade_status) " +
-                    "VALUES ( ? , ? , 'Pending' ) " +
+        int requestedOwner = collectionDao.getCollectionByCollectionId(pokemonDao.getPokemonById(requestedPokemonId).getCollectionId()).getUserId();
+        int offeredOwner = collectionDao.getCollectionByCollectionId(pokemonDao.getPokemonById(offeredPokemonId).getCollectionId()).getUserId();
+
+
+        String sql = "INSERT INTO trades (requested_pokemon, offered_pokemon, trade_status, requested_pokemon_owner, offered_pokemon_owner) " +
+                    "VALUES ( ? , ? , 'Pending' , ? , ? ) " +
                     "RETURNING trade_id; ";
 
-        int tradeId = jdbcTemplate.queryForObject(sql, Integer.class, offeredPokemon, requestedPokemon);
+        int tradeId = jdbcTemplate.queryForObject(sql, Integer.class, requestedPokemonId, offeredPokemonId, requestedOwner, offeredOwner);
 
         return tradeId;
     };
@@ -116,19 +119,16 @@ public class JdbcTradeDao implements TradeDao{
 
         trade.setTradeId(results.getInt("trade_id"));
 
-        int fromPokemonId = results.getInt("from_pokemon");
-        int toPokemonId = results.getInt("to_pokemon");
+        int fromPokemonId = results.getInt("requested_pokemon");
+        int toPokemonId = results.getInt("offered_pokemon");
 
         trade.setTradeStatus(results.getString("trade_status"));
 
         trade.setRequestedPokemon(pokemonDao.getPokemonById(toPokemonId));
         trade.setOfferedPokemon(pokemonDao.getPokemonById(fromPokemonId));
 
-        trade.setReceiverCollection(collectionDao.getCollectionByCollectionId(trade.getRequestedPokemon().getCollectionId()));
-        trade.setRequestorCollection(collectionDao.getCollectionByCollectionId(trade.getOfferedPokemon().getCollectionId()));
-
-        trade.setTradeInitiator(userDao.getUserById(trade.getRequestorCollection().getUserId()));
-        trade.setTradeReceiver(userDao.getUserById(trade.getReceiverCollection().getUserId()));
+        trade.setTradeInitiator(userDao.getUserById(results.getInt("offered_pokemon_owner")));
+        trade.setTradeReceiver(userDao.getUserById(results.getInt("requested_pokemon_owner")));
 
         return trade;
     }

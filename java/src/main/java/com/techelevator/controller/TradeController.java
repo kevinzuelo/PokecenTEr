@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.PokemonDao;
 import com.techelevator.dao.TradeDao;
+import com.techelevator.model.Approval;
 import com.techelevator.model.Collection;
 import com.techelevator.model.Trade;
 import org.springframework.http.HttpStatus;
@@ -32,9 +33,9 @@ public class TradeController {
     }
 
     @RequestMapping(path = "/trades/{id}", method = RequestMethod.PUT)
-    public void updateTrade(@PathVariable("id") int tradeId, @RequestBody String tradeStatus)  {
-        System.out.println(tradeStatus);
-        tradeDao.updateTrade(tradeId, tradeStatus);
+    public void updateTrade(@PathVariable("id") int tradeId, @RequestBody Approval tradeStatus)  {
+
+        tradeDao.updateTrade(tradeId, tradeStatus.getApprovalStatus());
     }
 
     @RequestMapping(path = "/trades/{id}", method = RequestMethod.GET)
