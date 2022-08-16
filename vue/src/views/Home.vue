@@ -4,7 +4,7 @@
     <div id= "spacer"/>
       <h1>{{ $store.state.user.username }}</h1>
       <router-link  v-bind:to="{ name: 'my-trades', params: { id: this.$store.state.user.id }  }">
-        <h1 id="trades-button">MY TRADES <i class="fa-solid fa-arrow-right-arrow-left"></i> </h1>
+        <h1 id="trades-button">View my trades <i class="fa-solid fa-arrow-right-arrow-left"></i> </h1>
       </router-link>
     </div>
     <display-aggregate-statistics />
@@ -112,7 +112,7 @@ h1 {
 }
 
 #spacer {
-  width: 253px;
+  width: 360px;
 
 }
 
@@ -122,5 +122,7 @@ h1 {
   border-radius: 4px;
   font-family: 'Silkscreen', cursive;
   padding: 10px 20px;
+  width: 320px
+
 }
 </style>
