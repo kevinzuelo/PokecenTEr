@@ -16,7 +16,7 @@
         <button>Browse All Collections</button>
       </router-link>
     </div>
-    <update-user-status/>
+    <update-user-status v-if="isAdmin" />
   </div>
 </template>
 
@@ -27,12 +27,14 @@ import CollectionService from '../services/CollectionService';
 import DisplayAggregateStatistics from '../components/DisplayAggregateStatistics.vue';
 import PublicCollectionPreview from '@/components/PublicCollectionPreview.vue';
 import UpdateUserStatus from '../components/UpdateUserStatus.vue';
+import TradeService from '@/services/TradeService.js'
 
 export default {
   data() {
     return {
      collections : [],
-     recentCollections: []
+     recentCollections: [],
+     trades: []
     }
   },
   components: { CollectionPreviewLink, AddNewCollection, DisplayAggregateStatistics, PublicCollectionPreview, UpdateUserStatus},
@@ -41,11 +43,25 @@ export default {
     CollectionService.getCollectionsByUserId(this.$store.state.user.id).then((response) => {
       this.collections = response.data;
       console.log(response.data)
-    })
+    });
 
     CollectionService.getRecentCollections().then(response =>{
       this.recentCollections = response.data;
-    })
+    });
+
+    TradeService.getAllTradesByUserId(this.$store.state.user.id).then( (response) => {
+      console.log(response)
+      if(response.status === 200){
+        this.trades = response.data;
+      }
+    });
+
+ 
+  },
+  computed: {
+    isAdmin() {
+      return this.$store.state.user.authorities[0].name === "ROLE_ADMIN";
+    }
   }
 };
 </script>

@@ -67,7 +67,7 @@
 
 
   <div id="collection-container">
-    <pokemon-preview v-for="poke in filteredPokemon" v-bind:key="poke.pokemonId" v-bind:pokemon="poke" />
+    <pokemon-preview v-for="poke in filteredPokemon" v-bind:key="poke.pokemonId" v-bind:pokemon="poke" id="preview-hover-grow" />
     <add-pokemon class="add" v-if="isMine" />
   </div>
   <display-collection-statistics id="stats" v-bind:collectionId="this.$route.params.id" />
@@ -254,25 +254,21 @@ export default {
 </script>
 
 <style scoped>
-
-
-
-
 #collection-grid {
   display: grid;
-  
   grid-template-areas:
     "name filter privacy-button stats"
     "collection-container collection-container collection-container stats"
     "delete-button . share-collection share-collection";
   grid-template-columns: 2fr 2fr 2fr 1fr;
+  grid-template-rows: 130px auto auto;
   margin: 60px 30px 30px 30px;
   gap: 25px;
   width: 95%;
+  align-items:flex-start;
 }
 
 #collection-container {
-  
   grid-area: collection-container;
   background-color:rgba(0,0,0,0.5);
   padding: 30px;
@@ -282,7 +278,10 @@ export default {
   width: auto;
   height: auto;
   align-items: center;
-  min-height: 600px;
+  min-height: 280px;
+  box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+ 
 }
 
 #privacy-button-container {
@@ -293,9 +292,8 @@ export default {
 }
 
 #name {
-  
   grid-area: name;
-  align-self: end;
+  align-self: flex-start;
 }
 
 #delete-button {
@@ -318,9 +316,10 @@ export default {
   color: #ffe019;
   padding: 10px;
   max-height: 50px;
-  align-self: end;
-  
-  
+  align-self: flex-start;
+  box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  margin: 5px;
 }
 
 #privacy-button {
@@ -354,7 +353,8 @@ export default {
   align-items: center;
   gap: 10px;
   font-size: 1.5em;
-  justify-content: center;
+  justify-content: flex-start;
+
 }
 
 #edit-name {
@@ -404,6 +404,12 @@ div#alertbuttons {
   color: yellow;
   padding: 10px;
 }
+
+#collection-container :hover{
+
+    transform: scale(1.025);
+  }
+
   
 
 </style>

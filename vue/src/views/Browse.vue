@@ -117,13 +117,18 @@ export default {
                                 collections = response.data;
 
 
+                                
+
+
                                 if(this.$store.state.token === ""){
                                     this.visibleCollections = collections.filter( (collection) => {
                                         return !collection.isPrivate;
                                     });
                                 }
                                 else{
-                                    this.visibleCollections = collections;
+                                    this.visibleCollections = collections.filter( (collection) => {
+                                        return collection.userId != this.$store.state.user.id;
+                                    });
                                 }
                             }
 

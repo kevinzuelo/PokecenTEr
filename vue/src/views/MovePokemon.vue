@@ -2,6 +2,7 @@
     <div id="viewContainer">
       <pokemon-details v-bind:pokemon="this.pokemon"/>
             <div id="middleIcons">
+                <h1>Move Pokemon</h1>
                 <div id="gif">
                     <img src="../images/pikachu-running.gif">
                 </div>
@@ -36,6 +37,7 @@ export default {
         PokemonService.getPokemonByPokemonId(this.$route.params.id).then((response) => {
             this.pokemon = response.data;
         })
+       
   },
   methods: {
       goToCollection() {
@@ -46,19 +48,35 @@ export default {
 
 </script>
 
-<style >
+<style scoped>
+
 #viewContainer {
     display: flex;
     width: 100%;
     align-items: center;
 }
 
+
+
 #middleIcons {
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin: 30px;
-    padding: 10px;
+    border-radius: 20px;
+    background-color: rgba(0,0,0,0.3);
+    
+}
+
+h1 {
+    background-color: rgba(0,0,0,0.5);
+    padding: 20px;
+    border-radius: 20px 20px 0px 0px;
+    margin: 0px;
+}
+#middleIcons > div {
+ margin: auto;
+ 
 }
 
 #gif {
@@ -74,7 +92,7 @@ export default {
 #moveTo {
     font-size: 50px;
     color: #ffe019;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.4);
     height: auto;
     width: 80px;
     text-align: center;
@@ -95,9 +113,10 @@ export default {
     justify-content: space-evenly;
     justify-items: center;
     background-color: rgba(135,206,250,0.3);
-    border-radius: 10px;
+    border-radius: 0px 0px 20px 20px;
     color: white;
     font-size: 20px;
+    margin: 0px !important;
 }   
 
 #back:hover {

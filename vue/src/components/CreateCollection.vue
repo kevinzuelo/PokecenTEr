@@ -15,23 +15,17 @@
                 required
             />
 
-        <label for="is-private">Privacy Setting</label>
-        <select name="is-private" id="is-private" class="form-control" v-model="newCollection.isPrivate">
-            <option value="true">Private</option>
-            <option value="false">Public</option>
-        </select>
+            <label for="is-private">Privacy Setting</label>
+            <select name="is-private" id="is-private" class="form-control" v-model="newCollection.isPrivate">
+                <option value="true">Private</option>
+                <option value="false">Public</option>
+            </select>
 
-        <!-- <label for="game">Game</label>
-        <input
-            type="text"  
-            id="game" 
-            class="form-control" 
-            v-model="newCollection.game"
-            required
-        /> -->
-
-        <button v-on:click.prevent="addNewCollection()">ADD COLLECTION</button>
-
+       
+            <div id="collection-buttons">
+                <button v-on:click.prevent="addNewCollection()">ADD COLLECTION</button>
+                <router-link v-bind:to="{ name: 'home' }"><button>CANCEL</button></router-link>
+            </div>
         </form>
     </div>
     
@@ -120,5 +114,10 @@ export default {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
+
+    #collection-buttons {
+        display: flex;
+        gap: 20px;
     }
 </style>

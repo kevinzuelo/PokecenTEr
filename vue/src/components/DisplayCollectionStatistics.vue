@@ -98,6 +98,7 @@ h3 {
 
 .stat-container {
   background-color: rgb(0,0,0,0.5);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   color: #ffe019;
@@ -105,6 +106,7 @@ h3 {
   align-items: center;
   padding: 20px;
   max-height: 750px;
+  box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
   
 }
 #statistics-container {
