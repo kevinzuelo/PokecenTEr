@@ -346,6 +346,7 @@ label {
 }
 #instructions>h5 {
   padding: 3px;
+  font-size: 1.5em;
 }
 .valid-text {
   font-family: 'Silkscreen', cursive;

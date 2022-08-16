@@ -85,24 +85,10 @@
         </div>
 
         <div class="icon-choice">
-          <label for="green"><img src="..\images\Icons\Icons-05.png" class="icon-image"></label>
-          <input type="radio" id="squirtle" name="icon" v-model="user.iconUrl" value="Icons-05.png">
+          <label for="eevee"><img src="..\images\Icons\Icons-09.png" class="icon-image"></label>
+          <input type="radio" id="eevee" name="icon" v-model="user.iconUrl" value="Icons-09.png">
         </div>        
 
-        <div class="icon-choice">
-          <label for="pink"><img src="..\images\Icons\Icons-06.png" class="icon-image"></label>
-          <input type="radio" id="squirtle" name="icon" v-model="user.iconUrl" value="Icons-06.png">
-        </div>
-
-        <div class="icon-choice">
-          <label for="blue"><img src="..\images\Icons\Icons-07.png" class="icon-image"></label>
-          <input type="radio" id="squirtle" name="icon" v-model="user.iconUrl" value="Icons-07.png">
-        </div>        
-
-        <div class="icon-choice">
-          <label for="orange"><img src="..\images\Icons\Icons-08.png" class="icon-image"></label>
-          <input type="radio" id="squirtle" name="icon" v-model="user.iconUrl" value="Icons-08.png">
-        </div>
       </div >
       <div class="buttons">
       <button
@@ -131,7 +117,7 @@ export default {
         role: "user",
         email: "",
         continent: "",
-        iconUrl: "",
+        iconUrl: "Icons-04.png",
       },
       registrationErrors: false,
       registrationErrorMsg: "There were problems registering this user.",
@@ -213,6 +199,7 @@ label {
 .icon-menu {
   display: flex;
   gap: 10px;
+  justify-content: space-between;
 }
 .icon-choice{
   display: flex;
