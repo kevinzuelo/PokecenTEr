@@ -68,10 +68,6 @@ export default {
 
 <style scoped>
 
-display-aggregate-statistics {
-  display: none;
-}
-
 h1 {
   color: white;
   font-size: 2em;

@@ -10,7 +10,7 @@
  <img v-for="pokemon in usersPokemon" v-bind:key="pokemon.pokemonId" v-bind:src="pokemon.imgSprite" 
      v-on:click="select(pokemon)" v-bind:class="{selected: offeredPokemon == pokemon}"/>
         </div>
-                        <div id="send" class="btn">
+                        <div id="send" class="btn" v-on:click="requestTrade">
                 
                 <p>Request Trade</p>
                 <i  class="fa-solid fa-arrow-right"></i>
@@ -32,6 +32,7 @@
 <script>
 import PokemonDetails from '../components/PokemonDetails.vue'
 import PokemonService from '../services/PokemonService.js'
+import TradeService from '../services/TradeService.js'
 export default {
     data() {
         return {
@@ -62,7 +63,11 @@ methods: {
             this.offeredPokemon = pokemon
          }
       
-  }
+    },
+    requestTrade() {
+        TradeService.createTrade(this.offeredPokemon.pokemonId, this.pokemon.pokemonId);
+        this.$router.push({ name: 'collection', params: {id: this.offeredPokemon.collectionId}});
+    }
   }
  
 }
