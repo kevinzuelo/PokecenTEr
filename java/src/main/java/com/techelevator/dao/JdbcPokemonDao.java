@@ -9,10 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class JdbcPokemonDao implements PokemonDao {
@@ -56,6 +53,19 @@ public class JdbcPokemonDao implements PokemonDao {
     }
 
     @Override
+    public List<Pokemon> getAllPokemonByUserId(int userId) {
+        List<Pokemon> pokemonList = new ArrayList<>();
+        String sql = "SELECT * FROM pokemon " +
+                "JOIN collections ON collections.collection_id = pokemon.collection_id " +
+                "WHERE user_id = ?";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+        while(results.next()) {
+            pokemonList.add(mapRowToPokemon(results));
+        }
+        return pokemonList;
+    }
+
     public Pokemon getPokemonById(int pokemonId) {
         Pokemon pokemon = null;
         String sql = "SELECT * FROM pokemon WHERE pokemon_id = ?";
@@ -98,8 +108,8 @@ public class JdbcPokemonDao implements PokemonDao {
 
         Integer newPokemonId =0;
 
-            newPokemonId = jdbcTemplate.queryForObject(sql, Integer.class, poke.getSpecies(), poke.getType(),
-                    collectionId, poke.getLevel(), poke.getIsShiny(), poke.getNotes().replace("\n"," "), poke.getImgMain(), poke.getImgSprite());
+            newPokemonId = jdbcTemplate.queryForObject(sql, Integer.class, poke.getSpecies().toLowerCase(), poke.getType(),
+                    collectionId, poke.getLevel(), poke.getIsShiny(), poke.getNotes(), poke.getImgMain(), poke.getImgSprite());
         return newPokemonId == poke.getPokemonId();
     }
 

@@ -12,7 +12,7 @@ public class PokeAPICaller {
 
     public static String getPokemonType(Pokemon pokemon){
         try {
-            ResponseEntity response = restTemplate.getForEntity(API_URL + "/pokemon/" + pokemon.getSpecies(), String.class);
+            ResponseEntity response = restTemplate.getForEntity(API_URL + "/pokemon/" + pokemon.getSpecies().toLowerCase(), String.class);
             String[] splitString = ((String) response.getBody()).split(":");
             String types = "";
             for(int i = 0; i< splitString.length; i++){
@@ -42,7 +42,7 @@ public class PokeAPICaller {
         }
 
         try{
-            ResponseEntity response = restTemplate.getForEntity(API_URL+"/pokemon/"+pokemon.getSpecies(),String.class);
+            ResponseEntity response = restTemplate.getForEntity(API_URL+"/pokemon/"+pokemon.getSpecies().toLowerCase(),String.class);
             String[] splitString = ((String) response.getBody()).split(":");
 
             for(int i = 0; i<splitString.length; i++){
@@ -69,7 +69,7 @@ public class PokeAPICaller {
         }
 
         try{
-            ResponseEntity response = restTemplate.getForEntity(API_URL+"/pokemon/"+pokemon.getSpecies(),String.class);
+            ResponseEntity response = restTemplate.getForEntity(API_URL+"/pokemon/"+pokemon.getSpecies().toLowerCase(),String.class);
             String[] splitString = ((String) response.getBody()).split(":");
 
             for(int i = 0; i<splitString.length; i++){

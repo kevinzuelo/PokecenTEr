@@ -117,6 +117,7 @@ h1 {
     color: white;
     font-size: 20px;
     margin: 0px !important;
+    font-family: 'Silkscreen', cursive;
 }   
 
 #back:hover {

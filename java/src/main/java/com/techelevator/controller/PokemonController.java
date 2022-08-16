@@ -47,5 +47,11 @@ public class PokemonController {
         pokemonDao.updatePokemon(pokemon, pokemonId);
     }
 
+    @RequestMapping(path = "/users/{id}/pokemon", method = RequestMethod.GET)
+    public List<Pokemon> getAllPokemonByUserId(@PathVariable("id") int userId) {
+        return pokemonDao.getAllPokemonByUserId(userId);
+
+    }
+
 }
 
