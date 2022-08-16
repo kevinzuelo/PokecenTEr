@@ -18,6 +18,7 @@ import MovePokemon from '../views/MovePokemon.vue'
 import Browse from '@/views/Browse.vue'
 import BulkAdd from '@/views/BulkAdd.vue'
 import Trade from '@/views/Trade.vue'
+import Export from '@/views/Export.vue'
 
 
 Vue.use(Router)
@@ -132,7 +133,7 @@ const router = new Router({
       }
     },
     {
-      path: "/bulkAdd",
+      path: "/collection/:id/import",
       name: "bulk-add",
       component: BulkAdd,
       meta: {
@@ -207,6 +208,11 @@ const router = new Router({
       path: "/pokemon/:id/trade",
       name: "trade",
       component: Trade
+    },
+    {
+      path:"/collection/:id/export",
+      name: "export",
+      component: Export
     }
   ]
 })

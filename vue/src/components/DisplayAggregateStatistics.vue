@@ -100,6 +100,7 @@ export default {
   justify-content: center;
   align-items: center;
   box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
+  margin: auto;
 }
 
 .inner-statistics-container {

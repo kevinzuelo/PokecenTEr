@@ -128,7 +128,6 @@ public class JdbcPokemonDao implements PokemonDao {
                 "WHERE pokemon_id = ?";
         poke.setImgSprite(PokeAPICaller.getPokemonSpriteUrl(poke));
         return jdbcTemplate.update(sql, poke.getLevel(), poke.getIsShiny(), poke.getNotes(), poke.getCollectionId(), poke.getImgSprite(), pokemon_id);
-
     }
 
 
