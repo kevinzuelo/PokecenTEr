@@ -1,6 +1,12 @@
 <template>
   <div class="home">
-    <h1>{{ $store.state.user.username }}</h1>
+    <div id ="page-header">
+    <div id= "spacer"/>
+      <h1>{{ $store.state.user.username }}</h1>
+      <router-link  v-bind:to="{ name: 'my-trades', params: { id: this.$store.state.user.id }  }">
+        <h1 id="trades-button">View my trades <i class="fa-solid fa-arrow-right-arrow-left"></i> </h1>
+      </router-link>
+    </div>
     <display-aggregate-statistics />
     <h1>My Collections</h1>
     <div class="myCollections">
@@ -84,6 +90,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 50px;
 }
 
 #recent-collections {
@@ -97,5 +104,26 @@ h1 {
 
 #add-new:hover {
   box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.527);
+}
+
+#page-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 90px
+}
+
+#spacer {
+  width: 360px;
+
+}
+
+#trades-button {
+  font-size: 25px;
+  background-color: rgb(21, 123, 206);
+  border-radius: 4px;
+  font-family: 'Silkscreen', cursive;
+  padding: 10px 20px;
+  width: 320px
+
 }
 </style>
