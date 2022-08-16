@@ -51,7 +51,6 @@ public class JdbcTradeDao implements TradeDao{
         }
 
 
-
         return trades;
     }
 
