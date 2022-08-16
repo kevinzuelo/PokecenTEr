@@ -4,6 +4,7 @@ import com.techelevator.model.Collection;
 import com.techelevator.model.Pokemon;
 import com.techelevator.model.Trade;
 import com.techelevator.model.User;
+import com.techelevator.utility.PokeAPICaller;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -49,9 +50,6 @@ public class JdbcTradeDao implements TradeDao{
             trades.add(trade);
 
         }
-
-
-
         return trades;
     }
 
@@ -67,8 +65,53 @@ public class JdbcTradeDao implements TradeDao{
         return tradeId;
     };
 
-    private Trade mapRowToTrade(SqlRowSet results){
 
+    @Override
+    public Trade getTradeByTradeId(int tradeId) {
+        Trade trade = null;
+
+        String sql = "SELECT * FROM trades " +
+                     "WHERE trade_id = ?; ";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tradeId);
+        if(results.next()) {
+            trade = mapRowToTrade(results);
+            return trade;
+        }
+        return trade;
+    }
+
+    @Override
+    public void updateTrade(int tradeId, String tradeStatus) {
+        Trade trade = getTradeByTradeId(tradeId);
+        int requestorCollectionId = trade.getRequestedPokemon().getCollectionId();
+        int receiverCollectionId = trade.getOfferedPokemon().getCollectionId();
+
+        String sql = "UPDATE trades " +
+                     "SET trade_status = ? " +
+                     "WHERE trade_id = ?; ";
+
+        jdbcTemplate.update(sql, tradeStatus, tradeId);
+
+        if (tradeStatus.equalsIgnoreCase("approved")) {
+            trade.getRequestedPokemon().setCollectionId(receiverCollectionId);
+            trade.getOfferedPokemon().setCollectionId(requestorCollectionId);
+
+            pokemonDao.updatePokemon(trade.getRequestedPokemon(), trade.getRequestedPokemon().getPokemonId());
+            pokemonDao.updatePokemon(trade.getOfferedPokemon(), trade.getOfferedPokemon().getPokemonId());
+        }
+    }
+
+    @Override
+    public void deleteTrade(int tradeId) {
+        Trade trade = getTradeByTradeId(tradeId);
+
+        String sql = "DELETE FROM trades WHERE trade_id = ?;" ;
+
+        jdbcTemplate.update(sql, tradeId);
+    }
+
+    private Trade mapRowToTrade(SqlRowSet results){
         Trade trade = new Trade();
 
         trade.setTradeId(results.getInt("trade_id"));
@@ -88,8 +131,6 @@ public class JdbcTradeDao implements TradeDao{
         trade.setTradeReceiver(userDao.getUserById(trade.getReceiverCollection().getUserId()));
 
         return trade;
-
-
     }
 
     private User mapRowToUser(SqlRowSet rs) {
