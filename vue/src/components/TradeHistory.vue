@@ -1,22 +1,23 @@
 <template>
     <div id="trade-history-component" class="trade-tables">
         <h2>Trade History</h2>
-        <table>
+        <table v-if="trades.length > 0">
             <tr>
                 <th>Requested Pokemon</th>
-                <th>Requesting User</th>
+                <th>User Requested From</th>
                 <th>Offered Pokemon</th>
                 <th>Offering User</th>
                 <th>Status</th>
             </tr>
             <tr v-for="trade in trades" v-bind:key=trade.tradeId>
-                <td>Lvl {{trade.requestedPokemon.level }} {{trade.requestedPokemon.species}} <img v-bind:src="trade.requestedPokemon.imgSprite" /></td>
+                <td><div id="flex-in-table-row"><img v-bind:src="trade.requestedPokemon.imgSprite" />Lvl {{trade.requestedPokemon.level }} {{trade.requestedPokemon.species}} </div></td>
                 <td>{{trade.tradeReceiver.username}}</td>
-                <td>Lvl {{trade.offeredPokemon.level }} {{trade.offeredPokemon.species}} <img v-bind:src="trade.offeredPokemon.imgSprite" /></td>
+                <td><div id="flex-in-table-row"><img v-bind:src="trade.offeredPokemon.imgSprite" />Lvl {{trade.offeredPokemon.level }} {{trade.offeredPokemon.species}} </div></td>
                 <td>{{trade.tradeInitiator.username}}</td>
                 <td>{{trade.tradeStatus}}</td>
             </tr>
         </table>
+        <h2 v-else class="no-trades">No trades to display...</h2>
     </div>
 </template>
 
@@ -38,9 +39,9 @@ export default {
                         let allTrades = [];
                             allTrades = response.data;
 
-                        // allTrades = allTrades.filter( (trade) => {
-                        //     return trade.tradeReceiver.id === this.$store.state.user.id && trade.tradeInitiator.id === this.$store.state.user.id;
-                        // });
+                        allTrades = allTrades.filter( (trade) => {
+                            return trade.tradeStatus === "Approved" || trade.tradeStatus === "Rejected"
+                        });
 
                         this.trades = allTrades;
                         }
@@ -50,8 +51,8 @@ export default {
 </script>
 
 <style>
-#trade-history-component{
+/* #trade-history-component{
     background-color: white;
-}
+} */
 
 </style>
