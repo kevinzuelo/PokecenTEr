@@ -75,7 +75,7 @@ export default {
       }
     );
 
-    PokemonService.getAllPokemonByUserId(this.$store.state.user.id).then(
+    PokemonService.getAllPokemonCountByUserId(this.$store.state.user.id).then(
       (response) => {
         this.totalCount = response.data;
       }

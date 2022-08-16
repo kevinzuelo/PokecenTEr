@@ -31,8 +31,12 @@ export default {
     return axios.put(`/pokemon/${updatedPokemon.pokemonId}`, updatedPokemon);
   },
   
-  getAllPokemonByUserId(userId) {
+  getAllPokemonCountByUserId(userId) {
     return axios.get(`/users/${userId}/totalpokemon`);
+  },
+
+  getAllPokemonByUserId(userId) {
+    return axios.get(`/users/${userId}/pokemon`);
   }
 
 }

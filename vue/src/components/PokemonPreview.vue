@@ -11,6 +11,7 @@
       </router-link>
        
         <pokemon-modify-buttons v-bind:pokemon="this.pokemon" v-if="isMine" ></pokemon-modify-buttons>
+        <trade-button v-else v-bind:pokemon="this.pokemon"/>
      
     </div>
 
@@ -19,8 +20,9 @@
 <script>
 import PokemonModifyButtons from './PokemonModifyButtons.vue';
 import CollectionService from '@/services/CollectionService.js'
+import TradeButton from './TradeButton.vue';
 export default {
-  components: { PokemonModifyButtons },
+  components: { PokemonModifyButtons, TradeButton },
     data() {
     return {
         typeArray: [],
@@ -118,7 +120,7 @@ export default {
   }
 
    .pokemon-preview:hover {
-    transform: scale(1.05);  
+    transform: scale(1.025);  
   }
 
 
