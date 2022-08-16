@@ -12,12 +12,24 @@
 
 <script>
 import PokemonService from '@/services/PokemonService.js'
+import CollectionService from '@/services/CollectionService.js'
 
 export default {
+    created(){
+        CollectionService.getCollectionByCollectionId(this.$route.params.id).then(response =>{
+            this.currentCollection = response.data;
+            console.log(this.$store.state.user.id);
+            console.log(this.currentCollection.userId);
+            if(this.$store.state.user.userId != this.currentCollection.userId){
+            this.$router.push({name: 'home'});
+        }
+        });
+    },
     data() {
         return{
             isLoading: false,
             singlePokemon: {},
+            currentCollection: {},
             collectionToAddId: Number(this.$route.params.id)
         }
     },

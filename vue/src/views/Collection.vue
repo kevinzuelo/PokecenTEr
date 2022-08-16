@@ -82,7 +82,7 @@
   <router-link v-bind:to="{name: 'home'}" v-else>
 
   </router-link>
-  <button id="import-button" v-on:click="importCollection()">
+  <button id="import-button" v-on:click="importCollection()" v-if="isMine">
     <i class="fa-solid fa-arrow-right-to-bracket"></i>
     <h3>Import Collection</h3>
   </button>
