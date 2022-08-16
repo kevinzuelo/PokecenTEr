@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div id="view-export">
+      <label>Export File</label>
       <textarea v-show="isLoaded" id="exported-collection" rows="20" cols="50" readonly></textarea>
+      <button id="back-to-collection" v-on:click="goToCollection()" class="btn">Back to Collection</button>
   </div>
+  
 </template>
 
 <script>
@@ -25,14 +28,40 @@ export default {
             }
             this.isLoaded = true;
         })
+    },
+    methods: {
+        goToCollection() {
+            this.$router.push({name: "collection"})
+        }
     }
 }
 </script>
 
 <style scoped>
+    label {
+        color: yellow;
+        font-size: 50px;
+    }
+
     textarea {
+        display: flex;
+        align-items: center;
+        margin: 50px;
         overflow-y: scroll;
         height: 100px;
         resize: none;
+        width: 500px;
+        height: 200px;
+    }
+    #back-to-collection {
+        display: flex;
+        align-items: center;
+        margin: 50px;
+    }
+
+    #view-export {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
     }
 </style>
