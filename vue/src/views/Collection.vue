@@ -181,7 +181,7 @@ export default {
         return 'https://i.gifer.com/origin/28/2860d2d8c3a1e402e0fc8913cd92cd7a_w200.gif';
       }
       else{
-        return this.$store.state.user.iconUrl;
+        return '@/images/WavingPikachu.gif';
       }
     }
   },
