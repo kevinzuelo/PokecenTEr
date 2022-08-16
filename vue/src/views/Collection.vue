@@ -405,10 +405,7 @@ div#alertbuttons {
   padding: 10px;
 }
 
-#collection-container :hover{
 
-    transform: scale(1.025);
-  }
 
   
 

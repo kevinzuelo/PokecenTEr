@@ -117,6 +117,10 @@ export default {
     min-width: 115px;
   }
 
+   .pokemon-preview:hover {
+    transform: scale(1.05);  
+  }
+
 
 
   .type-image {
