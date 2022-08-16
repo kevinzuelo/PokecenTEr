@@ -10,5 +10,10 @@ public interface TradeDao {
 
     int createTrade(int requestedPokemon, int offeredPokemon);
 
+    void updateTrade(int tradeId, String tradeStatus);
+
+    Trade getTradeByTradeId(int tradeId);
+
+    void deleteTrade(int tradeId);
 
 }
