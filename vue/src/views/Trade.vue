@@ -3,7 +3,8 @@
  <pokemon-details v-bind:pokemon="this.pokemon"/>
     <div id="all-pokemon">
         <h1>Trade</h1>
-        <h3>Select a pokemon you want to trade</h3>
+        <h3>Select a pokemon to offer for trade</h3>
+       
         <div id ="pokemon-container">
 
  <img v-for="pokemon in usersPokemon" v-bind:key="pokemon.pokemonId" v-bind:src="pokemon.imgSprite" 
@@ -70,25 +71,27 @@ methods: {
 <style scoped>
 
 #all-pokemon {
-    display:block;
     text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
-h3 {
-    color: white;
-}
 #trade-container {
     display: flex;
 }
 
 #pokemon-container {
     background-color: rgba(146, 146, 146, 0.733);
-    border-radius: 10px 10px 0px 0px;
+    border-radius:0 ;
     width: 350px;
     height:500px;
-    overflow: hidden;
+    overflow-y: auto;
     padding-top: 10px;
     justify-content: space-between;
+}
+
+#pokemon-container::-webkit-scrollbar {
+    display: none;
 }
 
 #pokemon-container > img:hover{
@@ -135,6 +138,26 @@ h3 {
 }
 #send:hover {
     background-color: #77cc74df;
+}
+
+#headers {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 20px 20px 0 0;
+}
+
+h1 {
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 0px;
+    padding: 20px;
+    border-radius: 20px 20px 0 0;
+}
+
+ h3 {
+    background-color: #474747c4;
+    margin: 0px;
+    padding: 10px;
+    color: white;
 }
 
 
