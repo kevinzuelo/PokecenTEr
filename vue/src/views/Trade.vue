@@ -66,7 +66,7 @@ methods: {
     },
     requestTrade() {
         TradeService.createTrade(this.pokemon.pokemonId, this.offeredPokemon.pokemonId);
-        this.$router.push({ name: 'collection', params: {id: this.offeredPokemon.collectionId}});
+        this.$router.push({ name: 'my-trades', params: {id: this.$store.state.user.id}});
     }
   }
  
