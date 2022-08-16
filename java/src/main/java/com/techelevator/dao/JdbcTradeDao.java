@@ -119,13 +119,13 @@ public class JdbcTradeDao implements TradeDao{
 
         trade.setTradeId(results.getInt("trade_id"));
 
-        int fromPokemonId = results.getInt("requested_pokemon");
-        int toPokemonId = results.getInt("offered_pokemon");
+        int requestedPokemon = results.getInt("requested_pokemon");
+        int offeredPokemon = results.getInt("offered_pokemon");
 
         trade.setTradeStatus(results.getString("trade_status"));
 
-        trade.setRequestedPokemon(pokemonDao.getPokemonById(toPokemonId));
-        trade.setOfferedPokemon(pokemonDao.getPokemonById(fromPokemonId));
+        trade.setRequestedPokemon(pokemonDao.getPokemonById(requestedPokemon));
+        trade.setOfferedPokemon(pokemonDao.getPokemonById(offeredPokemon));
 
         trade.setTradeInitiator(userDao.getUserById(results.getInt("offered_pokemon_owner")));
         trade.setTradeReceiver(userDao.getUserById(results.getInt("requested_pokemon_owner")));
