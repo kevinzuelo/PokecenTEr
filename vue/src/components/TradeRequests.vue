@@ -42,10 +42,22 @@ export default {
 
     created() {
         TradeService.getAllTradesByUserId(this.$store.state.user.id)
+
                     .then( (response) => {
                         if(response.status === 200){
-                            this.trades = response.data;
+                        
+                        let requestedTrades = [];
+                            requestedTrades = response.data;
+                        
+
+                        requestedTrades = requestedTrades.filter( (trade) => {
+                            return trade.tradeReceiver.id === this.$store.state.user.id && trade.tradeStatus === 'Pending';
+                        });
+
+                        this.trades = requestedTrades;
                         }
+
+                        
                     })
     }
 }
