@@ -217,7 +217,7 @@ const router = new Router({
     },
 
     {
-      path: '/user/:id/trades',
+      path: '/myTrades',
       name: 'my-trades',
       component: MyTrades
 
