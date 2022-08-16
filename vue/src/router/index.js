@@ -19,6 +19,7 @@ import Browse from '@/views/Browse.vue'
 import BulkAdd from '@/views/BulkAdd.vue'
 import Export from '@/views/Export.vue'
 import MyTrades from '@/views/MyTrades.vue'
+import TestView from '@/views/TestView.vue'
 
 
 Vue.use(Router)
@@ -215,6 +216,11 @@ const router = new Router({
       name: 'my-trades',
       component: MyTrades
 
+    },
+    {
+      path:'/test',
+      name: 'test',
+      component: TestView
     }
   ]
 })
