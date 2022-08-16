@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, collections, pokemon, trades, pokedex;
+DROP TABLE IF EXISTS users, collections, pokemon, trades, pokedex, friends;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -51,6 +51,15 @@ CREATE TABLE trades (
     CONSTRAINT FK_trades_requested_pokemon_owner FOREIGN KEY (requested_pokemon_owner) REFERENCES users (user_id),
     CONSTRAINT FK_trades_offered_pokemon_owner FOREIGN KEY (offered_pokemon_owner) REFERENCES users (user_id)
     
+);
+
+
+CREATE TABLE friends (
+    owner_id int NOT NULL,
+    friend_id int NOT NULL,
+	CONSTRAINT PK_friends PRIMARY KEY(owner_id, friend_id),
+    CONSTRAINT FK_friends_owner FOREIGN KEY(owner_id) REFERENCES users(user_id),
+    CONSTRAINT FK_friends_friend FOREIGN KEY(friend_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE pokedex (
