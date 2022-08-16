@@ -197,7 +197,7 @@ export default {
         return 'https://i.gifer.com/origin/28/2860d2d8c3a1e402e0fc8913cd92cd7a_w200.gif';
       }
       else{
-        return this.$store.state.user.iconUrl;
+        return 'https://i.gifer.com/origin/7d/7dab25c7b14a249bbc4790176883d1c5_w200.gif';
       }
     }
   },

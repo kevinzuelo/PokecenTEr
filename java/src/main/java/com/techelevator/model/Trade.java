@@ -7,8 +7,6 @@ public class Trade {
     private Pokemon offeredPokemon;
     private User tradeInitiator;
     private User tradeReceiver;
-    private Collection requestorCollection;
-    private Collection receiverCollection;
     private String tradeStatus;
 
     public int getTradeId() {
@@ -51,21 +49,6 @@ public class Trade {
         this.tradeReceiver = tradeReceiver;
     }
 
-    public Collection getRequestorCollection() {
-        return requestorCollection;
-    }
-
-    public void setRequestorCollection(Collection requestorCollection) {
-        this.requestorCollection = requestorCollection;
-    }
-
-    public Collection getReceiverCollection() {
-        return receiverCollection;
-    }
-
-    public void setReceiverCollection(Collection receiverCollection) {
-        this.receiverCollection = receiverCollection;
-    }
 
     public String getTradeStatus() {
         return tradeStatus;

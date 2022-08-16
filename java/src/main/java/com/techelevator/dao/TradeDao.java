@@ -8,7 +8,7 @@ public interface TradeDao {
 
     List<Trade> getAllTradesByUserId(int userId);
 
-    int createTrade(int requestedPokemon, int offeredPokemon);
+    int createTrade(int requestedPokemonId, int offeredPokemonId);
 
     void updateTrade(int tradeId, String tradeStatus);
 
