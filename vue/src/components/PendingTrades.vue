@@ -1,21 +1,21 @@
 <template>
-    <div id="trade-request-component" class="trade-tables">
-        <h2>Trade Requests</h2>
+    <div id="pending-trades-component" class="trade-tables">
+        <h2>Pending Requests</h2>
         <table v-if="trades.length > 0">
             <tr>
                 <th>Requested Pokemon</th>
+                <th>From</th>
                 <th>Offered Pokemon</th>
-                <th>Requestor</th>
-                <th>Approve/Deny</th>
+                <th>Trade Status</th>
             </tr>
             <tr v-for="trade in trades" v-bind:key=trade.tradeId>
-                <td><div id="flex-in-table-row"><img v-bind:src="trade.requestedPokemon.imgSprite" /> Lvl {{trade.requestedPokemon.level }} {{trade.requestedPokemon.species}} </div></td>
-                <td><div id="flex-in-table-row"> <img v-bind:src="trade.offeredPokemon.imgSprite" /> Lvl {{trade.offeredPokemon.level }} {{trade.offeredPokemon.species}}</div></td>
-                <td>{{trade.tradeInitiator.username}}</td>
-                <td><button v-on:click="respondToTradeRequest(trade.tradeId, 'Approved')" id="approve-trade-button">Approve</button><button v-on:click="respondToTradeRequest(trade.tradeId, 'Rejected')" >Reject</button></td>
+                <td><div id="flex-in-table-row"><img v-bind:src="trade.requestedPokemon.imgSprite" />Lvl {{trade.requestedPokemon.level }} {{trade.requestedPokemon.species}} </div></td>
+                <td>{{trade.tradeReceiver.username}}</td>
+                <td><div id="flex-in-table-row"><img v-bind:src="trade.offeredPokemon.imgSprite" />Lvl {{trade.offeredPokemon.level }} {{trade.offeredPokemon.species}} </div></td>
+                <td>Pending</td>
             </tr>
         </table>
-        <h2 v-else class="no-trades">No trade requests yet...</h2>
+        <h2 v-else class="no-trades">No pending trades...</h2>
     </div>
 </template>
 
@@ -23,7 +23,7 @@
 import TradeService from '@/services/TradeService.js'
 
 export default {
-    name: 'trade-requests',
+    name: 'pending-trades',
     data() {
         return {
             trades: []
@@ -52,7 +52,7 @@ export default {
                         
 
                         requestedTrades = requestedTrades.filter( (trade) => {
-                            return trade.tradeReceiver.id === this.$store.state.user.id && trade.tradeStatus === 'Pending';
+                            return trade.tradeInitiator.id === this.$store.state.user.id && trade.tradeStatus === 'Pending';
                         });
 
                         this.trades = requestedTrades;
@@ -65,14 +65,8 @@ export default {
 </script>
 
 <style>
-/* #trade-request-component{
+/* #pending-trades-component{
     background-color: white;
 } */
-#approve-trade-button{
-    background-color: rgb(0, 180, 0);
-}
-#approve-trade-button:hover {
-    background-color: rgb(0, 90, 0);
-}
 
 </style>
