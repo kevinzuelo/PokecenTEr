@@ -24,4 +24,9 @@ public class TradeController {
         return tradeDao.getAllTradesByUserId(userId);
     }
 
+    @RequestMapping(path = "/trades", method =  RequestMethod.POST)
+    public int createTrade(@RequestBody int[] pokemonIds){
+        return tradeDao.createTrade(pokemonIds[0],pokemonIds[1]);
+    }
+
 }

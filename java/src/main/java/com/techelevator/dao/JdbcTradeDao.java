@@ -55,6 +55,18 @@ public class JdbcTradeDao implements TradeDao{
         return trades;
     }
 
+    @Override
+    public int createTrade(int requestedPokemon, int offeredPokemon){
+
+        String sql = "INSERT INTO trades (from_pokemon, to_pokemon, trade_status) " +
+                    "VALUES ( ? , ? , 'Pending' ) " +
+                    "RETURNING trade_id; ";
+
+        int tradeId = jdbcTemplate.queryForObject(sql, Integer.class, offeredPokemon, requestedPokemon);
+
+        return tradeId;
+    };
+
     private Trade mapRowToTrade(SqlRowSet results){
 
         Trade trade = new Trade();
