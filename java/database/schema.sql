@@ -39,12 +39,18 @@ CREATE TABLE pokemon (
 
 CREATE TABLE trades (
     trade_id SERIAL,
-    from_pokemon int,
-    to_pokemon int,
+    requested_pokemon int,
+    offered_pokemon int,
     trade_status varchar(50),
+    requested_pokemon_owner int,
+    offered_pokemon_owner int,
+    
     CONSTRAINT PK_trades PRIMARY KEY (trade_id),
-    CONSTRAINT FK_trades_from_pokemon FOREIGN KEY (from_pokemon) REFERENCES pokemon (pokemon_id),
-    CONSTRAINT FK_trades_to_pokemon FOREIGN KEY (to_pokemon) REFERENCES pokemon (pokemon_id)
+    CONSTRAINT FK_trades_requested_pokemon FOREIGN KEY (requested_pokemon) REFERENCES pokemon (pokemon_id),
+    CONSTRAINT FK_trades_offered_pokemon FOREIGN KEY (offered_pokemon) REFERENCES pokemon (pokemon_id),
+    CONSTRAINT FK_trades_requested_pokemon_owner FOREIGN KEY (requested_pokemon_owner) REFERENCES users (user_id),
+    CONSTRAINT FK_trades_offered_pokemon_owner FOREIGN KEY (offered_pokemon_owner) REFERENCES users (user_id)
+    
 );
 
 CREATE TABLE pokedex (
