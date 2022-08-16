@@ -17,6 +17,7 @@ import UpdatePokemon from '../views/UpdatePokemon.vue'
 import MovePokemon from '../views/MovePokemon.vue'
 import Browse from '@/views/Browse.vue'
 import BulkAdd from '@/views/BulkAdd.vue'
+import Trade from '@/views/Trade.vue'
 import Export from '@/views/Export.vue'
 import MyTrades from '@/views/MyTrades.vue'
 
@@ -203,6 +204,11 @@ const router = new Router({
     path: '*',
     name: "not-found", 
     component: NotFound
+    },
+    {
+      path: "/pokemon/:id/trade",
+      name: "trade",
+      component: Trade
     },
     {
       path:"/collection/:id/export",

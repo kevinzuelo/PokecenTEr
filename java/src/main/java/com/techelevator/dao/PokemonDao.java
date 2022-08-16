@@ -9,6 +9,8 @@ public interface PokemonDao {
 
     List<Pokemon> getAllPokemonByCollectionId(int collectionId);
 
+    List<Pokemon> getAllPokemonByUserId(int userId);
+
     Pokemon getPokemonById(int pokemonId);
 
     boolean addPokemon(Pokemon poke, int collectionId) throws MaximumPokemonExceededException;

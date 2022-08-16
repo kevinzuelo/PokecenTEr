@@ -20,7 +20,7 @@ export default {
             this.currentCollection = response.data;
             console.log(this.$store.state.user.id);
             console.log(this.currentCollection.userId);
-            if(this.$store.state.user.userId != this.currentCollection.userId){
+            if(this.$store.state.user.id != this.currentCollection.userId){
             this.$router.push({name: 'home'});
         }
         });
