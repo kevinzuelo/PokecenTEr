@@ -75,9 +75,14 @@
             <i class="fa-solid fa-trash-can"></i>
             <h3>Delete Collection</h3>
   </button>
+  
   <router-link v-bind:to="{name: 'home'}" v-else>
 
   </router-link>
+  <button id="export-button" v-on:click="exportCollection()">
+    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+    <h3>Export Collection</h3>
+  </button>
   <div id="privacy-button-container">
     <button id="privacy-button" v-on:click.prevent="togglePrivacy()" v-if="isMine" >
       <img v-bind:src="privacyImage"/>
@@ -223,7 +228,11 @@ export default {
                               this.errorMessage = "There was a problem deleting the collection."
                               }
                             });
-                          }
+                          },
+      
+      exportCollection(){
+        this.$router.push({ name: 'export', params: {id: this.$route.params.id}})
+      }
       },
     
 
@@ -254,12 +263,26 @@ export default {
 </script>
 
 <style scoped>
+#export-button {
+  grid-area: export-button;
+  width: 30%;
+  height: 125px;
+  min-width: 175px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid darkred;
+}
+.fa-arrow-right-to-bracket {
+  font-size: 1.5em;
+}
 #collection-grid {
   display: grid;
   grid-template-areas:
     "name filter privacy-button stats"
     "collection-container collection-container collection-container stats"
-    "delete-button . share-collection share-collection";
+    "delete-button export-button share-collection share-collection";
   grid-template-columns: 2fr 2fr 2fr 1fr;
   grid-template-rows: 130px auto auto;
   margin: 60px 30px 30px 30px;
@@ -301,6 +324,7 @@ export default {
   width: 30%;
   height: 125px;
   min-width: 175px;
+  width:500px;
   display: flex;
   flex-direction: column;
   align-items: center;
