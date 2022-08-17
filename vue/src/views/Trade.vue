@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
 <div id ="trade-container">
  <pokemon-details id="request" v-bind:pokemon="this.pokemon" v-if="!isMobile"/>
  <div id="mobile-cards" v-else>
@@ -50,72 +49,8 @@ export default {
             usersPokemon: [],
             isMobile: false,
             loaded: false
-=======
-  <div id="trade-container">
-    <pokemon-details v-bind:pokemon="this.pokemon" />
-    <div id="all-pokemon">
-      <h1>Trade</h1>
-      <h3>Select a pokemon to offer for trade</h3>
-      <div id="pokemon-container">
-        <img
-          v-for="pokemon in usersPokemon"
-          v-bind:key="pokemon.pokemonId"
-          v-bind:src="pokemon.imgSprite"
-          v-on:click="select(pokemon)"
-          v-bind:class="{ selected: offeredPokemon == pokemon }"
-        />
-      </div>
-      <div id="send" class="btn" v-on:click="requestTrade">
-        <p>Request Trade</p>
-        <i class="fa-solid fa-arrow-right"></i>
-      </div>
-      <div id="back" class="btn" v-on:click="goToCollection">
-        <i class="fa-solid fa-arrow-left"></i>
-        <p>Go Back</p>
-      </div>
-    </div>
-    <pokemon-details
-      v-bind:pokemon="this.offeredPokemon"
-      v-if="this.offeredPokemon"
-    />
-  </div>
-</template>
-
-<script>
-import PokemonDetails from "../components/PokemonDetails.vue";
-import PokemonService from "../services/PokemonService.js";
-import TradeService from "../services/TradeService.js";
-export default {
-  data() {
-    return {
-      name: "trade-view",
-      pokemon: {},
-      offeredPokemon: "",
-      usersPokemon: [],
-    };
-  },
-  components: { PokemonDetails },
-  created() {
-    PokemonService.getPokemonByPokemonId(this.$route.params.id).then(
-      (response) => {
-        this.pokemon = response.data;
-      }
-    ),
-      PokemonService.getAllPokemonByUserId(this.$store.state.user.id).then(
-        (response) => {
-          this.usersPokemon = response.data;
->>>>>>> 6a2d1af24109c1e0720ffbf7fd16067f8ddee3ab
         }
-      );
   },
-  methods: {
-    goToCollection() {
-      this.$router.push({
-        name: "collection",
-        params: { id: this.pokemon.collectionId },
-      });
-    },
-<<<<<<< HEAD
      components: { PokemonDetails, PokemonPreview },
     created() {
         
@@ -160,28 +95,6 @@ methods: {
 }
 }
 }
-=======
-    select(pokemon) {
-      if (this.offeredPokemon == pokemon) {
-        this.offeredPokemon = "";
-      } else {
-        this.offeredPokemon = pokemon;
-      }
-    },
-    requestTrade() {
-      TradeService.createTrade(
-        this.pokemon.pokemonId,
-        this.offeredPokemon.pokemonId
-      );
-      this.$router.push({
-        name: "my-trades",
-        params: { id: this.$store.state.user.id },
-      });
-      window.location.reload();
-    },
-  },
-};
->>>>>>> 6a2d1af24109c1e0720ffbf7fd16067f8ddee3ab
 </script>
 
 <style scoped>
@@ -192,12 +105,8 @@ methods: {
 }
 
 #trade-container {
-<<<<<<< HEAD
     display: flex;
     
-=======
-  display: flex;
->>>>>>> 6a2d1af24109c1e0720ffbf7fd16067f8ddee3ab
 }
 
 #pokemon-container {
@@ -259,14 +168,9 @@ methods: {
 }
 
 #send {
-<<<<<<< HEAD
     border-radius: 0px;
     background-color: #25c81fca;
     border: 0px
-=======
-  border-radius: 0px;
-  background-color: #25c81fca;
->>>>>>> 6a2d1af24109c1e0720ffbf7fd16067f8ddee3ab
 }
 #send:hover {
   background-color: #77cc74df;
@@ -291,7 +195,6 @@ h3 {
   padding: 10px;
   color: white;
 }
-<<<<<<< HEAD
 
  @media (max-width: 500px) {
 
@@ -335,6 +238,4 @@ h3 {
 
 
 
-=======
->>>>>>> 6a2d1af24109c1e0720ffbf7fd16067f8ddee3ab
 </style>
