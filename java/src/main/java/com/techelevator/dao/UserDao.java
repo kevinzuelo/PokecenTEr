@@ -16,7 +16,7 @@ public interface UserDao {
 
     int findIdByUsername(String username);
 
-    boolean create(String username, String password, String role, String email, String continent, String iconUrl) throws UserExistsException;
+    boolean create(String username, String password, String role, String email, String continent, String iconUrl);
 
     User getUserByCollectionId(int collectionId);
 

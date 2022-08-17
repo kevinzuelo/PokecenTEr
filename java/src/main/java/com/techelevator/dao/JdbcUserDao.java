@@ -88,14 +88,10 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public boolean create(String username, String password, String role, String email, String continent, String iconUrl) throws UserExistsException {
+    public boolean create(String username, String password, String role, String email, String continent, String iconUrl){
         String insertUserSql = "insert into users (username,password_hash,role,email,continent,icon) values (?,?,?,?,?,?)";
         String password_hash = new BCryptPasswordEncoder().encode(password);
         String ssRole = role.toUpperCase().startsWith("ROLE_") ? role.toUpperCase() : "ROLE_" + role.toUpperCase();
-        if (findByUsername(username).getUsername() != null){
-            throw new UserExistsException();
-        }
-
 
         return jdbcTemplate.update(insertUserSql, username, password_hash, ssRole, email, continent, iconUrl) == 1;
     }
