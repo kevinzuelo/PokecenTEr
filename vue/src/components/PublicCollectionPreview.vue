@@ -123,4 +123,10 @@ h5 {
   
 }
 
+@media (max-width: 500px) {
+  .collection-container {
+    width: 300px
+  }
+}
+
 </style>
