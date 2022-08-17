@@ -21,6 +21,8 @@ import Trade from '@/views/Trade.vue'
 import Export from '@/views/Export.vue'
 import MyTrades from '@/views/MyTrades.vue'
 import TestView from '@/views/TestView.vue'
+import Friends from '@/views/Friends.vue'
+import User from '@/views/User.vue'
 
 
 Vue.use(Router)
@@ -227,6 +229,19 @@ const router = new Router({
       path:'/test',
       name: 'test',
       component: TestView
+    },
+    {
+      path: '/friends',
+      name: 'friends',
+      component: Friends,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/users/:id',
+      name: 'users',
+      component: User
     }
   ]
 })
