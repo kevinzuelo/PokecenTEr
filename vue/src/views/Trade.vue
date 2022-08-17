@@ -82,8 +82,11 @@ methods: {
       
     },
     requestTrade() {
-        TradeService.createTrade(this.pokemon.pokemonId, this.offeredPokemon.pokemonId);
-        this.$router.push({ name: 'my-trades', params: {id: this.$store.state.user.id}});
+        TradeService.createTrade(this.pokemon.pokemonId, this.offeredPokemon.pokemonId).then(response =>{
+            console.log(response);
+            this.$router.push({ name: 'my-trades', params: {id: this.$store.state.user.id}});
+        });
+        
     },
     resizeBrowserHandler () {
     
