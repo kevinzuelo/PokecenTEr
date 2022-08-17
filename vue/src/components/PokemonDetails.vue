@@ -16,6 +16,7 @@
 
     <div id="pokemon-modify-buttons">
       <pokemon-modify-buttons v-bind:pokemon="this.pokemon" v-if="isMine"/>
+      <trade-button v-bind:pokemon="this.pokemon" v-if="!isMine" />
     </div>
 
   </div>
@@ -25,10 +26,11 @@
 import PokemonModifyButtons from './PokemonModifyButtons.vue';
 import PokemonService from '@/services/PokemonService.js'
 import CollectionService from '@/services/CollectionService.js'
+import TradeButton from './TradeButton.vue';
 
 
 export default {
-  components: {  PokemonModifyButtons },
+  components: {  PokemonModifyButtons, TradeButton },
   data() {
     return {
       typeArray: [],
