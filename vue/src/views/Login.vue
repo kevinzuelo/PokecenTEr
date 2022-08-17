@@ -45,7 +45,7 @@
     <br>
     <h3><em>Not ready to make an account?</em> Browse some recent public collections:</h3>
     <div id="recent-collections">
-      <public-collection-preview v-for="collection in recentCollections" v-bind:key="collection.id" v-bind:collection="collection" />
+      <public-collection-preview class="col-prevs" v-for="collection in recentCollections" v-bind:key="collection.id" v-bind:collection="collection" />
     </div>
     <router-link v-bind:to="{ name: 'browse' }">
       <button class="browse-all-collections-button">Browse All Collections</button>
@@ -172,4 +172,10 @@ export default {
     
   }
 
+  @media only screen and (max-width: 600px){
+    #recent-collections{
+      flex-direction:column;
+      gap:10px;
+    }
+  }
 </style>

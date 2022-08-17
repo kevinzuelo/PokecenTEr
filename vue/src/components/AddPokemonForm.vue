@@ -84,7 +84,7 @@
   </div>
   <div v-if="this.giveSuggestions && !this.validPokemon" id="instructions">
     <h5> Similar pokemon names:</h5>
-    <h5 v-for="suggestion in this.suggestions" v-bind:key="suggestion">{{ suggestion }},</h5>
+    <h5 v-for="suggestion in this.suggestions" v-bind:key="suggestion">{{ suggestion }}</h5>
   </div>
 </div>
 
@@ -345,7 +345,7 @@ label {
   display: flex;
 }
 #instructions>h5 {
-  padding: 3px;
+  padding: 10px;
   font-size: 1.5em;
 }
 .valid-text {
@@ -353,4 +353,22 @@ label {
   text-align: center;
 }
 
+@media only screen and (max-width: 600px){
+  .buttons{
+    display:flex;
+    flex-direction:column;
+  }
+  #add-pokemon-form{
+    gap:10px;
+  }
+  #instructions{
+    display:flex;
+    flex-direction:column;
+    gap:0px;
+  }
+  #instructions>h5 {
+  padding: 0px;
+  font-size: 1em;
+}
+}
 </style>

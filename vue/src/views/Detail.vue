@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flexing">
-    <pokemon-details v-bind:pokemon="pokemon" />
+    <pokemon-details id="card" v-bind:pokemon="pokemon" />
     <back-to-collection-button v-bind:pokemon="pokemon" />
   </div>
   </div>
@@ -45,6 +45,18 @@ export default {
 
 
 <style scoped>
+
+@media only screen and (max-width: 600px) {
+  .flexing {
+    display: flex;
+    flex-direction: column;
+    
+  }
+  #card #imgContainer {
+    display: none;
+  }
+
+}
 
 .flexing {
 display: flex;
