@@ -83,7 +83,7 @@ public class JdbcTradeDao implements TradeDao{
             jdbcTemplate.update(friendsSqlOfferer, offeredOwner, requestedOwner);
         }
         catch (Exception e){
-            
+
         }
 
 
