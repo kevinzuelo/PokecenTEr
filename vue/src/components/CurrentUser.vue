@@ -98,12 +98,13 @@ div#user {
    }
 
 .header-img {
-  position: relative;
+position: relative;
 top: 0px;
 left: 0px;
 width: 35%;
 height: 35%;
 max-width: 400px;
+min-width: 250px;
 }
 
 #header {

@@ -1,6 +1,10 @@
 <template>
 <div id ="trade-container">
- <pokemon-details v-bind:pokemon="this.pokemon"/>
+ <pokemon-details id="request" v-bind:pokemon="this.pokemon" v-if="!isMobile"/>
+ <div id="mobile-cards" v-else>
+     <pokemon-preview class= "preview" v-if="this.loaded" v-bind:pokemon="this.pokemon" />
+     <pokemon-preview class="preview" v-if="this.offeredPokemon" v-bind:pokemon="this.offeredPokemon" />
+ </div>
     <div id="all-pokemon">
         <h1>Trade</h1>
         <h3>Select a pokemon to offer for trade</h3>
@@ -25,7 +29,7 @@
        
         
     </div>
-<pokemon-details v-bind:pokemon="this.offeredPokemon" v-if="this.offeredPokemon"/>
+<pokemon-details id="offer" v-bind:pokemon="this.offeredPokemon" v-if="this.offeredPokemon && !this.isMobile" />
 </div>
 
  
@@ -33,6 +37,7 @@
 
 <script>
 import PokemonDetails from '../components/PokemonDetails.vue'
+import PokemonPreview from '../components/PokemonPreview.vue'
 import PokemonService from '../services/PokemonService.js'
 import TradeService from '../services/TradeService.js'
 export default {
@@ -41,18 +46,28 @@ export default {
             name:"trade-view",
             pokemon: {},
             offeredPokemon: '',
-            usersPokemon: []
+            usersPokemon: [],
+            isMobile: false,
+            loaded: false
         }
     },
-     components: { PokemonDetails },
+     components: { PokemonDetails, PokemonPreview },
     created() {
+        
         PokemonService.getPokemonByPokemonId(this.$route.params.id).then((response) => {
             this.pokemon = response.data
+            this.loaded = true;
         }),
         PokemonService.getAllPokemonByUserId(this.$store.state.user.id).then((response) => {
             this.usersPokemon = response.data
         })
+        window.addEventListener("resize", this.resizeBrowserHandler);
+        if(window.innerWidth <= 500) {
+            this.isMobile = true
+        }
+
 },
+
 methods: {
       goToCollection() {
       this.$router.push({ name: 'collection', params: {id: this.pokemon.collectionId}});
@@ -69,9 +84,16 @@ methods: {
     requestTrade() {
         TradeService.createTrade(this.pokemon.pokemonId, this.offeredPokemon.pokemonId);
         this.$router.push({ name: 'my-trades', params: {id: this.$store.state.user.id}});
+    },
+    resizeBrowserHandler () {
+    
+    if (window.innerWidth <= 500) {
+        this.isMobile = true;
+    } else {
+        this.isMobile = false;
     }
-  }
- 
+}
+}
 }
 </script>
 
@@ -85,6 +107,7 @@ methods: {
 
 #trade-container {
     display: flex;
+    
 }
 
 #pokemon-container {
@@ -173,6 +196,46 @@ h1 {
     padding: 10px;
     color: white;
 }
+
+ @media (max-width: 500px) {
+
+     #trade-container {
+         flex-direction: column;
+     }
+
+     .preview {
+         width: 150px
+     }
+
+     #mobile-cards {
+         display: flex;
+         justify-content: space-evenly;
+         width: 100%;
+     }
+
+     #request {
+        order: 1 ;
+        display: inline-block;
+        flex-direction: column;
+     }
+     #offer {
+         order: 1 ;
+     }
+
+     #all-pokemon {
+         order: 3;
+         height: 500px;
+         width: 100%
+     }
+
+     #pokemon-container {
+         width: 100%
+     }
+
+     #back {
+         height: 90px
+     }
+    }
 
 
 
