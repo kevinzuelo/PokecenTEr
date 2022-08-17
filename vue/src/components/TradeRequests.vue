@@ -6,7 +6,7 @@
                 <th>Requested Pokemon</th>
                 <th>Offered Pokemon</th>
                 <th>Requestor</th>
-                <th>Approve/Deny</th>
+                <th>Approve/Reject</th>
             </tr>
             <tr v-for="trade in trades" v-bind:key=trade.tradeId>
                 <td><div id="flex-in-table-row"><img v-bind:src="trade.requestedPokemon.imgSprite" /> Lvl {{trade.requestedPokemon.level }} {{trade.requestedPokemon.species}} </div></td>

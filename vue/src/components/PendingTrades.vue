@@ -1,6 +1,6 @@
 <template>
     <div id="pending-trades-component" class="trade-tables">
-        <h2>Pending Requests</h2>
+        <h2>Pending Trades</h2>
         <table v-if="trades.length > 0">
             <tr>
                 <th>Requested Pokemon</th>

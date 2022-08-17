@@ -115,9 +115,10 @@ public class JdbcPokemonDao implements PokemonDao {
 
     @Override
     public boolean releasePokemon(int pokemon_id) {
-        String sql = "DELETE FROM pokemon WHERE pokemon_id = ?";
+        String sql =    "DELETE FROM trades WHERE requested_pokemon = ? OR offered_pokemon = ? ;" +
+                        "DELETE FROM pokemon WHERE pokemon_id = ?";
 
-        int numberOfRowsDeleted = jdbcTemplate.update(sql, pokemon_id);
+        int numberOfRowsDeleted = jdbcTemplate.update(sql, pokemon_id, pokemon_id, pokemon_id);
 
         return numberOfRowsDeleted != 0;
     }
