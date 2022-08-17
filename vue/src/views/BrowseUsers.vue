@@ -46,7 +46,7 @@ export default {
     overflow-x: auto;
     margin: 30px;
     padding: 10px;
-    gap:10px;
+    gap:30px;
 }
 #users-list::-webkit-scrollbar {
     display: none;

@@ -38,4 +38,10 @@ export default {
     #friends-page {
         padding: 50px;
     }
+
+    #friend-list {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
 </style>
