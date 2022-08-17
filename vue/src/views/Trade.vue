@@ -10,11 +10,13 @@
  <img v-for="pokemon in usersPokemon" v-bind:key="pokemon.pokemonId" v-bind:src="pokemon.imgSprite" 
      v-on:click="select(pokemon)" v-bind:class="{selected: offeredPokemon == pokemon}"/>
         </div>
-                        <div id="send" class="btn" v-on:click="requestTrade">
+                        <button id="send" class="btn" v-on:click="requestTrade"
+                         v-bind:disabled="!this.offeredPokemon"
+                         v-bind:class="{ 'dead-button': !this.offeredPokemon}"> 
                 
                 <p>Request Trade</p>
                 <i  class="fa-solid fa-arrow-right"></i>
-            </div> 
+            </button> 
                 <div id="back" class="btn" v-on:click="goToCollection">
                 <i  class="fa-solid fa-arrow-left"></i>
                 <p>Go Back</p>
@@ -118,6 +120,12 @@ methods: {
     cursor: pointer;
     border-radius: 5px
 }
+.dead-button {
+    background-color: rgba(128, 128, 128, 0.753) !important;
+    cursor: default !important;
+    color: rgba(255, 253, 253, 0.527) !important;
+
+}
 
 .btn {
     display: flex;
@@ -140,6 +148,7 @@ methods: {
 #send {
     border-radius: 0px;
     background-color: #25c81fca;
+    border: 0px
 }
 #send:hover {
     background-color: #77cc74df;
