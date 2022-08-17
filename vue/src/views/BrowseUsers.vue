@@ -22,7 +22,7 @@ export default {
     created() {
         UserService.getAllUsers().then(response => {
             for(let i = 0; i<response.data.length; i++){
-                if(response.data[i].id == 1 || response.data[i].id == 2){
+                if(response.data[i].id == 1 || response.data[i].id == 2 || response.data[i].id == this.$store.state.user.id){
                     continue;
                 }
                 this.users.push(response.data[i]);
