@@ -157,6 +157,10 @@ h1 {
 }
 
 
+#nav-buttons{
+  display: flex;
+  justify-content: right;
+}
 #trades-alert-bell{
   margin-top: 5px;
  font-size: 1.25em;
