@@ -116,4 +116,16 @@ h4 {
   margin-top: -1px;
 }
 
+@media (max-width: 500px) {
+  div#user{
+    flex-direction: column;
+    max-height: 150px;
+    justify-content: space-between;
+  }
+  #user-id {
+    padding: 10px;
+  }
+
+}
+
 </style>
