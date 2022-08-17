@@ -216,4 +216,11 @@ label {
 .icon-image {
   max-width: 70px;
 }
+
+@media only screen and (max-width: 600px){
+  .buttons{
+    display:flex;
+    flex-direction: column;
+  }
+}
 </style>
