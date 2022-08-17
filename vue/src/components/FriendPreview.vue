@@ -1,19 +1,24 @@
 <template>
   <div id="main-container">
-        <div>
-            <div id="user-card">
+        <div id="card-container">
+            <router-link v-bind:to="{ name: 'users', params: { id: user.id}}">
+            <div id="user-card" v-bind:class=" isFriend ? 'friend-card' : 'user-card'  ">
                 <img id="user-icon" v-bind:src="require(`../images/Icons/${user.iconUrl}`)" />
                 <div id="name-location">
                     <h3>{{ user.username }} </h3>
                     <h3>{{ user.continent }}</h3>
                 </div>
             </div>
+            </router-link>
             <div>
-                <button v-on:click="toggleFriendship()">{{ isFriend ? "Unfriend" : "Add friend"}}</button>
+                <button  v-on:click="toggleFriendship()"  v-bind:class="{ 'add-friend' : !isFriend }">{{ isFriend ? "Unfriend" : "Add friend"}}</button>
             </div>
         </div>
-      <div v-if="isLoaded" id="collection-previews">
+      <div v-if="!collectionsEmpty" id="collection-previews">
           <collection-preview-link v-for="collection in this.collections" v-bind:key="collection.collectionId" v-bind:collection="collection"/>
+      </div>
+      <div v-else>
+        <p id="empty-collection-message">No collections to display</p>
       </div>
   </div>
 </template>
@@ -46,6 +51,9 @@ export default {
             }
 
             return false;
+        },
+        collectionsEmpty(){
+            return this.collections.length === 0;
         }
     },
     created() {
@@ -108,12 +116,13 @@ export default {
     grid-template-areas:
     "user-icon name-location"
     "user-icon name-location";
-    background-color:rgba(0,0,0,0.5);
     height:115px;
     align-items: center;
     color: white;
     border-radius: 10px;
     gap:10px;
+    width: 400px;
+    padding: 10px;
 }
 #user-icon {
     grid-area: "user-icon";
@@ -135,6 +144,36 @@ export default {
 #main-container{
     display:flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
+}
+
+#empty-collection-message{
+    color: yellow;
+    font-size: 2em;
+    padding-left: 50px;
+}
+
+#card-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.add-friend {
+    background-color: rgb(21, 123, 206);
+}
+
+.add-friend:hover {
+    background-color: rgb(13, 83, 141);
+}
+
+.friend-card {
+    
+    background-color: rgb(21, 123, 206);
+}
+
+.user-card {
+    background-color: rgba(0,0,0,0.5);
 }
 </style>
