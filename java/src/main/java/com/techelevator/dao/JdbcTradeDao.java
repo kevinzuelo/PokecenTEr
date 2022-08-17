@@ -37,7 +37,9 @@ public class JdbcTradeDao implements TradeDao{
         List<Trade> trades = new ArrayList<>();
 
         String sql = "SELECT * FROM trades " +
-                    "WHERE requested_pokemon_owner = ? OR offered_pokemon_owner = ? ;";
+                    "WHERE requested_pokemon_owner = ? OR offered_pokemon_owner = ? " +
+                    "ORDER BY trade_id DESC;";
+
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId, userId);
 
@@ -97,6 +99,16 @@ public class JdbcTradeDao implements TradeDao{
         jdbcTemplate.update(sql, tradeStatus, tradeId);
 
         if (tradeStatus.equalsIgnoreCase("approved")) {
+
+            String cancelOtherTrades = "UPDATE trades " +
+                                        "SET trade_status = 'Rejected' " +
+                                        "WHERE trade_id <> ? AND (requested_pokemon = ? OR offered_pokemon = ? ); ";
+
+            jdbcTemplate.update(cancelOtherTrades, tradeId, trade.getRequestedPokemon().getPokemonId(), trade.getOfferedPokemon().getPokemonId());
+
+
+
+
             trade.getRequestedPokemon().setCollectionId(receiverCollectionId);
             trade.getOfferedPokemon().setCollectionId(requestorCollectionId);
 
