@@ -211,7 +211,10 @@ const router = new Router({
     {
       path: "/pokemon/:id/trade",
       name: "trade",
-      component: Trade
+      component: Trade,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path:"/collection/:id/export",
@@ -222,13 +225,19 @@ const router = new Router({
     {
       path: '/myTrades',
       name: 'my-trades',
-      component: MyTrades
+      component: MyTrades,
+      meta: {
+        requiresAuth: true
+      }
 
     },
     {
       path:'/users/browse',
       name: 'browse-users',
-      component: BrowseUsers
+      component: BrowseUsers,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/friends',
@@ -241,7 +250,10 @@ const router = new Router({
     {
       path: '/users/:id',
       name: 'users',
-      component: User
+      component: User,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })

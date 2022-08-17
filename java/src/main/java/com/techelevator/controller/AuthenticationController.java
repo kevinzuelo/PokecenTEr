@@ -59,7 +59,7 @@ public class AuthenticationController {
         try {
             User user = userDao.findByUsername(newUser.getUsername());
             throw new UserAlreadyExistsException();
-        } catch (UsernameNotFoundException e) {
+        } catch (UserAlreadyExistsException e) {
 
             System.out.println(newUser.getEmail());
 
