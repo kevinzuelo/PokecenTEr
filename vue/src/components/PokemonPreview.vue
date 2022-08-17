@@ -95,7 +95,7 @@ export default {
       isMine() {
         
         return this.$store.state.token != "" && (this.ownerId === this.$store.state.user.id);
-      }
+      },
 
 
     },
