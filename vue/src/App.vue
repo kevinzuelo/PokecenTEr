@@ -78,4 +78,61 @@ current-user {
   position: fixed;
   top: 0px;
 }
+#all-trades {
+/* display: flex;
+flex-direction: column; */
+align-items: left;
+margin-left: auto;
+margin-right: auto;
+width: 100%;
+margin: 20px;
+position: relative;
+bottom: 30px;
+gap: 20px;
+}
+
+.trade-tables table {
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: 2px solid dimgray;
+  border-collapse: collapse;
+  width: 90%;
+  text-align: left;
+  align-items: center;
+  text-transform: capitalize;
+  table-layout: fixed;
+}
+
+.trade-tables th {
+  text-align: center;
+  vertical-align: center;
+  border: 1px solid white;
+  height: 30px;
+}
+
+.trade-tables td {
+  border: 1px solid white;
+  border-collapse: collapse;
+  text-align: center;
+  align-items: center;
+  width: 100px;
+  vertical-align: center;
+}
+.trade-tables tr:hover {
+   background-color:rgb(53, 53, 53);
+   box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, .45);
+}
+
+#flex-in-table-row{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.no-trades {
+  color:red;
+  font-family: 'Silkscreen', cursive;
+}
 </style>

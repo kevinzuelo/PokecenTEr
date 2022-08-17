@@ -37,7 +37,9 @@ public class JdbcTradeDao implements TradeDao{
         List<Trade> trades = new ArrayList<>();
 
         String sql = "SELECT * FROM trades " +
-                    "WHERE requested_pokemon_owner = ? OR offered_pokemon_owner = ? ;";
+                    "WHERE requested_pokemon_owner = ? OR offered_pokemon_owner = ? " +
+                    "ORDER BY trade_id DESC;";
+
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId, userId);
 
@@ -64,6 +66,27 @@ public class JdbcTradeDao implements TradeDao{
                     "RETURNING trade_id; ";
 
         int tradeId = jdbcTemplate.queryForObject(sql, Integer.class, requestedPokemonId, offeredPokemonId, requestedOwner, offeredOwner);
+
+        //Make both users friends with each other when a trade is initiated
+        //Catch errors in case they are already friends
+        try {
+            String friendSqlRequestor = "INSERT INTO friends (owner_id, friend_id) " +
+                    "VALUES ( ? , ? ); ";
+            jdbcTemplate.update(friendSqlRequestor, requestedOwner, offeredOwner);
+        }
+        catch (Exception e){
+
+        }
+        try {
+            String friendsSqlOfferer = "INSERT INTO friends (owner_id, friend_id) " +
+                                        "VALUES ( ? , ? ); ";
+            jdbcTemplate.update(friendsSqlOfferer, offeredOwner, requestedOwner);
+        }
+        catch (Exception e){
+
+        }
+
+
 
         return tradeId;
     };
@@ -97,6 +120,16 @@ public class JdbcTradeDao implements TradeDao{
         jdbcTemplate.update(sql, tradeStatus, tradeId);
 
         if (tradeStatus.equalsIgnoreCase("approved")) {
+
+            String cancelOtherTrades = "UPDATE trades " +
+                                        "SET trade_status = 'Rejected' " +
+                                        "WHERE trade_id <> ? AND (requested_pokemon = ? OR offered_pokemon = ? ); ";
+
+            jdbcTemplate.update(cancelOtherTrades, tradeId, trade.getRequestedPokemon().getPokemonId(), trade.getOfferedPokemon().getPokemonId());
+
+
+
+
             trade.getRequestedPokemon().setCollectionId(receiverCollectionId);
             trade.getOfferedPokemon().setCollectionId(requestorCollectionId);
 
@@ -119,13 +152,13 @@ public class JdbcTradeDao implements TradeDao{
 
         trade.setTradeId(results.getInt("trade_id"));
 
-        int fromPokemonId = results.getInt("requested_pokemon");
-        int toPokemonId = results.getInt("offered_pokemon");
+        int requestedPokemon = results.getInt("requested_pokemon");
+        int offeredPokemon = results.getInt("offered_pokemon");
 
         trade.setTradeStatus(results.getString("trade_status"));
 
-        trade.setRequestedPokemon(pokemonDao.getPokemonById(toPokemonId));
-        trade.setOfferedPokemon(pokemonDao.getPokemonById(fromPokemonId));
+        trade.setRequestedPokemon(pokemonDao.getPokemonById(requestedPokemon));
+        trade.setOfferedPokemon(pokemonDao.getPokemonById(offeredPokemon));
 
         trade.setTradeInitiator(userDao.getUserById(results.getInt("offered_pokemon_owner")));
         trade.setTradeReceiver(userDao.getUserById(results.getInt("requested_pokemon_owner")));

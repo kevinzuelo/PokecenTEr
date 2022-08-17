@@ -4,7 +4,10 @@
     <div id= "spacer"/>
       <h1>{{ $store.state.user.username }}</h1>
       <router-link  v-bind:to="{ name: 'my-trades', params: { id: this.$store.state.user.id }  }">
-        <h1 id="trades-button">View my trades <i class="fa-solid fa-arrow-right-arrow-left"></i> </h1>
+        <h1 id="trades-button">View my trades 
+          <i class="fa-solid fa-arrow-right-arrow-left"></i>
+        <i class="fa-solid fa-bell" v-if="havePending.length" id="trades-alert-bell"></i>
+        </h1>
       </router-link>
     </div>
     <display-aggregate-statistics />
@@ -40,7 +43,8 @@ export default {
     return {
      collections : [],
      recentCollections: [],
-     trades: []
+     trades: [],
+     myPendingTrades: []
     }
   },
   components: { CollectionPreviewLink, AddNewCollection, DisplayAggregateStatistics, PublicCollectionPreview, UpdateUserStatus},
@@ -61,12 +65,18 @@ export default {
         this.trades = response.data;
       }
     });
-
- 
   },
   computed: {
     isAdmin() {
       return this.$store.state.user.authorities[0].name === "ROLE_ADMIN";
+    },
+    havePending() {
+      let myPendingTrades = [];
+      
+      myPendingTrades =  this.trades.filter((trade) => {
+          return trade.tradeReceiver.id === this.$store.state.user.id && trade.tradeStatus === 'Pending';
+      });
+      return myPendingTrades;
     }
   }
 };
@@ -124,6 +134,24 @@ h1 {
   font-family: 'Silkscreen', cursive;
   padding: 10px 20px;
   width: 320px
-
 }
+#trades-button:hover {
+  background-color: rgb(13, 83, 141);
+}
+
+
+#trades-alert-bell{
+  margin-top: 5px;
+ font-size: 1.25em;
+ animation: vertical-shaking 0.8s infinite;
+ color: white;
+}
+@keyframes vertical-shaking {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-10deg); }
+  100% { transform: rotate(0deg); }
+}
+
 </style>

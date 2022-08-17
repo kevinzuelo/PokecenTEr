@@ -109,15 +109,16 @@ public class JdbcPokemonDao implements PokemonDao {
         Integer newPokemonId =0;
 
             newPokemonId = jdbcTemplate.queryForObject(sql, Integer.class, poke.getSpecies().toLowerCase(), poke.getType(),
-                    collectionId, poke.getLevel(), poke.getIsShiny(), poke.getNotes(), poke.getImgMain(), poke.getImgSprite());
+                    collectionId, poke.getLevel(), poke.getIsShiny(), poke.getNotes().replace("\n"," "), poke.getImgMain(), poke.getImgSprite());
         return newPokemonId == poke.getPokemonId();
     }
 
     @Override
     public boolean releasePokemon(int pokemon_id) {
-        String sql = "DELETE FROM pokemon WHERE pokemon_id = ?";
+        String sql =    "DELETE FROM trades WHERE requested_pokemon = ? OR offered_pokemon = ? ;" +
+                        "DELETE FROM pokemon WHERE pokemon_id = ?";
 
-        int numberOfRowsDeleted = jdbcTemplate.update(sql, pokemon_id);
+        int numberOfRowsDeleted = jdbcTemplate.update(sql, pokemon_id, pokemon_id, pokemon_id);
 
         return numberOfRowsDeleted != 0;
     }
@@ -127,7 +128,7 @@ public class JdbcPokemonDao implements PokemonDao {
         String sql = "UPDATE pokemon SET pokemon_level = ?, is_shiny = ?, notes = ?, collection_id = ?, image_sprite = ? " +
                 "WHERE pokemon_id = ?";
         poke.setImgSprite(PokeAPICaller.getPokemonSpriteUrl(poke));
-        return jdbcTemplate.update(sql, poke.getLevel(), poke.getIsShiny(), poke.getNotes(), poke.getCollectionId(), poke.getImgSprite(), pokemon_id);
+        return jdbcTemplate.update(sql, poke.getLevel(), poke.getIsShiny(), poke.getNotes().replace("\n"," "), poke.getCollectionId(), poke.getImgSprite(), pokemon_id);
     }
 
 

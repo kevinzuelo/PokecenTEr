@@ -72,16 +72,15 @@
   </div>
   <display-collection-statistics id="stats" v-bind:collectionId="this.$route.params.id" />
 
-
-  <div id ="delete-import-export">
+  
   <button id="delete-button" v-on:click="deleteAlert = true" v-if="isMine" >
             <i class="fa-solid fa-trash-can"></i>
             <h3>Delete Collection</h3>
   </button>
-  
   <router-link v-bind:to="{name: 'home'}" v-else>
-
   </router-link>
+
+  <div id ="import-export">
   <button id="import-button" v-on:click="importCollection()" v-if="isMine">
     <i class="fa-solid fa-arrow-right-to-bracket"></i>
     <h3>Import Collection</h3>
@@ -131,7 +130,6 @@ import CollectionService from '@/services/CollectionService.js'
 
 export default {
   data() {
-
     return {
       deleteAlert: false,
       shareCollectionLink: "",
@@ -150,7 +148,6 @@ export default {
     PokemonPreview,
     AddPokemon,
     DisplayCollectionStatistics
-   
   },
   name: "collection",
   computed: {
@@ -166,13 +163,11 @@ export default {
           return pokemon.species.startsWith(this.filter.species.toLowerCase())
         });
       }
-
       if(this.filter.type != ""){
         filtered = filtered.filter( (pokemon) => {
           return pokemon.type.includes(this.filter.type);
         });
       }
-
       if(this.filter.shiny != ""){
         filtered = filtered.filter( (pokemon) => {
           
@@ -184,12 +179,9 @@ export default {
          else{
            shininess = "notShiny";
          }
-
          return shininess === this.filter.shiny;
-
         });
       }
-      
       return filtered;
     },
     privacyImage(){
@@ -201,29 +193,22 @@ export default {
       }
     }
   },
-
     methods: {
     
       editName() {
-
         CollectionService.updateCollection(this.collection)
                   .then( (response) => {
 
             if(response.status === 200){
               this.editingName = false;
-            }
-                  
+            }    
           });
       },
 
       togglePrivacy() {
-
         this.collection.isPrivate = !this.collection.isPrivate;
-
-
         CollectionService.updateCollection(this.collection)
                   .then( () => {
-
         });
       },
 
@@ -249,10 +234,7 @@ export default {
         this.$router.push({ name: 'bulk-add', params: {id: this.$route.params.id}});
       }
       },
-    
-
   created() {
-
       PokemonService.getPokemonByCollectionId(this.$route.params.id).then((response) => {
         this.pokemon = response.data;
         console.log(this.pokemon);
@@ -260,7 +242,6 @@ export default {
 
       CollectionService.getCollectionByCollectionId(this.$route.params.id).then((response) => {
         this.collection = response.data;
-
         if(this.$store.state.token != "" && (this.collection.userId === this.$store.state.user.id)){
           CollectionService.getLinkKeyByCollectionId(this.$route.params.id)
                             .then( (response) => {
@@ -279,28 +260,39 @@ export default {
 
 <style scoped>
 #import-button {
-  grid-area: export-button;
+  background-color: rgb(21, 123, 206);
+  grid-area: import-export;
   width: 30%;
   height: 125px;
   min-width: 175px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 3px solid darkred;
+  border: 3px solid rgb(13, 83, 141);
 }
-#delete-import-export {
-  grid-area: "delete-import-export";
+#import-export {
   display: flex;
+  justify-content: space-evenly;
+}
+#delete-button {
+  grid-area: delete-button;
 }
 #export-button {
-  grid-area: export-button;
+  background-color: rgb(21, 123, 206);
+  grid-area: import-export;
   width: 30%;
   height: 125px;
   min-width: 175px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 3px solid darkred;
+  border: 3px solid rgb(13, 83, 141);
+}
+#import-button:hover {
+  background-color: rgb(13, 83, 141);
+}
+#export-button:hover {
+  background-color: rgb(13, 83, 141);
 }
 .fa-arrow-right-to-bracket {
   font-size: 1.5em;
@@ -313,7 +305,7 @@ export default {
   grid-template-areas:
     "name filter privacy-button stats"
     "collection-container collection-container collection-container stats"
-    "delete-import-export delete-import-export share-collection share-collection";
+    "delete-button import-export share-collection share-collection";
   grid-template-columns: 2fr 2fr 2fr 1fr;
   grid-template-rows: 130px auto auto;
   margin: 60px 30px 30px 30px;
@@ -321,7 +313,6 @@ export default {
   width: 95%;
   align-items:flex-start;
 }
-
 #collection-container {
   grid-area: collection-container;
   background-color:rgba(0,0,0,0.5);
@@ -335,21 +326,18 @@ export default {
   min-height: 280px;
   box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
   border-radius: 10px;
- 
-}
 
+}
 #privacy-button-container {
   display: flex;
   align-items: center;
   justify-content: center;
   grid-area: privacy-button;
 }
-
 #name {
   grid-area: name;
   align-self: flex-start;
 }
-
 #delete-button {
   grid-area: delete-button;
   width: 30%;
@@ -375,7 +363,6 @@ export default {
   border-radius: 10px;
   margin: 5px;
 }
-
 #privacy-button {
   background-color: #030b42;
   display:flex;
@@ -389,38 +376,31 @@ export default {
   justify-self: right;
   border: 3px solid #000835;
 }
-
 #privacy-button:hover {
   background-color: rgba(135,206,250, 0.7);
   border: 3px solid rgba(135,206,250, 0.7);
 }
-
 #privacy-button img {
   height: 100px;
 }
 #stats {
   grid-area: stats;
 }
-
 #collection-name {
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 1.5em;
   justify-content: flex-start;
-
 }
-
 #edit-name {
   color: #ffe019;
   font-size: 1.5em;
   background-color: rgba(0,0,0,0.5);
 }
-
 #edit {
   color: white;
 }
-
 #delete-collection-alert {
   text-align: center;
   box-shadow: 0px 0px 20px 5px rgba(255, 0, 0, 0.5);
@@ -435,22 +415,18 @@ export default {
   bottom: 0;
   margin: auto;
 }
-
 div#alertbuttons {
   display: flex;
   justify-content: center;
 }
-
 #collection-filter input,select {
   background-color: lightgray;
 }
-
 #collection-name i:hover{
   cursor: pointer;
   color: green;
   transform: scale(1.2);
 }
-
 #share-collection {
   text-align: center;
   grid-area: share-collection;
@@ -459,8 +435,36 @@ div#alertbuttons {
   padding: 10px;
 }
 
+@media only screen and (max-width: 500px) {
 
+  #collection-grid {
+  display: grid;
+  grid-template-areas:
+    "name"
+    "filter" 
+    "privacy-button"
+    "collection-container"
+    "stats"
+    "delete-button"
+    "share-collection";
+  grid-template-rows: auto auto auto auto auto auto;
+  max-width: 500px;
+  align-items: center;
+}
 
+#import-export {
+  display: none;
+}
+
+#stats {
+  display: none;
+}
+#preview-hover-grow {
   
+}
+
+
+}
+
 
 </style>

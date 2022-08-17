@@ -20,6 +20,9 @@ import BulkAdd from '@/views/BulkAdd.vue'
 import Trade from '@/views/Trade.vue'
 import Export from '@/views/Export.vue'
 import MyTrades from '@/views/MyTrades.vue'
+import BrowseUsers from '@/views/BrowseUsers.vue'
+import Friends from '@/views/Friends.vue'
+import User from '@/views/User.vue'
 
 
 Vue.use(Router)
@@ -217,10 +220,28 @@ const router = new Router({
     },
 
     {
-      path: '/user/:id/trades',
+      path: '/myTrades',
       name: 'my-trades',
       component: MyTrades
 
+    },
+    {
+      path:'/users/browse',
+      name: 'browse-users',
+      component: BrowseUsers
+    },
+    {
+      path: '/friends',
+      name: 'friends',
+      component: Friends,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/users/:id',
+      name: 'users',
+      component: User
     }
   ]
 })
