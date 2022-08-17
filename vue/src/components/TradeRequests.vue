@@ -4,14 +4,14 @@
         <table v-if="trades.length > 0">
             <tr>
                 <th>Requested Pokemon</th>
-                <th>Offered Pokemon</th>
                 <th>Requestor</th>
+                <th>Offered Pokemon</th>
                 <th>Approve/Reject</th>
             </tr>
             <tr v-for="trade in trades" v-bind:key=trade.tradeId>
-                <td><div id="flex-in-table-row"><img v-bind:src="trade.requestedPokemon.imgSprite" /> Lvl {{trade.requestedPokemon.level }} {{trade.requestedPokemon.species}} </div></td>
-                <td><div id="flex-in-table-row"> <img v-bind:src="trade.offeredPokemon.imgSprite" /> Lvl {{trade.offeredPokemon.level }} {{trade.offeredPokemon.species}}</div></td>
+                <td><div id="flex-in-table-row"><img v-bind:src="trade.requestedPokemon.imgSprite" /> Lvl {{trade.requestedPokemon.level }} {{trade.requestedPokemon.species}} </div></td>         
                 <td>{{trade.tradeInitiator.username}}</td>
+                <td><div id="flex-in-table-row"> <img v-bind:src="trade.offeredPokemon.imgSprite" /> Lvl {{trade.offeredPokemon.level }} {{trade.offeredPokemon.species}}</div></td>
                 <td><button v-on:click="respondToTradeRequest(trade.tradeId, 'Approved')" id="approve-trade-button">Approve</button><button v-on:click="respondToTradeRequest(trade.tradeId, 'Rejected')" >Reject</button></td>
             </tr>
         </table>

@@ -67,6 +67,27 @@ public class JdbcTradeDao implements TradeDao{
 
         int tradeId = jdbcTemplate.queryForObject(sql, Integer.class, requestedPokemonId, offeredPokemonId, requestedOwner, offeredOwner);
 
+        //Make both users friends with each other when a trade is initiated
+        //Catch errors in case they are already friends
+        try {
+            String friendSqlRequestor = "INSERT INTO friends (owner_id, friend_id) " +
+                    "VALUES ( ? , ? ); ";
+            jdbcTemplate.update(friendSqlRequestor, requestedOwner, offeredOwner);
+        }
+        catch (Exception e){
+
+        }
+        try {
+            String friendsSqlOfferer = "INSERT INTO friends (owner_id, friend_id) " +
+                                        "VALUES ( ? , ? ); ";
+            jdbcTemplate.update(friendsSqlOfferer, offeredOwner, requestedOwner);
+        }
+        catch (Exception e){
+            
+        }
+
+
+
         return tradeId;
     };
 
