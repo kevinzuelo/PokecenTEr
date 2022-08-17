@@ -1,24 +1,28 @@
 <template>
-<div id="collection-grid">
-  <div id="name">
-    <input
-      v-if="editingName"
-      id="edit-name"
-      type="text"
-      maxlength="30"
-      v-model="collection.name"
-      v-on:blur.prevent="editName()"
-      v-on:keyup.enter="editName()"
+  <div id="collection-grid">
+    <div id="name">
+      <input
+        v-if="editingName"
+        id="edit-name"
+        type="text"
+        maxlength="30"
+        v-model="collection.name"
+        v-on:blur.prevent="editName()"
+        v-on:keyup.enter="editName()"
       />
-  
-    <div id="collection-name" v-else>
-      <h1>{{ collection.name }}</h1>
-      <i id="edit" class="fa-solid fa-pen-to-square" v-on:click="editingName=true" v-if="isMine" ></i>
-    </div>
-    
-  </div>
 
-  <table id="collection-filter">
+      <div id="collection-name" v-else>
+        <h1>{{ collection.name }}</h1>
+        <i
+          id="edit"
+          class="fa-solid fa-pen-to-square"
+          v-on:click="editingName = true"
+          v-if="isMine"
+        ></i>
+      </div>
+    </div>
+
+    <table id="collection-filter">
       <thead>
         <tr>
           <th>Pokemon</th>
@@ -29,29 +33,29 @@
       <tbody>
         <tr>
           <td>
-            <input type="text" v-model="filter.species" id="speciesFilter"  />
+            <input type="text" v-model="filter.species" id="speciesFilter" />
           </td>
           <td>
             <select v-model="filter.type" id="typeFilter">
-                <option value="">All</option>
-                <option value="bug">Bug</option>
-                <option value="dark">Dark</option>
-                <option value="dragon">Dragon</option>
-                <option value="electric">Electric</option>
-                <option value="fairy">Fairy</option>
-                <option value="fighting">Fighting</option>
-                <option value="fire">Fire</option>
-                <option value="flying">Flying</option>
-                <option value="ghost">Ghost</option>
-                <option value="grass">Grass</option>
-                <option value="ground">Ground</option>
-                <option value="ice">Ice</option>
-                <option value="normal">Normal</option>
-                <option value="poison">Poison</option>
-                <option value="psychic">Psychic</option>
-                <option value="rock">Rock</option>
-                <option value="steel">Steel</option>
-                <option value="water">Water</option>
+              <option value="">All</option>
+              <option value="bug">Bug</option>
+              <option value="dark">Dark</option>
+              <option value="dragon">Dragon</option>
+              <option value="electric">Electric</option>
+              <option value="fairy">Fairy</option>
+              <option value="fighting">Fighting</option>
+              <option value="fire">Fire</option>
+              <option value="flying">Flying</option>
+              <option value="ghost">Ghost</option>
+              <option value="grass">Grass</option>
+              <option value="ground">Ground</option>
+              <option value="ice">Ice</option>
+              <option value="normal">Normal</option>
+              <option value="poison">Poison</option>
+              <option value="psychic">Psychic</option>
+              <option value="rock">Rock</option>
+              <option value="steel">Steel</option>
+              <option value="water">Water</option>
             </select>
           </td>
           <td>
@@ -63,70 +67,89 @@
           </td>
         </tr>
       </tbody>
-  </table>
+    </table>
 
+    <div id="collection-container">
+      <pokemon-preview
+        v-for="poke in filteredPokemon"
+        v-bind:key="poke.pokemonId"
+        v-bind:pokemon="poke"
+        id="preview-hover-grow"
+      />
+      <add-pokemon class="add" v-if="isMine" />
+    </div>
+    <display-collection-statistics
+      id="stats"
+      v-bind:collectionId="this.$route.params.id"
+    />
 
-  <div id="collection-container">
-    <pokemon-preview v-for="poke in filteredPokemon" v-bind:key="poke.pokemonId" v-bind:pokemon="poke" id="preview-hover-grow" />
-    <add-pokemon class="add" v-if="isMine" />
-  </div>
-  <display-collection-statistics id="stats" v-bind:collectionId="this.$route.params.id" />
-
-  
-  <button id="delete-button" v-on:click="deleteAlert = true" v-if="isMine" >
-            <i class="fa-solid fa-trash-can"></i>
-            <h3>Delete Collection</h3>
-  </button>
-  <router-link v-bind:to="{name: 'home'}" v-else>
-  </router-link>
-
-  <div id ="import-export">
-  <button id="import-button" v-on:click="importCollection()" v-if="isMine">
-    <i class="fa-solid fa-arrow-right-to-bracket"></i>
-    <h3>Import Collection</h3>
-  </button>
-  <button id="export-button" v-on:click="exportCollection()">
-    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-    <h3>Export Collection</h3>
-  </button>
-  </div>
-
-
-
-  <div id="privacy-button-container">
-    <button id="privacy-button" v-on:click.prevent="togglePrivacy()" v-if="isMine" >
-      <img v-bind:src="privacyImage"/>
-      <p>{{ collection.isPrivate ? "PRIVATE! click to make public" : "PUBLIC! click to make private"}}</p>
+    <button id="delete-button" v-on:click="deleteAlert = true" v-if="isMine">
+      <i class="fa-solid fa-trash-can"></i>
+      <h3>Delete Collection</h3>
     </button>
-    <router-link v-bind:to="{name: 'browse'}" v-else>
-      <button>Browse Collections</button>
-    </router-link>
-  </div>
-  
-  <div id="share-collection" v-if="isMine">
+    <router-link v-bind:to="{ name: 'home' }" v-else> </router-link>
+
+    <div id="import-export">
+      <button id="import-button" v-on:click="importCollection()" v-if="isMine">
+        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        <h3>Import Collection</h3>
+      </button>
+      <button id="export-button" v-on:click="exportCollection()">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <h3>Export Collection</h3>
+      </button>
+    </div>
+
+    <div id="privacy-button-container">
+      <button
+        id="privacy-button"
+        v-on:click.prevent="togglePrivacy()"
+        v-if="isMine"
+      >
+        <img v-bind:src="privacyImage" />
+        <p>
+          {{
+            collection.isPrivate
+              ? "PRIVATE! click to make public"
+              : "PUBLIC! click to make private"
+          }}
+        </p>
+      </button>
+      <router-link v-bind:to="{ name: 'browse' }" v-else>
+        <button>Browse Collections</button>
+      </router-link>
+    </div>
+
+    <div id="share-collection" v-if="isMine">
       <h4>Share this link with a friend to show them your collection!</h4>
       <p>{{ shareCollectionLink }}</p>
-  </div>
-  
-  <div id="delete-collection-alert" v-if="deleteAlert">
-          <h3>Are you sure you want to delete this collection? All pokemon in collection will be released.</h3>
-          <div id="alert-buttons">
-            <button id ="deleteButton" v-on:click.prevent="deleteCollection" title="Delete">Yes</button>
-            <button v-on:click="deleteAlert = false">No</button>
-          </div>
-  </div>
-  
-</div>
+    </div>
 
+    <div id="delete-collection-alert" v-if="deleteAlert">
+      <h3>
+        Are you sure you want to delete this collection? All pokemon in
+        collection will be released.
+      </h3>
+      <div id="alert-buttons">
+        <button
+          id="deleteButton"
+          v-on:click.prevent="deleteCollection"
+          title="Delete"
+        >
+          Yes
+        </button>
+        <button v-on:click="deleteAlert = false">No</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import PokemonService from '../services/PokemonService.js'
-import PokemonPreview from '../components/PokemonPreview.vue'
-import AddPokemon from '../components/AddPokemon.vue'
-import DisplayCollectionStatistics from '../components/DisplayCollectionStatistics.vue'
-import CollectionService from '@/services/CollectionService.js'
-
+import PokemonService from "../services/PokemonService.js";
+import PokemonPreview from "../components/PokemonPreview.vue";
+import AddPokemon from "../components/AddPokemon.vue";
+import DisplayCollectionStatistics from "../components/DisplayCollectionStatistics.vue";
+import CollectionService from "@/services/CollectionService.js";
 
 export default {
   data() {
@@ -136,126 +159,136 @@ export default {
       filter: {
         species: "",
         type: "",
-        shiny: ""
+        shiny: "",
       },
       editingName: false,
       showCollection: false,
       pokemon: [],
-      collection: {}
-    }
+      collection: {},
+    };
   },
   components: {
     PokemonPreview,
     AddPokemon,
-    DisplayCollectionStatistics
+    DisplayCollectionStatistics,
   },
   name: "collection",
   computed: {
-    isMine(){
-        return this.$store.state.token != "" && (this.collection.userId === this.$store.state.user.id);
+    isMine() {
+      return (
+        this.$store.state.token != "" &&
+        this.collection.userId === this.$store.state.user.id
+      );
     },
 
-    filteredPokemon(){
+    filteredPokemon() {
       let filtered = this.pokemon;
 
-      if(this.filter.species != ""){
-        filtered = filtered.filter( (pokemon) => {
-          return pokemon.species.startsWith(this.filter.species.toLowerCase())
+      if (this.filter.species != "") {
+        filtered = filtered.filter((pokemon) => {
+          return pokemon.species.startsWith(this.filter.species.toLowerCase());
         });
       }
-      if(this.filter.type != ""){
-        filtered = filtered.filter( (pokemon) => {
+      if (this.filter.type != "") {
+        filtered = filtered.filter((pokemon) => {
           return pokemon.type.includes(this.filter.type);
         });
       }
-      if(this.filter.shiny != ""){
-        filtered = filtered.filter( (pokemon) => {
-          
-         let shininess = "";
+      if (this.filter.shiny != "") {
+        filtered = filtered.filter((pokemon) => {
+          let shininess = "";
 
-         if(pokemon.isShiny){
-           shininess = "shiny";
-         }
-         else{
-           shininess = "notShiny";
-         }
-         return shininess === this.filter.shiny;
+          if (pokemon.isShiny) {
+            shininess = "shiny";
+          } else {
+            shininess = "notShiny";
+          }
+          return shininess === this.filter.shiny;
         });
       }
       return filtered;
     },
-    privacyImage(){
-      if(this.collection.isPrivate){
-        return 'https://i.gifer.com/origin/28/2860d2d8c3a1e402e0fc8913cd92cd7a_w200.gif';
+    privacyImage() {
+      if (this.collection.isPrivate) {
+        return "https://i.gifer.com/origin/28/2860d2d8c3a1e402e0fc8913cd92cd7a_w200.gif";
+      } else {
+        return "https://i.gifer.com/origin/7d/7dab25c7b14a249bbc4790176883d1c5_w200.gif";
       }
-      else{
-        return 'https://i.gifer.com/origin/7d/7dab25c7b14a249bbc4790176883d1c5_w200.gif';
-      }
-    }
+    },
   },
-    methods: {
-    
-      editName() {
-        CollectionService.updateCollection(this.collection)
-                  .then( (response) => {
+  methods: {
+    editName() {
+      CollectionService.updateCollection(this.collection).then((response) => {
+        if (response.status === 200) {
+          this.editingName = false;
+        }
+      });
+    },
 
-            if(response.status === 200){
-              this.editingName = false;
-            }    
-          });
-      },
+    togglePrivacy() {
+      this.collection.isPrivate = !this.collection.isPrivate;
+      CollectionService.updateCollection(this.collection).then(() => {});
+    },
 
-      togglePrivacy() {
-        this.collection.isPrivate = !this.collection.isPrivate;
-        CollectionService.updateCollection(this.collection)
-                  .then( () => {
+    deleteCollection() {
+      CollectionService.deleteCollection(this.collection.collectionId)
+        .then((response) => {
+          if (response.status === 200) {
+            this.$router.push({ name: "home" });
+          }
+        })
+        .catch((error) => {
+          if (error) {
+            this.errorMessage = "There was a problem deleting the collection.";
+          }
         });
-      },
+    },
 
-      deleteCollection(){
-        CollectionService.deleteCollection(this.collection.collectionId)
-                          .then( response => {
-                            if(response.status === 200){
-                              this.$router.push( { name: 'home'})
-                            }
-                          })
-                            .catch( (error) => {
-                              if(error){
-                              this.errorMessage = "There was a problem deleting the collection."
-                              }
-                            });
-                          },
-      
-      exportCollection(){
-        this.$router.push({ name: 'export', params: {id: this.$route.params.id}})
-      },
+    exportCollection() {
+      this.$router.push({
+        name: "export",
+        params: { id: this.$route.params.id },
+      });
+    },
 
-      importCollection(){
-        this.$router.push({ name: 'bulk-add', params: {id: this.$route.params.id}});
-      }
-      },
+    importCollection() {
+      this.$router.push({
+        name: "bulk-add",
+        params: { id: this.$route.params.id },
+      });
+    },
+  },
   created() {
-      PokemonService.getPokemonByCollectionId(this.$route.params.id).then((response) => {
+    PokemonService.getPokemonByCollectionId(this.$route.params.id).then(
+      (response) => {
         this.pokemon = response.data;
         console.log(this.pokemon);
-      });
+      }
+    );
 
-      CollectionService.getCollectionByCollectionId(this.$route.params.id).then((response) => {
+    CollectionService.getCollectionByCollectionId(this.$route.params.id).then(
+      (response) => {
         this.collection = response.data;
-        if(this.$store.state.token != "" && (this.collection.userId === this.$store.state.user.id)){
-          CollectionService.getLinkKeyByCollectionId(this.$route.params.id)
-                            .then( (response) => {
-                              if(response.status === 200){
-                                this.shareCollectionLink = window.location.origin + this.$route.path + "?key=" + response.data;
-                              }
-                            });
+        if (
+          this.$store.state.token != "" &&
+          this.collection.userId === this.$store.state.user.id
+        ) {
+          CollectionService.getLinkKeyByCollectionId(
+            this.$route.params.id
+          ).then((response) => {
+            if (response.status === 200) {
+              this.shareCollectionLink =
+                window.location.origin +
+                this.$route.path +
+                "?key=" +
+                response.data;
+            }
+          });
         }
-      })
-
-      
-      
-    }
-  }
+      }
+    );
+  },
+};
 </script>
 
 <style scoped>
@@ -311,11 +344,11 @@ export default {
   margin: 60px 30px 30px 30px;
   gap: 25px;
   width: 95%;
-  align-items:flex-start;
+  align-items: flex-start;
 }
 #collection-container {
   grid-area: collection-container;
-  background-color:rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 30px;
   display: flex;
   flex-wrap: wrap;
@@ -326,7 +359,6 @@ export default {
   min-height: 280px;
   box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.25);
   border-radius: 10px;
-
 }
 #privacy-button-container {
   display: flex;
@@ -354,7 +386,7 @@ export default {
 #collection-filter {
   grid-area: filter;
   text-align: left;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   color: #ffe019;
   padding: 10px;
   max-height: 50px;
@@ -365,7 +397,7 @@ export default {
 }
 #privacy-button {
   background-color: #030b42;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -377,8 +409,8 @@ export default {
   border: 3px solid #000835;
 }
 #privacy-button:hover {
-  background-color: rgba(135,206,250, 0.7);
-  border: 3px solid rgba(135,206,250, 0.7);
+  background-color: rgba(135, 206, 250, 0.7);
+  border: 3px solid rgba(135, 206, 250, 0.7);
 }
 #privacy-button img {
   height: 100px;
@@ -396,7 +428,7 @@ export default {
 #edit-name {
   color: #ffe019;
   font-size: 1.5em;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 #edit {
   color: white;
@@ -419,10 +451,11 @@ div#alertbuttons {
   display: flex;
   justify-content: center;
 }
-#collection-filter input,select {
+#collection-filter input,
+select {
   background-color: lightgray;
 }
-#collection-name i:hover{
+#collection-name i:hover {
   cursor: pointer;
   color: green;
   transform: scale(1.2);
@@ -430,41 +463,36 @@ div#alertbuttons {
 #share-collection {
   text-align: center;
   grid-area: share-collection;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   color: yellow;
   padding: 10px;
 }
 
 @media only screen and (max-width: 500px) {
-
   #collection-grid {
-  display: grid;
-  grid-template-areas:
-    "name"
-    "filter" 
-    "privacy-button"
-    "collection-container"
-    "stats"
-    "delete-button"
-    "share-collection";
-  grid-template-rows: auto auto auto auto auto auto;
-  max-width: 500px;
-  align-items: center;
+    display: grid;
+    grid-template-areas:
+      "name"
+      "filter"
+      "privacy-button"
+      "collection-container"
+      "stats"
+      "delete-button"
+      "share-collection";
+    grid-template-rows: auto auto auto auto auto auto;
+    max-width: 500px;
+    align-items: center;
+  }
+
+  #import-export {
+    display: none;
+  }
+
+  #stats {
+    display: none;
+  }
+  #preview-hover-grow {
+    align-items: center;
+  }
 }
-
-#import-export {
-  display: none;
-}
-
-#stats {
-  display: none;
-}
-#preview-hover-grow {
-  
-}
-
-
-}
-
-
 </style>
