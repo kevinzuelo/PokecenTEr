@@ -16,11 +16,8 @@ export default {
   },
 
   unfriend(userId, friendUserId){
-    let friendship = {
-        ownerId: userId,
-        friendId: friendUserId
-    }
+   
 
-    return axios.delete("/friends", friendship);
+    return axios.delete("/friends", { data: {ownerId: userId, friendId: friendUserId} });
     }
 }

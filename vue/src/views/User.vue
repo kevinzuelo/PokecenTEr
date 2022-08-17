@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>{{ user.username }}</h1>
-        <div>
+        <div id="collection-container">
             <collection-preview-link v-for="collection in collections" v-bind:key="collection.id" v-bind:collection="collection"/>
     
         </div>
@@ -47,5 +47,11 @@ export default {
 </script>
 
 <style>
+    #collection-container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 50px;
+        gap: 20px;
+    }
 
 </style>

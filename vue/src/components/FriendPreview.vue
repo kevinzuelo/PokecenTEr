@@ -1,12 +1,17 @@
 <template>
   <div id="main-container">
-      <div id="user-card">
-          <img id="user-icon" v-bind:src="require(`../images/Icons/${user.iconUrl}`)" />
-          <div id="name-location">
-            <h3>{{ user.username }} </h3>
-            <h3>{{ user.continent }}</h3>
-          </div>
-      </div>
+        <div>
+            <div id="user-card">
+                <img id="user-icon" v-bind:src="require(`../images/Icons/${user.iconUrl}`)" />
+                <div id="name-location">
+                    <h3>{{ user.username }} </h3>
+                    <h3>{{ user.continent }}</h3>
+                </div>
+            </div>
+            <div>
+                <button v-on:click="toggleFriendship()">{{ isFriend ? "Unfriend" : "Add friend"}}</button>
+            </div>
+        </div>
       <div v-if="isLoaded" id="collection-previews">
           <collection-preview-link v-for="collection in this.collections" v-bind:key="collection.collectionId" v-bind:collection="collection"/>
       </div>
@@ -16,6 +21,7 @@
 <script>
 import CollectionService from '../services/CollectionService.js'
 import CollectionPreviewLink from '../components/CollectionPreviewLink.vue'
+import FriendshipService from '@/services/FriendshipService.js'
 
 export default {
     components: {CollectionPreviewLink},
@@ -23,22 +29,75 @@ export default {
     data() {
         return {
             collections: [],
-            isLoaded: false
+            isLoaded: false,
+            firstThreeCollections: [],
+            friendsList: []
+            
         }
     },
-    methods: {
-
-    },
+    
     computed: {
+        isFriend() {
+            
+            for(let friend of this.friendsList){
+                if(friend.id === this.user.id){
+                    return true;
+                }
+            }
 
+            return false;
+        }
     },
     created() {
         CollectionService.getCollectionsByUserId(this.user.id).then(response => {
             console.log(this.user.id);
-            this.collections = response.data;
+            let allCollections = response.data;
+
+            for(let i = 0; i < 3 ; i++){
+                if(allCollections[i] != null){
+                    this.collections.push(allCollections[i]);
+                }
+            }
+
             this.isLoaded = true;
         });
+
+        FriendshipService.getFriendslist(this.$store.state.user.id)
+                        .then( (response) => {
+                            this.friendsList = response.data;
+                        });
+        
+    },
+
+    methods: {
+        toggleFriendship(){
+            if(this.isFriend){
+                FriendshipService.unfriend(this.$store.state.user.id, this.user.id)
+                            .then( (response) => {
+                                if(response.status === 200){
+                            
+                                this.friendsList = this.friendsList.filter( (friend) =>{
+                                    return friend.id != this.user.id;
+                            
+                                });
+                                }
+                            });
+                }
+                else{
+                    FriendshipService.addFriend(this.$store.state.user.id, this.user.id)
+                            .then( (response) => {
+                                
+                                if(response.status === 201){
+                                    this.friendsList.push(this.user);
+                                }
+                            });
+                }
+            
+
+        }
     }
+
+    
 }
 </script>
 
