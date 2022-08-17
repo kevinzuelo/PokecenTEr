@@ -270,4 +270,11 @@ label {
   align-items: center;
 }
 
+@media (max-width: 500px) {
+  #add-pokemon-page {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 </style>
