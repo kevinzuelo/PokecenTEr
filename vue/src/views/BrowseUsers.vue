@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="browse-user-page">
         <div id="user-search">
             <h2>Search: </h2>
             <input type="text" placeholder="Search username" v-model="filter" />
@@ -79,5 +79,19 @@ export default {
     align-items: center;
     gap: 10px;
     width: 400px;
+}
+
+@media only screen and ( max-width: 600px){
+        #browse-user-page {
+            padding: 0px;
+        }   
+
+        #users-list {
+            align-items: center;
+        }
+
+        #user-search {
+            width: 300px;
+        }
 }
 </style>
