@@ -1,8 +1,12 @@
 <template>
   <div>
-      <div id="users-list" v-if="isLoaded">
-        <friend-preview v-for="user in users" v-bind:key="user.id" v-bind:user="user"/>
-      </div>
+        <div id="user-search">
+            <h2>Search: </h2>
+            <input type="text" placeholder="Search username" v-model="filter" />
+        </div>
+        <div id="users-list" v-if="isLoaded">
+            <friend-preview v-for="user in filteredUsers" v-bind:key="user.id" v-bind:user="user"/>
+        </div>
   </div>
 </template>
 
@@ -15,14 +19,15 @@ export default {
     data() {
         return{
             users: [],
-            isLoaded: false
+            isLoaded: false,
+            filter: ""
         }
     },
     components: {FriendPreview},
     created() {
         UserService.getAllUsers().then(response => {
             for(let i = 0; i<response.data.length; i++){
-                if(response.data[i].id == 1 || response.data[i].id == 2){
+                if(response.data[i].id == 1 || response.data[i].id == 2 || response.data[i].id == this.$store.state.user.id){
                     continue;
                 }
                 this.users.push(response.data[i]);
@@ -34,6 +39,19 @@ export default {
         }).catch(error => {
             console.log(error);
         });
+    },
+    computed: {
+        filteredUsers(){
+                let filtered = this.users;
+
+                if(this.filter != ""){
+                    filtered = this.users.filter( (user) => {
+                        return user.username.toLowerCase().startsWith(this.filter.toLowerCase());
+                    });
+                }
+            
+            return filtered;
+        }
     }
 }
 </script>
@@ -50,5 +68,16 @@ export default {
 }
 #users-list::-webkit-scrollbar {
     display: none;
+}
+#user-search{
+    display: flex;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    width: 200px;
+    padding: 20px;
+    margin: 30px;
+    align-items: center;
+    gap: 10px;
+    width: 400px;
 }
 </style>
