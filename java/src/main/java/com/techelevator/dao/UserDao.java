@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.exception.UserExistsException;
 import com.techelevator.model.User;
 import com.techelevator.model.UserUpdate;
 
@@ -15,7 +16,7 @@ public interface UserDao {
 
     int findIdByUsername(String username);
 
-    boolean create(String username, String password, String role, String email, String continent, String iconUrl);
+    boolean create(String username, String password, String role, String email, String continent, String iconUrl) throws UserExistsException;
 
     User getUserByCollectionId(int collectionId);
 
