@@ -135,6 +135,11 @@ h1 {
   padding: 10px 20px;
   width: 320px
 }
+#trades-button:hover {
+  background-color: rgb(13, 83, 141);
+}
+
+
 #trades-alert-bell{
   margin-top: 5px;
  font-size: 1.25em;
