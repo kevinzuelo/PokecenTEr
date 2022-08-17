@@ -98,12 +98,13 @@ div#user {
    }
 
 .header-img {
-  position: relative;
+position: relative;
 top: 0px;
 left: 0px;
 width: 35%;
 height: 35%;
 max-width: 400px;
+min-width: 250px;
 }
 
 #header {
@@ -113,6 +114,18 @@ max-width: 400px;
 }
 h4 {
   margin-top: -1px;
+}
+
+@media (max-width: 500px) {
+  div#user{
+    flex-direction: column;
+    max-height: 150px;
+    justify-content: space-between;
+  }
+  #user-id {
+    padding: 10px;
+  }
+
 }
 
 </style>

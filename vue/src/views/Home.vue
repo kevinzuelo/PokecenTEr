@@ -1,18 +1,21 @@
 <template>
   <div class="home">
     <div id ="page-header">
-    <div id= "spacer"/>
+      <div id= "spacer"></div>
       <h1>{{ $store.state.user.username }}</h1>
       <div id="nav-buttons">
         <router-link v-bind:to="{ name: 'friends' }">
           <h1 class="trades-button">Friends</h1>
         </router-link>
         <router-link  v-bind:to="{ name: 'my-trades', params: { id: this.$store.state.user.id }  }">
-          <h1 class="trades-button">View my trades <i class="fa-solid fa-arrow-right-arrow-left"></i> </h1>
-        </router-link>
+        <h1 class="trades-button">View my trades 
+          <i class="fa-solid fa-arrow-right-arrow-left"></i>
+        <i class="fa-solid fa-bell" v-if="havePending.length" id="trades-alert-bell"></i>
+        </h1>
+      </router-link>
       </div>
     </div>
-    <display-aggregate-statistics />
+    <display-aggregate-statistics id="display-aggregate" />
     <h1>My Collections</h1>
     <div class="myCollections">
     <collection-preview-link v-for="collection in collections" v-bind:key="collection.id" v-bind:collection="collection"/>
@@ -48,7 +51,8 @@ export default {
     return {
      collections : [],
      recentCollections: [],
-     trades: []
+     trades: [],
+     myPendingTrades: []
     }
   },
   components: { CollectionPreviewLink, AddNewCollection, DisplayAggregateStatistics, PublicCollectionPreview, UpdateUserStatus},
@@ -69,12 +73,18 @@ export default {
         this.trades = response.data;
       }
     });
-
- 
   },
   computed: {
     isAdmin() {
       return this.$store.state.user.authorities[0].name === "ROLE_ADMIN";
+    },
+    havePending() {
+      let myPendingTrades = [];
+      
+      myPendingTrades =  this.trades.filter((trade) => {
+          return trade.tradeReceiver.id === this.$store.state.user.id && trade.tradeStatus === 'Pending';
+      });
+      return myPendingTrades;
     }
   }
 };
@@ -125,7 +135,6 @@ h1 {
 
 #spacer {
   width: 360px;
-
 }
 
 .trades-button {
@@ -145,5 +154,37 @@ h1 {
 #nav-buttons{
   display: flex;
   justify-content: right;
+}
+#trades-alert-bell{
+  margin-top: 5px;
+ font-size: 1.25em;
+ animation: vertical-shaking 0.8s infinite;
+ color: white;
+}
+@keyframes vertical-shaking {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@media only screen and (max-width: 600px){
+  #page-header{
+    flex-direction: column;
+    padding:0 0px;
+  }
+  #spacer{
+    width:0px;
+  }
+  #recent-collections{
+    flex-direction: column;
+  }
+  #display-aggregate{
+    display: none;
+  }
+  .myCollections{
+    justify-content: center;
+  }
 }
 </style>
