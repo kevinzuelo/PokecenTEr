@@ -23,7 +23,10 @@
 
        
             <div id="collection-buttons">
-                <button v-on:click.prevent="addNewCollection()">ADD COLLECTION</button>
+                <button 
+                v-bind:disabled="!requiredFieldsFilledIn"
+                v-bind:class="{ 'dead-button': !requiredFieldsFilledIn }"
+                v-on:click.prevent="addNewCollection()">ADD COLLECTION</button>
                 <router-link v-bind:to="{ name: 'home' }"><button>CANCEL</button></router-link>
             </div>
         </form>
@@ -66,6 +69,11 @@ export default {
         handleErrorResponse(error) {
             alert(error.errorMessage)
                 this.creationErrors=true;    
+        }
+    },
+    computed: {
+        requiredFieldsFilledIn() {
+            return this.newCollection.name != "" && this.newCollection.isPrivate != "" ;
         }
     }
 }
@@ -119,5 +127,18 @@ export default {
     #collection-buttons {
         display: flex;
         gap: 20px;
+    }
+
+    #collection-buttons button {
+        padding: 10px;
+    }
+
+    .dead-button{
+        background-color: grey;
+    }
+
+    .dead-button:hover {
+        background-color: gray;
+        cursor: default;
     }
 </style>

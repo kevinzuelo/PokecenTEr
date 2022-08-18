@@ -11,7 +11,7 @@
             </div>
             </router-link>
             <div>
-                <button  v-on:click="toggleFriendship()"  v-bind:class="{ 'add-friend' : !isFriend }">{{ isFriend ? "Unfriend" : "Add friend"}}</button>
+                <button id="toggle-friendship" v-on:click="toggleFriendship()"  v-bind:class="{ 'add-friend' : !isFriend }">{{ isFriend ? "Unfriend" : "Add friend"}}</button>
             </div>
         </div>
       <div v-if="!collectionsEmpty" id="collection-previews">
@@ -175,6 +175,10 @@ export default {
 
 .user-card {
     background-color: rgba(0,0,0,0.5);
+}
+
+#toggle-friendship {
+    padding: 10px;
 }
 
 @media only screen and (max-width: 600px){

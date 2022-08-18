@@ -92,6 +92,9 @@
       </div >
       <div class="buttons">
       <button
+        id="create-account-button"
+        v-bind:disabled="!allFieldsFilledIn"
+        v-bind:class="{ 'dead-button': !allFieldsFilledIn }"
         v-on:click="register()"
         class="btn btn-lg btn-primary btn-block"
         type="submit"
@@ -157,6 +160,11 @@ export default {
       this.registrationErrorMsg = "There were problems registering this user.";
     },
   },
+  computed: {
+    allFieldsFilledIn() {
+      return this.user.username != "" && this.user.password != "" && this.user.confirmPassword != "" && this.user.email != "" && this.user.continent != "";
+    }
+  }
 };
 </script>
 
@@ -217,10 +225,21 @@ label {
   max-width: 70px;
 }
 
+.dead-button {
+    background-color: grey;
+    
+  }
+
+.dead-button:hover {
+  cursor: default;
+}
+
 @media only screen and (max-width: 600px){
   .buttons{
     display:flex;
     flex-direction: column;
   }
+
+  
 }
 </style>
