@@ -13,6 +13,22 @@ export default {
    
 </script>
 
-<style>
+<style scoped>
+
+ @media (max-width: 600px) {
+
+   #add-pokemon-page {
+     justify-content: center ;
+     align-items: center;
+
+   }
+
+   #add-pokemon-form{
+     margin: auto;
+     
+   }
+ }
+
+
 
 </style>
