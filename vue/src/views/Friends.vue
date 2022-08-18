@@ -44,4 +44,15 @@ export default {
         flex-direction: column;
         gap: 30px;
     }
+
+    @media only screen and ( max-width: 600px){
+        #friends-page {
+            padding: 0px;
+        }   
+
+        #friend-list {
+            align-items: center;
+        }
+    }
+    
 </style>

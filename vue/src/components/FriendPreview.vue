@@ -176,4 +176,16 @@ export default {
 .user-card {
     background-color: rgba(0,0,0,0.5);
 }
+
+@media only screen and (max-width: 600px){
+
+    #collection-previews{
+        display: none;
+    }
+
+    #empty-collection-message {
+        display: none;
+    }
+}
+        
 </style>
