@@ -169,6 +169,10 @@ export default {
 </script>
 
 <style scoped>
+.buttons{
+  display: flex;
+  flex-direction: row ;
+}
 .form-register {
   display: flex;
   flex-direction: column;
@@ -238,6 +242,15 @@ label {
   .buttons{
     display:flex;
     flex-direction: column;
+    margin: auto;
+  }
+  .form-register {
+  padding: 20px 10px 50px 10px;
+  }
+
+  button{
+    padding: 0 20px;
+
   }
 
   
