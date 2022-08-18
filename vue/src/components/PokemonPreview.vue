@@ -11,7 +11,7 @@
       </router-link>
        
         <pokemon-modify-buttons v-bind:pokemon="this.pokemon" v-if="isMine" ></pokemon-modify-buttons>
-        <trade-button v-else v-bind:pokemon="this.pokemon"/>
+        <trade-button v-else-if="!isMine && hasPokemonToTrade" v-bind:pokemon="this.pokemon"/>
      
     </div>
 
@@ -21,12 +21,14 @@
 import PokemonModifyButtons from './PokemonModifyButtons.vue';
 import CollectionService from '@/services/CollectionService.js'
 import TradeButton from './TradeButton.vue';
+import PokemonService from '@/services/PokemonService.js'
 export default {
   components: { PokemonModifyButtons, TradeButton },
     data() {
     return {
         typeArray: [],
-        ownerId: ""
+        ownerId: "",
+        hasPokemonToTrade: false
     }
     },
   name: "pokemon-preview",
@@ -88,7 +90,13 @@ export default {
                           this.ownerId = response.data.userId;
                         }
                       });
+      PokemonService.getAllPokemonCountByUserId(this.$store.state.user.id).then((response) => {
+        if(response.data) {
+          this.hasPokemonToTrade = true;
+        }
+      })
     },
+
 
     computed: {
       
