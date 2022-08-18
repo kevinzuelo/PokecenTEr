@@ -29,7 +29,8 @@ public class JdbcFriendshipDao implements FriendshipDao{
         String sql =    "SELECT user_id, username, password_hash, role, email, continent, icon " +
                         "FROM users " +
                         "JOIN friends ON user_id = friend_id " +
-                        "WHERE owner_id = ? ";
+                        "WHERE owner_id = ? " +
+                        "ORDER BY username;";
 
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
