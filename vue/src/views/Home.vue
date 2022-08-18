@@ -1,18 +1,16 @@
 <template>
   <div class="home">
     <div id ="page-header">
-      <div id= "spacer"></div>
       <h1>{{ $store.state.user.username }}</h1>
       <div id="nav-buttons">
         <router-link v-bind:to="{ name: 'friends' }">
-          <h1 class="trades-button">Friends</h1>
+          <h1 class="trades-button">Friends 
+            <i class="fa-solid fa-user-group"></i></h1>
         </router-link>
         <router-link  v-bind:to="{ name: 'my-trades', params: { id: this.$store.state.user.id }  }">
-        <h1 class="trades-button">View my trades 
-          <i class="fa-solid fa-arrow-right-arrow-left"></i>
-        <i class="fa-solid fa-bell" v-if="havePending.length" id="trades-alert-bell"></i>
-        </h1>
-      </router-link>
+          <h1 id="myTrades" class="trades-button">View my trades
+          <i class="fa-solid fa-bell" v-if="havePending.length" id="trades-alert-bell"></i></h1>
+        </router-link>
       </div>
     </div>
     <display-aggregate-statistics id="display-aggregate" />
@@ -26,12 +24,15 @@
       <div id="recent-collections">
         <public-collection-preview v-for="collection in recentCollections" v-bind:key="collection.id" v-bind:collection="collection" />
       </div>
-      <router-link v-bind:to="{ name: 'browse' }">
+      <div id="buttons">
+        <router-link v-bind:to="{ name: 'browse' }">
         <button>Browse All Collections</button>
       </router-link>
       <router-link v-bind:to="{ name: 'browse-users'}">
         <button>Browse Other Users</button>
       </router-link>
+      </div>
+      
     </div>
     <update-user-status v-if="isAdmin" />
   </div>
@@ -115,11 +116,17 @@ h1 {
 
 #recent-collections {
  display: flex;
- gap: 20px;
+ gap: 5px
+}
+
+#myTrades {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .home {
-  margin: 50px;
+  margin: 0px 50px 50px 50px;
 }
 
 #add-new:hover {
@@ -133,18 +140,20 @@ h1 {
   flex-direction: column;
 }
 
-#spacer {
-  width: 360px;
-}
-
 .trades-button {
   font-size: 25px;
   background-color: rgb(21, 123, 206);
   border-radius: 4px;
   font-family: 'Silkscreen', cursive;
   padding: 10px 20px;
-  width: 320px;
+  width: 100%;
+  height: 90px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  min-width: 175px;
 }
+
 
 .trades-button:hover {
   background-color: rgb(13, 83, 141);
@@ -174,9 +183,12 @@ h1 {
     flex-direction: column;
     padding:0 0px;
   }
-  #spacer{
-    width:0px;
-  }
+
+  #nav-buttons{
+  display: flex;
+  flex-direction: column;
+  gap:0px !important
+}
   #recent-collections{
     flex-direction: column;
   }
@@ -186,5 +198,22 @@ h1 {
   .myCollections{
     justify-content: center;
   }
+
+  #buttons{
+    display: flex;
+    flex-direction: column;
+  }
 }
+#nav-buttons{
+  display: flex;
+  justify-content: center;
+  padding: 0px;
+  gap:50px
+}
+
+#nav-buttons > a {
+  justify-content: center;
+  display: flex;
+}
+
 </style>

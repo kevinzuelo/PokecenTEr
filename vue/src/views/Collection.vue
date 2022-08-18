@@ -468,9 +468,10 @@ select {
   padding: 10px;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   #collection-grid {
     display: grid;
+    grid-template-columns: 1fr;
     grid-template-areas:
       "name"
       "filter"
@@ -482,6 +483,14 @@ select {
     grid-template-rows: auto auto auto auto auto auto;
     max-width: 500px;
     align-items: center;
+    margin: auto;
+    justify-items: center;
+    
+  }
+
+  #collection-container {
+    justify-content: center;
+    padding: 30px 15px 30px 15px;
   }
 
   #import-export {

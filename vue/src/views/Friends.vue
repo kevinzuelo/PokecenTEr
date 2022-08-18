@@ -48,6 +48,7 @@ export default {
     @media only screen and ( max-width: 600px){
         #friends-page {
             padding: 0px;
+            align-items: center;
         }   
 
         #friend-list {

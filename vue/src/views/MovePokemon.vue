@@ -7,7 +7,7 @@
                     <img src="../images/pikachu-running.gif">
                 </div>
                 <div id="moveTo">
-                    <i  class="fa-solid fa-arrow-right move"></i>
+                    <i id="right" class="fa-solid fa-arrow-right move"></i>
                     <p>Select a new Collection</p>
                 </div>           
                 <div id="back" v-on:click="goToCollection">
@@ -123,6 +123,17 @@ h1 {
 #back:hover {
     cursor: pointer;
     background-color: rgba(135,206,250, 0.8);
+}
+
+@media only screen and (max-width: 600px){
+    #viewContainer{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #right{
+        transform: rotate(90deg);
+    }
 }
 
 
