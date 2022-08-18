@@ -237,7 +237,7 @@ h2 {
     align-items: center;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     #browse-page {
         display: flex;
         flex-direction: column;

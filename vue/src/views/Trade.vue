@@ -196,7 +196,7 @@ h3 {
   color: white;
 }
 
- @media (max-width: 500px) {
+ @media (max-width: 600px) {
 
      #trade-container {
          flex-direction: column;

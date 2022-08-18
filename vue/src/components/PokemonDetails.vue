@@ -201,7 +201,7 @@ export default {
   max-width: 350px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   #main {
     max-width: 350px;
   }

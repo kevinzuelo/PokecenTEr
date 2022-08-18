@@ -116,7 +116,7 @@ h4 {
   margin-top: -1px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   div#user{
     flex-direction: column;
     max-height: 150px;
