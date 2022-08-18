@@ -4,6 +4,7 @@
       <div id="friend-list">
         <friend-preview v-for="user in friendslist" v-bind:key="user.id" v-bind:user="user"/>
       </div>
+      <router-link id="find-friends" v-bind:to="{ name: 'browse-users' }"><button>Find Friends</button></router-link>
   </div>
 </template>
 
@@ -33,16 +34,27 @@ export default {
 }
 </script>
 
-<style>
+<style >
    
     #friends-page {
         padding: 50px;
+        display: flex;
+        flex-direction: column;
+        
     }
 
     #friend-list {
         display: flex;
         flex-direction: column;
         gap: 30px;
+    }
+
+    #find-friends {
+        margin: auto;
+    }
+
+    #find-friends button {
+        padding: 10px;
     }
 
     @media only screen and ( max-width: 600px){
