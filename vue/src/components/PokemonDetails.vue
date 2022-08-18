@@ -16,7 +16,7 @@
 
     <div id="pokemon-modify-buttons">
       <pokemon-modify-buttons v-bind:pokemon="this.pokemon" v-if="isMine"/>
-      <trade-button v-bind:pokemon="this.pokemon" v-if="!isMine" />
+      <trade-button v-bind:pokemon="this.pokemon" v-if="!isMine && hasPokemonToTrade" />
     </div>
 
   </div>
@@ -34,7 +34,8 @@ export default {
   data() {
     return {
       typeArray: [],
-      ownerId: ""
+      ownerId: "",
+      hasPokemonToTrade: false
     };
   },
   name: "pokemon-details",
@@ -128,6 +129,11 @@ export default {
       
       
       });
+            PokemonService.getAllPokemonCountByUserId(this.$store.state.user.id).then((response) => {
+        if(response.data) {
+          this.hasPokemonToTrade = true;
+        }
+      })
       
   }
 };

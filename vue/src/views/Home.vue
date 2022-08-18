@@ -24,12 +24,15 @@
       <div id="recent-collections">
         <public-collection-preview v-for="collection in recentCollections" v-bind:key="collection.id" v-bind:collection="collection" />
       </div>
-      <router-link v-bind:to="{ name: 'browse' }">
+      <div id="buttons">
+        <router-link v-bind:to="{ name: 'browse' }">
         <button>Browse All Collections</button>
       </router-link>
       <router-link v-bind:to="{ name: 'browse-users'}">
         <button>Browse Other Users</button>
       </router-link>
+      </div>
+      
     </div>
     <update-user-status v-if="isAdmin" />
   </div>
@@ -195,6 +198,11 @@ h1 {
   .myCollections{
     justify-content: center;
   }
+
+  #buttons{
+    display: flex;
+    flex-direction: column;
+  }
 }
 #nav-buttons{
   display: flex;
@@ -207,4 +215,5 @@ h1 {
   justify-content: center;
   display: flex;
 }
+
 </style>
