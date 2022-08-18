@@ -150,7 +150,9 @@ methods: {
     cursor: default !important;
     color: rgba(255, 253, 253, 0.527) !important;
 
+
 }
+
 
 .btn {
   display: flex;
@@ -163,6 +165,9 @@ methods: {
   font-size: 20px;
   margin: 0px !important;
   font-family: "Silkscreen", cursive;
+  max-width: 100%
+  ;
+
 }
 
 .btn:hover {
@@ -173,11 +178,13 @@ methods: {
 #send {
     border-radius: 0px;
     background-color: #25c81fca;
-    border: 0px
+    border: 0px;
+    
 }
 #send:hover {
   background-color: #77cc74df;
 }
+
 
 #headers {
   color: white;
@@ -199,7 +206,7 @@ h3 {
   color: white;
 }
 
- @media (max-width: 500px) {
+ @media (max-width: 600px) {
 
      #trade-container {
          flex-direction: column;

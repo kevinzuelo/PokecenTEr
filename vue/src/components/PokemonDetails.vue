@@ -200,4 +200,14 @@ export default {
 .main-image {
   max-width: 350px;
 }
+
+@media (max-width: 600px) {
+  #main {
+    max-width: 350px;
+  }
+
+  #glitter{
+    max-width: 350px;
+  }
+}
 </style>

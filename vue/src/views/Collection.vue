@@ -468,7 +468,7 @@ select {
   padding: 10px;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   #collection-grid {
     display: grid;
     grid-template-areas:

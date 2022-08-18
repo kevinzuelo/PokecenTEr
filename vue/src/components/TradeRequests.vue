@@ -6,7 +6,7 @@
                 <th>Requested Pokemon</th>
                 <th>Requestor</th>
                 <th>Offered Pokemon</th>
-                <th>Approve/Reject</th>
+                <th>Approve / Reject</th>
             </tr>
             <tr v-for="trade in trades" v-bind:key=trade.tradeId>
                 <td><div id="flex-in-table-row"><img v-bind:src="trade.requestedPokemon.imgSprite" /> Lvl {{trade.requestedPokemon.level }} {{trade.requestedPokemon.species}} </div></td>         
@@ -70,6 +70,15 @@ export default {
 } */
 #approve-trade-button{
     background-color: rgb(0, 180, 0);
+
+}
+
+button{
+    width: 100%;
+    font-size: 100%;
+    padding: 10px 0px 10px 0px;
+    margin: 0px;
+    max-width: 200px
 }
 #approve-trade-button:hover {
     background-color: rgb(0, 90, 0);

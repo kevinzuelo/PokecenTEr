@@ -236,4 +236,32 @@ h2 {
     flex-direction: column;
     align-items: center;
 }
+
+@media (max-width: 600px) {
+    #browse-page {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #browse-filter {
+        display: flex;
+        flex-direction: row;
+        gap: 0px;
+
+    }
+
+    #browse-collections {
+        justify-content: center;
+    }
+
+    #browse-filter td {
+        padding: 2px;
+
+    }
+
+    tr{
+        display: flex;
+        flex-direction: column;
+    }
+}
 </style>
